@@ -7,7 +7,8 @@ public class Main {
     public static void main(String[] args) throws IloException {
         int task=12;
         int truck=4;
-        Data data=new Data(task,truck,16,224);//输入、 任务数、车数、路口数、堆位数
+        /*输入、 任务数、车数、路口数、堆位数*/
+        Data data=new Data(task,truck,16,224);
         try {
             data.readData("data/shipyard1.xls");
         }catch (Exception e){

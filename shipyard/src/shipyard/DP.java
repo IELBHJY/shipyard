@@ -8,13 +8,18 @@ public class DP {
     int findRoute;
     List<Integer>[] route;
     int[] vechile;
+    double[] costs;
+    int[] indexs;
     Data data;
     double[] price1;
     double[] price2;
     public DP(int findRoute,Data data,double[] price11,double[] price22) {
         this.findRoute = findRoute;
+        findRoute=10000;
         route=new List[findRoute];
         vechile=new int[findRoute];
+        costs=new double[findRoute];
+        indexs=new int[findRoute];
         for(int i=0;i<findRoute;i++){
             route[i]=new ArrayList<>();
         }
@@ -45,20 +50,34 @@ public class DP {
                         vechile[sum]=t;
                         List<Integer> list=new ArrayList<>();
                         State tmp=top;
-                        while(tmp.getPre()!=start){
+                        while(tmp.getPre()!=null){
                             list.add(tmp.getTask());
                             tmp=tmp.getPre();
                         }
                         route[sum]=list;
-                        sum++;
-                        if(sum==findRoute) {
-                            break;
+                        int index=0;
+                        if(sum<findRoute){
+                            costs[sum]=cost;
+                            indexs[sum]=sum;
+                        }else{
+                            double max=costs[0];
+                            for(int i=1;i<findRoute;i++){
+                                if(costs[i]>max){
+                                    max=costs[i];
+                                    index=i;
+                                }
+                            }
+                            if(cost<max){
+                                costs[index]=cost;
+                                indexs[index]=sum;
+                            }
                         }
+                        sum++;
                     }
                 }
                 for(int i=1;i<data.n;i++){
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
-                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) continue;
+                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {continue;}
                     double cost=top.getCosts()+data.w[top.getTask()][i];
                     cost-=price1[i-1]-price2[t-1];
                     double time=top.getTime()+data.w[top.getTask()][i];
@@ -74,14 +93,22 @@ public class DP {
                 }
             }
         }
-
+        System.out.println("一共找到："+sum+" 条可行路径");
     }
 
     public List<Integer>[] getRoute() {
-        return route;
+        List<Integer>[] ans=new List[findRoute];
+        for(int i=0;i<findRoute;i++){
+            ans[i]=route[indexs[i]];
+        }
+        return ans;
     }
 
     public int[] getVechile() {
-        return vechile;
+        int[] ans=new int[findRoute];
+        for(int i=0;i<findRoute;i++){
+            ans[i]=vechile[indexs[i]];
+        }
+        return ans;
     }
 }
