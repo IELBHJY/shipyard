@@ -36,8 +36,8 @@ public class TabuSearch {
     public TabuSearch(Data data,int size) {
         best=inf;
         this.data = data;
-        task=data.n-1;//15
-        truck=data.t-1;//4
+        task=data.n-1;
+        truck=data.t-1;
         action=new int[3];
         tasks=new int[size][data.n];
         trucks=new int[size][data.n];
@@ -163,7 +163,6 @@ public class TabuSearch {
         return res;
     }
 
-    //从最好的个体里面创造邻居
     public void creatNeighbours(){
         operations.clear();
         for(int i=1;i<size;i++){
@@ -254,7 +253,7 @@ public class TabuSearch {
             temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
             if(task1>task2)
                 temp1=String.valueOf(task2)+"-"+String.valueOf(task1);
-            //System.out.println("last==first || tabuTable.keySet().contains(temp2)");
+
         }
         task1=a[first];
         task2=a[last];
@@ -387,8 +386,9 @@ public class TabuSearch {
 
     public void updateTabuTable(){
          String key=String.valueOf(action[0])+"-"+String.valueOf(action[1]);
-         if(action[0]>action[1])
-             key=String.valueOf(action[1])+"-"+String.valueOf(action[0]);
+         if(action[0]>action[1]) {
+             key = String.valueOf(action[1]) + "-" + String.valueOf(action[0]);
+         }
          tabuTable.put(key,Parameter.tabuLength);
          for(String keys:tabuTable.keySet()){
              if(tabuTable.get(key)==0){
@@ -514,8 +514,9 @@ public class TabuSearch {
             updateSolution();
             current_iteration++;
             double after=best;
-            if(before==after)
+            if(before==after) {
                 stop_iteration++;
+            }
         }
         long end=System.currentTimeMillis();
         showSolutions();
@@ -525,7 +526,7 @@ public class TabuSearch {
     }
 
     public void showSolutions(){
-        res=new HashMap<>();
+        res=new HashMap<>(16);
         for(int i=1;i<data.n;i++){
             if(!res.keySet().contains(bestTrucks[i])){
                 List<Integer> list=new ArrayList<>();

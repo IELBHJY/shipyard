@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/***
+ * @author libaihe
+ * @time 2018.09.18
+ */
 public class CG {
-    IloCplex MP;//主问题模型
-    IloCplex SP;//子问题
-    int H;//任务数
-    int T;//平板车种类个数
-    int z;//路径个数
-    int[][] a;//系数矩阵
-    double[] c;//费用系数
+    IloCplex MP;
+    IloCplex SP;
+    int H;
+    int T;
+    int z;
+    int[][] a;
+    double[] c;
     int[] b;
     Data data;
     IloObjective MPCosts;
@@ -31,8 +35,9 @@ public class CG {
     IloNumVar[][] x;
     IloNumVar[] st;
     IloNumVar[][] y;
+    IloNumVar[] sum_truck;
     int Q=10000;
-    int findRoute=1000;
+    int findRoute=4;
 
     public CG(int h,int t,int z,Data data) throws IloException {
         MP=new IloCplex();
@@ -98,12 +103,37 @@ public class CG {
         }
     }
 
+    public void creatInitalSolution(){
+        for(int i=0;i<H;i++){
+            c[i]+=data.w[0][i+1]+data.w[i+1][0];
+            List<Integer> list=new ArrayList<>();
+            list.add(i+1);
+            paths.put(i+1,list);
+        }
+        for(int i=0;i<H+T;i++){
+            b[i]=1;
+        }
+        for(int i=0;i<z;i++){
+            a[i][i]=1;
+        }
+        for(int i=0;i<z;i++){
+            int t=1;
+            while(data.taskWeights[i+1]>data.truckCaptitys[t]){
+                t++;
+            }
+            a[H+t-1][i]=1;
+        }
+    }
+/**
+ * main函数的入口
+ * **/
     public void buildMPModel() throws IloException{
         MP.setOut(null);
         MPCosts = MP.addMinimize();
         Fill = new IloRange[a.length];
+
         for (int f = 0; f < a.length; f++ ) {
-            Fill[f] = MP.addRange(b[f],Double.MAX_VALUE);
+            Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
         }
         path = new IloNumVarArray();
         for(int i=0;i<z;i++){
@@ -113,8 +143,8 @@ public class CG {
             }
             path.add(MP.numVar(column, 0., Double.MAX_VALUE, IloNumVarType.Float));
         }
-        //MP.exportModel("MP.lp");
         solveMPModel();
+        Solve();
     }
 
     private void solveMPModel() throws IloException {
@@ -123,18 +153,8 @@ public class CG {
             System.out.println("no solve");
             return;
         }
-        System.out.println("目标函数："+MP.getObjValue());
-        //report1(MP,path,Fill);
-        //buildSPModel();
-        //solveSPModel();
-        //updateMPModel();
-        DPSolve();
-        updateModel();
-        MP.solve();
         report1(MP,path,Fill);
-        System.out.println("done");
     }
-
 
     private void updateMPModel() throws IloException{
         List<Integer> list=new ArrayList<>();
@@ -188,7 +208,6 @@ public class CG {
             }
         }
         path.add(MP.numVar(column, 0.,Double.MAX_VALUE,IloNumVarType.Float));
-        //MP.exportModel("MP1.lp");
         MP.solve();
         report1(MP,path,Fill);
         System.out.println("update solve");
@@ -350,6 +369,12 @@ public class CG {
         //SP.exportModel("SP.lp");
     }
 
+    private void solveSPModel() throws IloException{
+        SP.solve();
+        System.out.println("Solve");
+        report2(SP,y,x);
+    }
+
     private void DPSolve() throws IloException{
         double[] price1=new double[H];
         double[] price2=new double[T];
@@ -360,8 +385,13 @@ public class CG {
                 price2[i-H]=MP.getDual(Fill[i]);
             }
         }
-        DP dp=new DP(findRoute,data,price1,price2);
-        dp.findRoutes();
+        DP dp=new DP(findRoute,data,price1,price2,paths);
+        boolean optimal=dp.findRoutes();
+        if(!optimal){
+            System.out.println("找不到那么多小于0的列");
+            solveMPModel();
+            System.exit(0);
+        }
         newRoutes=new List[findRoute];
         newVechiles=new int[findRoute];
         newRoutes=dp.getRoute();
@@ -393,22 +423,34 @@ public class CG {
         }
     }
 
-    private void solveSPModel() throws IloException{
-        SP.solve();
-        System.out.println("Solve");
-        report2(SP,y,x);
+
+    public void Solve() throws IloException{
+        int count=0;
+        while (count<=100) {
+            DPSolve();
+            updateModel();
+            solveMPModel();
+            count++;
+        }
+        System.out.println();
+        /*for(Integer key:paths.keySet()){
+           for(Integer path:paths.get(key)){
+               System.out.print(path+" ");
+           }
+           System.out.println();
+        }*/
     }
 
     public void report1(IloCplex cutSolver, IloNumVarArray Cut, IloRange[] Fill)
             throws IloException {
         System.out.println();
         System.out.println("目标函数：" + cutSolver.getObjValue());
-        System.out.println();
+        System.out.println("路径个数: "+Cut.getSize());
         for (int j = 0; j < Cut.getSize(); j++) {
-            if(cutSolver.getValue(Cut.getElement(j))==1){
+            if(cutSolver.getValue(Cut.getElement(j))>0){
                 List<Integer> list=paths.get(j+1);
                 if(list.size()==0){
-                    System.out.println(1);
+                    System.exit(0);
                 }else{
                     for(Integer p:list){
                         System.out.print(p+" ");
@@ -418,11 +460,16 @@ public class CG {
             }
         }
         System.out.println();
-        for (int i = 0; i < Fill.length; i++) {
-            //System.out.println("Dual_" + (i + 1) + " = " + cutSolver.getDual(Fill[i]));
+        for(int i=0;i<Cut.getSize();i++){
+            if(cutSolver.getValue(Cut.getElement(i))>0) {
+                System.out.println("Route_" + (i + 1) + "=" + cutSolver.getValue(Cut.getElement(i)));
+            }
         }
         System.out.println();
-
+        for (int i = 0; i < Fill.length; i++) {
+            System.out.println("Dual_" + (i + 1) + " = " + cutSolver.getDual(Fill[i]));
+        }
+        System.out.println();
     }
 
     private void report2(IloCplex model,IloNumVar[][] y,IloNumVar[][] x)

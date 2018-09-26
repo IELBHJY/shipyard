@@ -119,7 +119,7 @@ public class Solution {
         }
         System.out.println("Carrying task Time is as follow:");
         for(int i=1;i<data.n;i++){
-            System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i]));
+            //System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i]));
         }
     }
 

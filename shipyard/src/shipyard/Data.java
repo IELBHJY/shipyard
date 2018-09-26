@@ -75,7 +75,7 @@ public class Data {
             InputStream stream = new FileInputStream(filePath);
             //获取Excel文件对象
             Workbook rwb = Workbook.getWorkbook(stream);
-            Sheet sheet = rwb.getSheet("car4");
+            Sheet sheet = rwb.getSheet("car"+Parameter.truck);
             //行数(表头的目录不需要，从1开始)
             Cell cell=null;
             for(int i=1; i<t; i++){
@@ -101,7 +101,7 @@ public class Data {
                 temp=cell.getContents();
                 y[i]=Integer.parseInt(temp);
             }
-            sheet=rwb.getSheet("task"+(n-1));
+            sheet=rwb.getSheet("task"+Parameter.task);
             for(int i=1;i<n;i++){
                 cell=sheet.getCell(0,i);
                 String temp=cell.getContents();
@@ -121,12 +121,6 @@ public class Data {
                 cell=sheet.getCell(5,i);
                 temp=cell.getContents();
                 taskWeights[i]=Integer.parseInt(temp);
-                /*cell=sheet.getCell(6,i);
-                temp=cell.getContents();
-                int num=Integer.parseInt(temp);
-                if(num>0){
-                    prior[i]=num;
-                }*/
             }
             sheet=rwb.getSheet("place");
             for(int i=1;i<sheet.getRows();i++){
@@ -149,22 +143,21 @@ public class Data {
         calTwoTasksTime();
     }
 
-
     private void calTaskTime(){
         for(int i=1;i<n;i++){
-            carryTaskTime[i]=double_truncate(calPathTime(taskStartPlace[i],taskEndPlace[i]));
+            carryTaskTime[i]=double_truncate(calPathTime(taskStartPlace[i],taskEndPlace[i])/2);
         }
     }
 
     private void calTwoTasksTime(){
         for(int i=1;i<n;i++){
             for(int j=i+1;j<n;j++){
-                 w[i][j]=double_truncate(calPathTime(taskEndPlace[i],taskStartPlace[j]));
+                 w[i][j]=double_truncate(calPathTime(taskEndPlace[i],taskStartPlace[j])/2);
                  w[j][i]=w[i][j];
             }
         }
         for(int i=1;i<n;i++){
-            w[0][i]=calPathTime("车场",taskStartPlace[i]);
+            w[0][i]=calPathTime("车场",taskStartPlace[i])/2;
             w[i][0]=w[0][i];
         }
     }
@@ -177,7 +170,7 @@ public class Data {
             else if(placeNames[i].equals(p2))
                 last=i;
         }
-        double b= Math.sqrt(Math.pow((placeX[first]-placeX[last]),2)+Math.pow((placeY[first]-placeY[last]),2))/2;
+        double b= Math.sqrt(Math.pow((placeX[first]-placeX[last]),2)+Math.pow((placeY[first]-placeY[last]),2));
         return double_truncate(b);
     }
 

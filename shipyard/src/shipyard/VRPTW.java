@@ -31,12 +31,12 @@ public class VRPTW {
     public void build_model() throws IloException{
         model=new IloCplex();
         model.setOut(null);
-        model.setParam(IloCplex.Param.TimeLimit,600);
-        y=new IloNumVar[data.n][data.t]; //y[i][l]
-        z=new IloNumVar[data.n][data.n][data.t];//z[i][j][k]
+        model.setParam(IloCplex.Param.TimeLimit,120);
+        y=new IloNumVar[data.n][data.t];
+        z=new IloNumVar[data.n][data.n][data.t];
         z_o=new IloNumVar[data.n][data.t];
         z_i=new IloNumVar[data.n][data.t];
-        s=new IloNumVar[data.n];//s[i] :start time of task i
+        s=new IloNumVar[data.n];
         for(int i=1;i<data.n;i++){
             for(int j=1;j<data.t;j++) {
                 y[i][j] = model.numVar(0, 1, IloNumVarType.Int, "y"+i+","+j);
@@ -184,8 +184,8 @@ public class VRPTW {
     public void Solve() throws IloException {
         if (model.solve() == true) {
             System.out.println("solve");
-            paths = new HashMap<>();
-            serverTimes=new HashMap<>();
+            paths = new HashMap<>(16);
+            serverTimes=new HashMap<>(16);
             times=new double[data.n];
             for(int i=1;i<data.n;i++){
                 serverTimes.put(i,model.getValue(s[i]));
@@ -198,9 +198,7 @@ public class VRPTW {
                         list.add(i);
                     }
                 }
-                /*for(int i=1;i<data.n;i++){
-                    System.out.println(model.getValue(z_o[i][4])+" "+model.getValue(z_i[i][4]));
-                }*/
+
                 boolean isTermater = true;
                 while (isTermater) {
                     int size = list.size();
@@ -213,12 +211,12 @@ public class VRPTW {
                             }
                         }
                     }
-                    if (list.size() == size)
+                    if (list.size() == size) {
                         isTermater = false;
+                    }
                 }
                 paths.put(k, list);
             }
-            System.out.println(paths.size());
             Solution solution=new Solution(data,model.getObjValue(),paths,serverTimes,times);
             solution.feasion();
         } else{

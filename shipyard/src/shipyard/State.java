@@ -4,12 +4,12 @@ public class State {
     //state class
     private int task;
     private int vechileType;
-    private State pre;//当前状态前面的状态
+    private State pre;
     private double costs;
     private double time;
     private State D;
     private int[] S;
-    private static int sum=12;
+    private static int sum=Parameter.task;
 
     public State(int task,int vechileType,State pre,double costs,double time) {
         this.task=task;

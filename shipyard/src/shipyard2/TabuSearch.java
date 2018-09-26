@@ -459,7 +459,6 @@ public class TabuSearch {
                 System.exit(0);
             }
             if(map.get(first)>data.lateTime[first]){
-                //System.out.println("不满足时间窗口约束");
                 res=false;
             }
             if(data.s[first]==0 && data.taskWeights[first]>data.truckCaptitys[k]){
@@ -472,7 +471,6 @@ public class TabuSearch {
                     System.exit(0);
                 }
                 if(map.get(list.get(i+1))>data.lateTime[list.get(i+1)]+epsilon){
-                    //System.out.println("不满足时间窗口约束");
                     res=false;
                 }
                 if(data.s[list.get(i+1)]==0 && data.taskWeights[list.get(i+1)]>data.truckCaptitys[k]){
