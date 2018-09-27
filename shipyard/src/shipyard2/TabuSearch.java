@@ -2,10 +2,7 @@ package shipyard2;
 
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class TabuSearch {
     final double inf=Double.MAX_VALUE;
@@ -38,6 +35,8 @@ public class TabuSearch {
     ArrayList<Integer> tabuLength2;//禁忌表的步长
     ArrayList<String> tabuTable3;//任务号-车号的禁忌表
     ArrayList<Integer> tabuLength3;//禁忌表的步长
+    ArrayList<String> tabuTable4;//任务号-车号的禁忌表
+    ArrayList<Integer> tabuLength4;//禁忌表的步长
     Data data;
     HashMap<Integer,List<Integer>> methods;
     public TabuSearch(Data data) {
@@ -62,6 +61,8 @@ public class TabuSearch {
         tabuLength2=new ArrayList<>();
         tabuTable3=new ArrayList<>();
         tabuLength3=new ArrayList<>();
+        tabuTable4=new ArrayList<>();
+        tabuLength4=new ArrayList<>();
         operations=new HashMap<>();
         isFeasion=new boolean[size];
         times=new LinkedHashMap[size][data.t];
@@ -359,6 +360,7 @@ public class TabuSearch {
         int index=list.indexOf(task);
         if(index==-1) System.exit(0);
         int size=list.size();
+        //更新后边的时间
         for(int i=index;i<size-1;i++){
             double temp=times[m][truck].get(list.get(i))+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)];
             if(temp>=data.earlyTime[list.get(i+1)] && temp<=data.lateTime[list.get(i+1)]){
@@ -367,6 +369,17 @@ public class TabuSearch {
                 times[m][truck].put(list.get(i+1),(double)data.earlyTime[list.get(i+1)]);
             }else if(temp>data.lateTime[list.get(i+1)]){
                 times[m][truck].put(list.get(i+1),temp);
+            }
+        }
+        //更新前边的时间
+        for(int i=index;i>=1;i--){
+            double temp=times[m][truck].get(list.get(i))-data.w[list.get(i-1)][list.get(i)]-data.carryTaskTime[list.get(i-1)];
+            if(temp>=data.earlyTime[list.get(i-1)] && temp<=data.lateTime[list.get(i-1)]){
+                times[m][truck].put(list.get(i-1),temp);
+            }else if(temp<data.earlyTime[list.get(i-1)]){
+                times[m][truck].put(list.get(i-1),(double)data.earlyTime[list.get(i-1)]);
+            }else if(temp>data.lateTime[list.get(i-1)]){
+                times[m][truck].put(list.get(i-1),temp);
             }
         }
     }
@@ -447,6 +460,7 @@ public class TabuSearch {
     }
 
     public boolean testTime(){
+        String TAG="testTime";
         boolean res=true;
         for(int k=1;k<data.t;k++){
             LinkedHashMap<Integer,Double> map=times[label][k];
@@ -466,8 +480,10 @@ public class TabuSearch {
                 System.exit(0);
             }
             for(int i=0;i<size-1;i++){
-                if(map.get(list.get(i))+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]>map.get(list.get(i+1))){
-                    System.out.println("error");
+                if(map.get(list.get(i))+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]-epsilon>map.get(list.get(i+1))){
+                    System.out.println(map.get(list.get(i))+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]);
+                    System.out.println(map.get(list.get(i+1)));
+                    System.out.println(TAG+" 时间窗不满足");
                     System.exit(0);
                 }
                 if(map.get(list.get(i+1))>data.lateTime[list.get(i+1)]+epsilon){
@@ -491,35 +507,27 @@ public class TabuSearch {
             int[] temp1=tasks[0].clone();
             int[] temp2=trucks[0].clone();
             int[] temp3=trucks1[0].clone();
-            if(i<2*size/5) {
+            if(i<1*size/4) {
                 int[] a=crossover(temp1,temp2,temp3);
                 operations.put(i,a);
-            }else if(i<4*size/5){
+            }else if(i<2*size/4){
                 int[] a=insert(temp1,temp2,temp3);
                 operations.put(i,a);
-            }else{
+            }/*else if(i<3*size/5){
                 int[] a=insertTW(temp1,temp2,temp3);
                 operations.put(i,a);
+            }*/
+            else if (i<3*size/4){
+                int[] a=change(temp1,temp2,temp3);
+                operations.put(i,a);
+            }else if(i<4*size/4){
+                int[] a=change1(temp1,temp2,temp3);
+                operations.put(i,a);
             }
-            /*int num=1+(int)(Math.random()*3);
-            if(num==1){
-                insert(temp1,temp2,temp3);
-            }else if(num==2){
-                crossover(temp1,temp2,temp3);
-            }else if(num==3){
-                insertTW(temp1,temp2,temp3);
-            }*/
-            /*if(Math.random()<0){
-                insert(temp1,temp2,temp3);
-            }else{
-                crossover(temp1,temp2,temp3);
-            }*/
             tasks[i]=temp1.clone();
             trucks[i]=temp2.clone();
             trucks1[i]=temp3.clone();
         }
-        methods.put(1,list1);
-        methods.put(2,list2);
     }
 
     // 返回任务号-变化前车号-变化后车号，如果是多车运输，取其中一个就可以
@@ -530,6 +538,7 @@ public class TabuSearch {
         for(int i=1;i<data.n;i++){
             if(a[i]==first){
                p=i;
+               break;
             }
         }
         if(b[p]==c[p]){
@@ -559,7 +568,6 @@ public class TabuSearch {
                 }
                 k = k + (int) (Math.random() * (truck + 1 - k));
                 actions=String.valueOf(first)+"-"+String.valueOf(b[p])+"-"+String.valueOf(k);
-                //System.out.println("tabuTable2.contains(actions)");
             }
             ans[0]=first;
             ans[1]=k;
@@ -648,7 +656,7 @@ public class TabuSearch {
     //1.将第k辆车上的随机两个任务交换其顺序  ------crossover
     //4.将第k辆车上的随机一个任务插入到第k辆车上一个新位置，该位置要符合时间窗因素
     //2.将第k辆车上的随机一个任务插入到随机一个车上的随机位置  ------insert
-
+    //5.观看启发式解和最优解的差别，发现将一辆车上的一个任务插入到该车上的另一个位置上 ------change
     //返回任务号-车号
     private int[] insertTW(int[] a,int[] b,int[] c){
         int[] res=new int[3];
@@ -722,15 +730,136 @@ public class TabuSearch {
         return res;
     }
 
+    /**
+     * first insert before last in truck t
+     * **/
+    private int[] change(int[] a,int[] b,int[] c){
+        int[] ans=new int[3];
+        HashMap<Integer,int[]> map=new HashMap<>();
+        int first=1+(int)(Math.random()*task);
+        int p=0;
+        for(int i=1;i<data.n;i++){
+            if(a[i]==first){
+                p=i;
+                break;
+            }
+        }
+        /**
+         * 1 3 4 5 --a
+         * 1 2 1 2 --b
+         * 1 1 2 2 --c
+         * 1 2 3 4 --p
+         * **/
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i < data.n; i++) {
+            if (i == p) {
+                continue;
+            }
+            if (b[i] == b[p] || c[i] == b[p]) {
+                list.add(i);
+            }
+        }
+        if (list.size() == 0) {
+            return new int[]{0, 0, 0};
+        }
+        int new_num = (int) (Math.random() * list.size());
+        int last_position = list.get(new_num);
+        int last=a[last_position];
+        String action=String.valueOf(first)+"-"+String.valueOf(last)+"-"+String.valueOf(b[p]);
+        while(tabuTable4.contains(action)){
+            new_num=(int) (Math.random() * list.size());
+            last_position = list.get(new_num);
+            last=a[last_position];
+            action=String.valueOf(first)+"-"+String.valueOf(last)+"-"+String.valueOf(b[p]);
+        }
+        map.put(p,new int[]{a[p],b[p],c[p]});
+        for(Integer key:list){
+            map.put(key,new int[]{a[key],b[key],c[key]});
+        }
+        list.add(new_num,p);
+        List<Integer> list1=new ArrayList<>(list);
+        Collections.sort(list1);
+        for(int i=0;i<list.size();i++){
+            a[list1.get(i)]=map.get(list.get(i))[0];
+            b[list1.get(i)]=map.get(list.get(i))[1];
+            c[list1.get(i)]=map.get(list.get(i))[2];
+        }
+        ans[0]=first;
+        ans[1]=last;
+        ans[2]=b[p];
+        return ans;
+    }
+
+    private int[] change1(int[] a,int[] b,int[] c){
+        int[] ans=new int[3];
+        HashMap<Integer,int[]> map=new HashMap<>();
+        int first=1+(int)(Math.random()*task);
+        int p=0;
+        for(int i=1;i<data.n;i++){
+            if(a[i]==first){
+                p=i;
+                break;
+            }
+        }
+        /**
+         * 1 3 4 5 --a
+         * 1 2 1 2 --b
+         * 1 1 2 2 --c
+         * 1 2 3 4 --p
+         * **/
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i < data.n; i++) {
+            if (i == p) {
+                continue;
+            }
+            if (b[i] == b[p] || c[i] == b[p]) {
+                list.add(i);
+            }
+        }
+        if (list.size() == 0) {
+            return new int[]{0, 0, 0};
+        }
+        int new_num = (int) (Math.random() * list.size());
+        int last_position = list.get(new_num);
+        int last=a[last_position];
+        String action=String.valueOf(first)+"-"+String.valueOf(last)+"-"+String.valueOf(b[p]);
+        while(tabuTable4.contains(action)){
+            new_num=(int) (Math.random() * list.size());
+            last_position = list.get(new_num);
+            last=a[last_position];
+            action=String.valueOf(first)+"-"+String.valueOf(last)+"-"+String.valueOf(b[p]);
+        }
+        map.put(p,new int[]{a[p],b[p],c[p]});
+        for(Integer key:list){
+            map.put(key,new int[]{a[key],b[key],c[key]});
+        }
+        if(new_num==list.size()-1){
+            list.add(p);
+        }else{
+            list.add(new_num+1,p);
+        }
+        List<Integer> list1=new ArrayList<>(list);
+        Collections.sort(list1);
+        for(int i=0;i<list.size();i++){
+            a[list1.get(i)]=map.get(list.get(i))[0];
+            b[list1.get(i)]=map.get(list.get(i))[1];
+            c[list1.get(i)]=map.get(list.get(i))[2];
+        }
+        ans[0]=first;
+        ans[1]=last;
+        ans[2]=b[p];
+        return ans;
+    }
+
+
+
     private void updateTable(){
         if(operations.keySet().contains(label)){
             action=operations.get(label);
-            if(label<2*size/5){
+            if(label<1*size/4){
                 updateTable1();
-            }else if(label<4*size/5){
+            }else if(label<2*size/4){
                 updateTable2();
-            }else{
-                updateTable3();
             }
         }else{
             System.out.println("!operations.keySet().contains(label)");
@@ -799,6 +928,10 @@ public class TabuSearch {
         String act=String.valueOf(action[0])+"-"+String.valueOf(action[1]);
         tabuTable3.add(act);
         tabuLength3.add(Parameter.tabuLength);
+    }
+
+    private void updateTable4(){
+
     }
 
     public void update(){

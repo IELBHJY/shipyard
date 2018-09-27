@@ -12,12 +12,12 @@ public class Solution {
     HashMap<Integer,List<Double>> time;
     double[] times;
     double objection;
-    public Solution(Data data, double objection, HashMap<Integer,List<Integer>> paths, HashMap<Integer,Double> serverTimes,HashMap<Integer,List<Double>> times) {
+    public Solution(Data data, double objection, HashMap<Integer,List<Integer>> paths, HashMap<Integer,Double> serverTimes,double[] times) {
         this.data = data;
         this.res=paths;
         this.serverTimes=serverTimes;
         this.objection=objection;
-        this.time=times;
+        this.times=times;
     }
 
     public Solution(Data data, double objection, HashMap<Integer,List<Integer>> paths, double[] times) {
@@ -101,7 +101,7 @@ public class Solution {
     }
 
     public void showSolution(){
-        System.out.println("objection is "+data.double_truncate(objection));
+        System.out.println("objection is "+objection);
         System.out.println("The solution is as follow:");
         for(Integer key:res.keySet()){
             System.out.print("第"+key+"个车执行任务序列：");
@@ -119,7 +119,7 @@ public class Solution {
         }
         System.out.println("Carrying task Time is as follow:");
         for(int i=1;i<data.n;i++){
-            //System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i]));
+            System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i]));
         }
     }
 

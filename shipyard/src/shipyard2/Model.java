@@ -17,6 +17,7 @@ public class Model {
     public static HashMap<Integer,List<Integer>> paths;
     public static HashMap<Integer,Double> serverTimes;
     public static HashMap<Integer,List<Double>> times;
+    public static double[] time;
     public IloNumVar[][] y;// y[i][j] 表示任务i被车j执行
     public IloNumVar[][][] z;//x[i][j][k]表示车辆k执行完任务i 接着去执行
     public IloNumVar[] s;//任务的开始执行时间
@@ -36,7 +37,7 @@ public class Model {
         z_o=new IloNumVar[data.n][data.t];
         z_i=new IloNumVar[data.n][data.t];
         s=new IloNumVar[data.n];//s[i] :start time of task i
-
+        time=new double[data.n];
         for(int i=1;i<data.n;i++){
             for(int j=1;j<data.t;j++) {
                 y[i][j] = model.numVar(0, 1, IloNumVarType.Int, "y"+i+","+j);
@@ -214,6 +215,9 @@ public class Model {
             for(int i=1;i<data.n;i++){
                 serverTimes.put(i,model.getValue(s[i]));
             }
+            for(int i=1;i<data.n;i++){
+                time[i]=model.getValue(s[i]);
+            }
             for (int k = 1; k < data.t; k++) {
                 List<Integer> list = new ArrayList<>();
                 List<Double> list1=new ArrayList<>();
@@ -242,7 +246,7 @@ public class Model {
                 paths.put(k, list);
                 times.put(k,list1);
             }
-            Solution solution=new Solution(data,model.getObjValue(),paths,serverTimes,times);
+            Solution solution=new Solution(data,model.getObjValue(),paths,serverTimes,time);
             solution.feasion();
             solution.showSolution();
         } else{
