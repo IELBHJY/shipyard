@@ -180,7 +180,6 @@ public class DP {
         return sum;
     }
 
-
     public List<Integer>[] getRoute() {
         List<Integer>[] ans=new List[findRoute];
         for(int i=0;i<findRoute;i++){

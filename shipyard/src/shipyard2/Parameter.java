@@ -2,8 +2,8 @@ package shipyard2;
 
 public class Parameter {
     //10  12 时需要将300重量改成400
-    final static int N=40;
-    final static int T=7;
+    final static int N=8;
+    final static int T=2;
     static int superNum=0;//后边改成自己去获取
     final static int size=40000;
     final static int ts_iteration=50;
