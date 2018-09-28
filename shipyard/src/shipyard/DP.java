@@ -65,9 +65,9 @@ public class DP {
                         queue.offer(top);
                         sum1++;
                         sum++;
-                        if(sum1>=max_per_truck[t]){
+                        /*if(sum1>=max_per_truck[t]){
                            break;
-                        }
+                        }*/
                     }
                 }
                 for(int i=1;i<data.n;i++){
@@ -89,7 +89,8 @@ public class DP {
             }
         }
         System.out.println("一共找到："+sum+" 条可行路径");
-        if(sum<findRoute){
+        findRoute=sum;
+        /*if(sum<findRoute){
             return false;
         }else{
             for(int i=0;i<findRoute;i++){
@@ -105,61 +106,52 @@ public class DP {
                 }
                 route.put(i,list);
             }
-        }
+        }*/
         return true;
     }
 
-    public boolean findRoutes1(){
+    public int findAllRoutes(){
         int sum=0;
+        Queue<State> queue=new PriorityQueue<>(new Comparator<State>() {
+            @Override
+            public int compare(State o1, State o2) {
+                return Double.compare(o1.getCosts(),o2.getCosts());
+            }
+        });
         for(int t=1;t<data.t;t++) {
             State start = new State(0, t,null,0.0,0.0);
             start.setS(0,1);
             State end=new State(data.n, t,null,0.0,0.0);
             end.setS(data.n,1);
-            Stack<State> stack = new Stack<>();
-            stack.push(start);
+            Queue<State> stack=new PriorityQueue<>(new Comparator<State>() {
+                @Override
+                public int compare(State o1, State o2) {
+                    return Double.compare(o1.getCosts(),o2.getCosts());
+                }
+            });
+            stack.offer(start);
             while(!stack.isEmpty()){
-                State top=stack.pop();
+                State top=stack.poll();
                 if(top.getTask()>0){
                     double cost=top.getCosts();
                     cost+=data.w[top.getTask()][0];
                     if(cost<0){
-                        vechile.put(sum,t);
                         List<Integer> list=new ArrayList<>();
-                        State tmp=top;
-                        while(tmp.getPre()!=null){
-                            list.add(tmp.getTask());
-                            tmp=tmp.getPre();
+                        State temp=top;
+                        while(temp.getPre()!=null){
+                            list.add(temp.getTask());
+                            temp=temp.getPre();
                         }
-                        route.put(sum,list);
-                        int index=0;
-                        if(sum<findRoute){
-                            costs[sum]=cost;
-                            indexs[sum]=sum;
-                        }else{
-                            double max=costs[0];
-                            for(int i=1;i<findRoute;i++){
-                                if(costs[i]>max){
-                                    max=costs[i];
-                                    index=i;
-                                }
-                            }
-                            if(cost<max){
-                                costs[index]=cost;
-                                indexs[index]=sum;
-                            }
-                        }
+                        top.setCosts(cost);
+                        queue.offer(top);
                         sum++;
-                        if(sum>100){
-                            return true;
-                        }
                     }
                 }
                 for(int i=1;i<data.n;i++){
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
                             || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {continue;}
                     double cost=top.getCosts()+data.w[top.getTask()][i];
-                    cost-=price1[i-1]-price2[t-1];
+                    cost-=price1[i-1]+price2[t-1];
                     double time=top.getTime()+data.w[top.getTask()][i];
                     if(time<data.earlyTime[i]){
                         time=data.earlyTime[i]+data.carryTaskTime[i];
@@ -169,13 +161,25 @@ public class DP {
                     State state=new State(i,t,top,cost,time);
                     state.setS(top.getS());
                     state.setS(i,1);
-                    stack.push(state);
+                    stack.offer(state);
                 }
             }
         }
         System.out.println("一共找到："+sum+" 条可行路径");
-        return (sum<findRoute) ? false:true;
+        findRoute=sum;
+        for(int i=0;i<findRoute;i++){
+            State temp=queue.poll();
+            vechile.put(i,temp.getVechileType());
+            List<Integer> list=new ArrayList<>();
+            while(temp.getPre()!=null){
+                list.add(temp.getTask());
+                temp=temp.getPre();
+            }
+            route.put(i,list);
+        }
+        return sum;
     }
+
 
     public List<Integer>[] getRoute() {
         List<Integer>[] ans=new List[findRoute];

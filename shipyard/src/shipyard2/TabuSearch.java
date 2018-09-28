@@ -44,8 +44,8 @@ public class TabuSearch {
         count2=0.5;
         best=inf;
         this.data = data;
-        task=data.n-1;//15
-        truck=data.t-1;//4
+        task=data.n-1;
+        truck=data.t-1;
         action=new int[2];
         this.size=Parameter.size;
         tasks=new int[size][data.n];
@@ -249,12 +249,13 @@ public class TabuSearch {
                 res+=data.w[list.get(i)][list.get(i+1)];
             }
             res+=data.w[last][0];
+            //计算等待时间和惩罚时间
             res+=calObjection(m,key,list,pentys);
             if(pentys[1]>epsilon) {
                 penty += pentys[1]*10;
             }
             if(pentys[0]>epsilon){
-                System.out.println("penty[0]>0");
+                System.out.println("penty[0]>epsilon");
                 System.exit(0);
             }
         }
@@ -263,6 +264,7 @@ public class TabuSearch {
     }
 
     private double calObjection(int m,int key,List<Integer> list,double[] pentys){
+        String TAG="calObjection";
         double res=0.0;
         int size=list.size();
         if(size==0) return res;
@@ -276,8 +278,8 @@ public class TabuSearch {
         for(int i=1;i<size;i++){
             double temp=times[m][key].get(list.get(i))-(times[m][key].get(list.get(i-1))+data.carryTaskTime[list.get(i-1)]+data.w[list.get(i-1)][list.get(i)]);
             if(temp+epsilon<0){
-                System.out.println("车上任务时间出错");
-                //System.exit(0);
+                System.out.println(TAG+" 车上任务时间出错");
+                System.exit(0);
             }
             res+=temp;
             if(times[m][key].get(list.get(i))<data.earlyTime[list.get(i)]){
@@ -729,7 +731,6 @@ public class TabuSearch {
         }
         return res;
     }
-
     /**
      * first insert before last in truck t
      * **/
@@ -850,8 +851,6 @@ public class TabuSearch {
         ans[2]=b[p];
         return ans;
     }
-
-
 
     private void updateTable(){
         if(operations.keySet().contains(label)){

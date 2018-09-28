@@ -37,7 +37,7 @@ public class CG {
     IloNumVar[][] y;
     IloNumVar[] sum_truck;
     int Q=10000;
-    int findRoute=4;
+    int findRoute;
 
     public CG(int h,int t,int z,Data data) throws IloException {
         MP=new IloCplex();
@@ -386,14 +386,15 @@ public class CG {
             }
         }
         DP dp=new DP(findRoute,data,price1,price2,paths);
-        boolean optimal=dp.findRoutes();
-        if(!optimal){
+        int sum=dp.findAllRoutes();
+        if(sum==0){
             System.out.println("找不到那么多小于0的列");
             solveMPModel();
             System.exit(0);
         }
-        newRoutes=new List[findRoute];
-        newVechiles=new int[findRoute];
+        findRoute=sum;
+        newRoutes=new List[sum];
+        newVechiles=new int[sum];
         newRoutes=dp.getRoute();
         newVechiles=dp.getVechile();
     }
@@ -425,25 +426,14 @@ public class CG {
 
 
     public void Solve() throws IloException{
-        int count=0;
-        while (count<=100) {
-            DPSolve();
-            updateModel();
-            solveMPModel();
-            count++;
-        }
-        System.out.println();
-        /*for(Integer key:paths.keySet()){
-           for(Integer path:paths.get(key)){
-               System.out.print(path+" ");
-           }
-           System.out.println();
-        }*/
+        DPSolve();
+        updateModel();
+        solveMPModel();
     }
 
     public void report1(IloCplex cutSolver, IloNumVarArray Cut, IloRange[] Fill)
             throws IloException {
-        System.out.println();
+        System.out.println("------Solve details-------");
         System.out.println("目标函数：" + cutSolver.getObjValue());
         System.out.println("路径个数: "+Cut.getSize());
         for (int j = 0; j < Cut.getSize(); j++) {
@@ -469,7 +459,7 @@ public class CG {
         for (int i = 0; i < Fill.length; i++) {
             System.out.println("Dual_" + (i + 1) + " = " + cutSolver.getDual(Fill[i]));
         }
-        System.out.println();
+        System.out.println("------Solve details-------");
     }
 
     private void report2(IloCplex model,IloNumVar[][] y,IloNumVar[][] x)
