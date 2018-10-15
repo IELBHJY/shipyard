@@ -30,8 +30,7 @@ public class Main {
         }
         masterproblem.inital(TabuSearch.res,c,b);
         masterproblem.buildMPModel();*/
-        CG mp=new CG(task,truck,10,data);
-        mp.creatInitalSolution();
-        mp.buildMPModel();
+        BranchAndBound b=new BranchAndBound(task,truck,data);
+        b.Solve();
     }
 }

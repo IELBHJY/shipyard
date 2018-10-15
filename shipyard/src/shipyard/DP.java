@@ -136,12 +136,6 @@ public class DP {
                     double cost=top.getCosts();
                     cost+=data.w[top.getTask()][0];
                     if(cost<0){
-                        List<Integer> list=new ArrayList<>();
-                        State temp=top;
-                        while(temp.getPre()!=null){
-                            list.add(temp.getTask());
-                            temp=temp.getPre();
-                        }
                         top.setCosts(cost);
                         queue.offer(top);
                         sum++;
@@ -151,7 +145,7 @@ public class DP {
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
                             || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {continue;}
                     double cost=top.getCosts()+data.w[top.getTask()][i];
-                    cost-=price1[i-1]+price2[t-1];
+                    cost-=price1[i]+price2[t];
                     double time=top.getTime()+data.w[top.getTask()][i];
                     if(time<data.earlyTime[i]){
                         time=data.earlyTime[i]+data.carryTaskTime[i];
@@ -172,7 +166,7 @@ public class DP {
             vechile.put(i,temp.getVechileType());
             List<Integer> list=new ArrayList<>();
             while(temp.getPre()!=null){
-                list.add(temp.getTask());
+                list.add(0,temp.getTask());
                 temp=temp.getPre();
             }
             route.put(i,list);

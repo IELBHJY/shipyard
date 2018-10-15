@@ -38,7 +38,7 @@ public class TabuSearch {
     ArrayList<String> tabuTable4;//任务号-车号的禁忌表
     ArrayList<Integer> tabuLength4;//禁忌表的步长
     Data data;
-    HashMap<Integer,List<Integer>> methods;
+    List<Integer> superTaskList;
     public TabuSearch(Data data) {
         count1=0.5;
         count2=0.5;
@@ -67,8 +67,13 @@ public class TabuSearch {
         isFeasion=new boolean[size];
         times=new LinkedHashMap[size][data.t];
         currentTimes=new LinkedHashMap[data.t];
+        superTaskList=new ArrayList<>();
+        for(int i=1;i<=task;i++){
+            if(data.s[i]==1){
+                superTaskList.add(i);
+            }
+        }
     }
-
 
     public void creatFirstSolutions(){
         for(int i=1;i<size;i++){
@@ -226,6 +231,7 @@ public class TabuSearch {
         calTaskTimes(m,solution);
         //修改任务时间
         repairTimes(m,solution);
+        repairTruckTimes(m,solution);
         //计算目标函数
         double[] pentys=new double[2];
         double res=calObjection(m,solution,pentys);
@@ -238,7 +244,7 @@ public class TabuSearch {
         for(Integer key:solution.keySet()){
             List<Integer> list=solution.get(key);
             if(list.size()==0) {
-                res+=10000;
+                res+=100000;
                 continue;
             }
             int size=list.size();
@@ -295,7 +301,7 @@ public class TabuSearch {
         List<Integer> saveSuperTasks=new ArrayList<>();
         int size=saveSuperTasks.size();
         while(size<Parameter.superNum){
-            int[] ans=find(solution,saveSuperTasks);
+            int[] ans=find1(solution,saveSuperTasks);
             int task=ans[0];
             int t1=ans[1];
             int t2=ans[2];
@@ -357,6 +363,35 @@ public class TabuSearch {
         return ans;
     }
 
+    private int[] find1(HashMap<Integer,List<Integer>> solution,List<Integer> saveSuperTasks){
+        int[] ans=new int[3];
+        int[] temps=new int[solution.keySet().size()+1];
+        for(Integer key:solution.keySet()){
+            List<Integer> list=solution.get(key);
+            for(Integer i:list){
+                if(data.s[i]==1 && !saveSuperTasks.contains(i)){
+                    temps[key] = i;
+                    break;
+                }
+            }
+        }
+        for(int i=1;i<temps.length;i++){
+            for(int j=i+1;j<temps.length;j++){
+                if(temps[i]==temps[j] && temps[i]!=0){
+                    ans[0]=temps[i];
+                    ans[1]=i;
+                    ans[2]=j;
+                }
+            }
+        }
+        if(ans[0]==0 && ans[1]==0 && ans[2]==0){
+            System.out.println(temps[1]+" "+temps[2]+" "+temps[3]+" "+temps[4]);
+            System.exit(0);
+        }
+        saveSuperTasks.add(ans[0]);
+        return ans;
+    }
+
     private void repairTruckTimes(int m,HashMap<Integer,List<Integer>> solution,int truck,int task){
         List<Integer> list=solution.get(truck);
         int index=list.indexOf(task);
@@ -373,15 +408,51 @@ public class TabuSearch {
                 times[m][truck].put(list.get(i+1),temp);
             }
         }
-        //更新前边的时间
-        for(int i=index;i>=1;i--){
-            double temp=times[m][truck].get(list.get(i))-data.w[list.get(i-1)][list.get(i)]-data.carryTaskTime[list.get(i-1)];
-            if(temp>=data.earlyTime[list.get(i-1)] && temp<=data.lateTime[list.get(i-1)]){
-                times[m][truck].put(list.get(i-1),temp);
-            }else if(temp<data.earlyTime[list.get(i-1)]){
-                times[m][truck].put(list.get(i-1),(double)data.earlyTime[list.get(i-1)]);
-            }else if(temp>data.lateTime[list.get(i-1)]){
-                times[m][truck].put(list.get(i-1),temp);
+    }
+
+    private void repairTruckTimes(int m,HashMap<Integer,List<Integer>> solution){
+        boolean isHasSuperTask=false;
+        for(Integer truck:solution.keySet()){
+            List<Integer> list=solution.get(truck);
+            for(Integer key:superTaskList){
+                if(list.contains(key)){
+                    isHasSuperTask=true;
+                    break;
+                }
+            }
+            if(isHasSuperTask){
+                //list中包含superTask，更新路径中第一个超级任务之前的任务时间
+                int size=list.size();
+                int position1=0;
+                for(int i=0;i<size;i++){
+                    if(superTaskList.contains(list.get(i))){
+                        position1=i;
+                        break;
+                    }
+                }
+                for(int i=position1;i>=1;i--){
+                    double temp=times[m][truck].get(list.get(i))-data.w[list.get(i-1)][list.get(i)]-data.carryTaskTime[list.get(i-1)];
+                    if(temp>=data.earlyTime[list.get(i-1)] && temp<=data.lateTime[list.get(i-1)]){
+                        times[m][truck].put(list.get(i-1),temp);
+                    }else if(temp<data.earlyTime[list.get(i-1)]){
+
+                    }else if(temp>data.lateTime[list.get(i-1)]){
+
+                    }
+                }
+            }else{
+                //list中不包含superTask，则更新整条路径的时间
+                int size=list.size();
+                for(int i=size-1;i>=1;i--){
+                    double temp=times[m][truck].get(list.get(i))-data.w[list.get(i-1)][list.get(i)]-data.carryTaskTime[list.get(i-1)];
+                    if(temp>=data.earlyTime[list.get(i-1)] && temp<=data.lateTime[list.get(i-1)]){
+                        times[m][truck].put(list.get(i-1),temp);
+                    }else if(temp<data.earlyTime[list.get(i-1)]){
+
+                    }else if(temp>data.lateTime[list.get(i-1)]){
+
+                    }
+                }
             }
         }
     }
@@ -402,30 +473,6 @@ public class TabuSearch {
         res=testTime();
         copyCurrentSolution(res);
         copyBestSolution(res);
-    }
-
-    public void updateWeights(){
-        //根据本次迭代中的解情况，调整构建邻域结构的权重
-        for(Integer key:methods.keySet()){
-            if(methods.get(key).contains(label)){
-                if(key==1){
-                    count1+=0.1;
-                    if(count1>1){
-                        count1=1;
-                    }else if(count1<0){
-                        count1=0;
-                    }
-                }else if(key==2){
-                    count1-=0.1;
-                    if(count1>1){
-                        count1=1;
-                    }else if(count1<0){
-                        count1=0;
-                    }
-                }
-                break;
-            }
-        }
     }
 
     public void copyBestSolution(boolean res){
@@ -470,8 +517,10 @@ public class TabuSearch {
             int size=list.size();
             if(size==0) continue;
             int first=list.get(0);
-            if(data.w[0][first]>map.get(first)){
-                System.out.println("data.w[0][first]>s[first]");
+            if(data.w[0][first]>map.get(first)+epsilon){
+                System.out.println(TAG+" data.w[0][first]>s[first]");
+                System.out.println(data.w[0][first]);
+                System.out.println(map.get(first));
                 System.exit(0);
             }
             if(map.get(first)>data.lateTime[first]){
@@ -495,6 +544,11 @@ public class TabuSearch {
                     System.out.println("不满足重量约束约束");
                     System.exit(0);
                 }
+                if(map.get(list.get(i))+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]
+                        >map.get(list.get(i+1))+epsilon){
+                    System.out.println("不满足连续任务时间约束");
+                    res=false;
+                }
             }
         }
         return res;
@@ -502,7 +556,6 @@ public class TabuSearch {
 
     public void creatNeighbours(){
         operations=new HashMap<>();
-        methods=new HashMap<>();
         List<Integer> list1=new ArrayList<>();
         List<Integer> list2=new ArrayList<>();
         for(int i=1;i<size;i++){
@@ -515,14 +568,15 @@ public class TabuSearch {
             }else if(i<2*size/4){
                 int[] a=insert(temp1,temp2,temp3);
                 operations.put(i,a);
-            }/*else if(i<3*size/5){
+            }
+            /*else if(i<3*size/5){
                 int[] a=insertTW(temp1,temp2,temp3);
                 operations.put(i,a);
             }*/
             else if (i<3*size/4){
                 int[] a=change(temp1,temp2,temp3);
                 operations.put(i,a);
-            }else if(i<4*size/4){
+            }else if(i<5*size/5){
                 int[] a=change1(temp1,temp2,temp3);
                 operations.put(i,a);
             }
@@ -954,8 +1008,8 @@ public class TabuSearch {
             }
         }
         long end=System.currentTimeMillis();
-        System.out.println((end-start)/1000.0);
-        System.out.println(best);
+        System.out.println("Solving time:"+(end-start)/1000.0);
+        //System.out.println(best);
         //showBestSolution();
         showSolutions1();
         Solution solution=new Solution(data,best,res,bestTimes);

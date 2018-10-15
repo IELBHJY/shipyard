@@ -27,8 +27,11 @@ public class CG {
     IloNumVarArray path;
     HashMap<Integer,List<Integer>> paths;
     HashMap<Integer,Integer> trucks;
-    /*
-    * */
+    HashMap<Integer,List<Integer>> bestPaths;
+    HashMap<Integer,Integer> bestTrucks;
+    HashMap<Integer,Double> srcs;
+    double best;
+    boolean isInteger;
     List<Integer>[] newRoutes;
     int[] newVechiles;
     IloNumVar[] alpha;
@@ -36,22 +39,25 @@ public class CG {
     IloNumVar[][] x;
     IloNumVar[] st;
     IloNumVar[][] y;
-    IloNumVar[] sum_truck;
     int Q=10000;
     int findRoute;
+    int[][] tabuEdges;
 
     public CG(int h,int t,int z,Data data) throws IloException {
         MP=new IloCplex();
-        SP=new IloCplex();
         this.H=h;
         this.T=t;
         this.z=z;
-        this.a=new int[h+t][z];
-        this.c=new double[z];
-        this.b=new int[h+t];
+        this.a=new int[h+t+1][z+1];
+        this.c=new double[z+1];
+        this.b=new int[h+t+1];
         this.data=data;
         paths=new HashMap<>();
         trucks=new HashMap<>();
+        bestPaths=new HashMap<>();
+        bestTrucks=new HashMap<>();
+        srcs=new HashMap<>();
+        tabuEdges=new int[h][h];
     }
 
     public CG(){
@@ -59,97 +65,90 @@ public class CG {
     }
 
     /**
-    初始化主问题矩阵系数,子问题需要的变量和系数
+       初始化主问题矩阵系数,用于建模的信息都存储好
     **/
-    public void inital(HashMap<Integer,List<Integer>> solution, double[] cost, int[] b)
-          throws IloException {
-        //MP
+    public void initalModelInfor(HashMap<Integer,List<Integer>> paths, HashMap<Integer,Integer> trucks,
+                                    int[][] a,double[] cost, int[] b) throws IloException
+    {
         this.c=cost.clone();
         this.b=b.clone();
-        for(Integer key:solution.keySet()){
+        for(int i=0;i<a.length;i++){
+            this.a[i]=a[i].clone();
+        }
+        /*for(Integer key:paths.keySet()){
             for(int i=0;i<H;i++){
-                if(solution.get(key).contains(i+1)){
+                if(paths.get(key).contains(i+1)){
                     a[i][key-1]=1;
                 }else{
                     a[i][key-1]=0;
                 }
             }
             a[H+key-1][key-1]=1;
-            paths.put(key,solution.get(key));
-        }
-        //SP
-        alpha=new IloNumVar[H+1];
-        beta=new IloNumVar[T+1];
-        x=new IloNumVar[H+1][H+1];
-        st=new IloNumVar[H+1];
-        y=new IloNumVar[H+1][T+1];
-        int i,j;
-        for(i=1;i<=H;i++){
-            alpha[i]=MP.numVar(0,1,IloNumVarType.Int,"alpha_"+i);
-            st[i]=MP.numVar(0,Double.MAX_VALUE,IloNumVarType.Float,"st("+i+")");
-        }
-        for(i=1;i<=T;i++){
-            beta[i]=MP.numVar(0,1,IloNumVarType.Int,"beta_"+i);
-        }
-        for(i=0;i<=H;i++){
-            for(j=0;j<=H;j++){
-               if(i!=j){
-                   x[i][j]=MP.numVar(0,1,IloNumVarType.Int,"x("+i+","+j+")");
-               }
+            this.paths.put(key,paths.get(key));
+        }*/
+
+        for(Integer key:paths.keySet()){
+            List<Integer> path=new ArrayList<>();
+            for(Integer p:paths.get(key)){
+                path.add(p);
             }
+            this.paths.put(key,path);
         }
-        for(i=1;i<=H;i++){
-            for(j=1;j<=T;j++){
-                y[i][j]= MP.numVar(0,1,IloNumVarType.Int,"y("+i+","+j+")");
-            }
+        for(Integer key:trucks.keySet()){
+            this.trucks.put(key,trucks.get(key));
         }
     }
 
-    public void creatInitalSolution(){
-        for(int i=0;i<H;i++){
-            c[i]+=data.w[0][i+1]+data.w[i+1][0];
+    /**
+     * 以每个任务一个车构造模型的系数，和路径，车型信息
+     * */
+    public void creatInitalSolution() throws IloException{
+        for(int i=1;i<=H;i++){
+            c[i]+=data.w[0][i]+data.w[i][0];
             List<Integer> list=new ArrayList<>();
-            list.add(i+1);
-            paths.put(i+1,list);
+            list.add(i);
+            paths.put(i,list);
         }
-        for(int i=0;i<H+T;i++){
+        for(int i=1;i<=H+T;i++){
             b[i]=1;
         }
-        for(int i=0;i<z;i++){
+        for(int i=1;i<=z;i++){
             a[i][i]=1;
         }
-        for(int i=0;i<z;i++){
+        for(int i=1;i<=z;i++){
             int t=1;
-            while(data.taskWeights[i+1]>data.truckCaptitys[t]){
+            while(data.taskWeights[i]>data.truckCaptitys[t]){
                 t++;
             }
-            a[H+t-1][i]=1;
-            trucks.put(i+1,t);
+            a[H+t][i]=1;
+            trucks.put(i,t);
         }
+        buildMPModel();
     }
-/**
- * main函数的入口
- * **/
+    /**
+     * 构造主问题模型
+     * **/
     public void buildMPModel() throws IloException{
         MP.setOut(null);
         MPCosts = MP.addMinimize();
         Fill = new IloRange[a.length];
-        for (int f = 0; f < a.length; f++ ) {
+        for (int f = 1; f < a.length; f++ ) {
             Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
         }
         path = new IloNumVarArray();
-        for(int i=0;i<z;i++){
+        for(int i=1;i<c.length;i++){
             IloColumn column = MP.column(MPCosts, c[i]);
-            for (int p = 0; p < a.length; p++) {
+            for (int p = 1; p < a.length; p++) {
                 column = column.and(MP.column(Fill[p], a[p][i]));
             }
             path.add(MP.numVar(column, 0., Double.MAX_VALUE, IloNumVarType.Float));
         }
-        solveMPModel();
-        Solve();
     }
 
-    private void solveMPModel() throws IloException {
+    /**
+     * 求解主问题模型
+     * */
+    public void solveMPModel() throws IloException {
         boolean isSolution=MP.solve();
         if(!isSolution){
             System.out.println("no solve");
@@ -172,16 +171,21 @@ public class CG {
         return ans;
     }
 
+    /**
+     * 初始化子问题，并求解子问题
+     * */
     private void DPSolve() throws IloException{
-        double[] price1=new double[H];
-        double[] price2=new double[T];
-        for(int i=0;i<Fill.length;i++){
-            if(i<H){
+        double[] price1=new double[H+1];
+        double[] price2=new double[T+1];
+        for(int i=1;i<Fill.length;i++){
+            if(i<=H){
                 price1[i]=MP.getDual(Fill[i]);
             }else{
                 price2[i-H]=MP.getDual(Fill[i]);
             }
         }
+        /*还需要传入tabuEdges，用于找到符合条件的列
+        * */
         DP dp=new DP(findRoute,data,price1,price2,paths);
         int sum=dp.findAllRoutes();
         if(sum==0){
@@ -194,35 +198,70 @@ public class CG {
         newVechiles=new int[sum];
         newRoutes=dp.getRoute();
         newVechiles=dp.getVechile();
+        /*for(int i=0;i<newRoutes.length;i++){
+            if(newVechiles[i]==2){
+                if(newRoutes[i].size()==6){
+                    if(newRoutes[i].get(0)==2 && newRoutes[i].get(1)==1
+                            && newRoutes[i].get(2)==4 && newRoutes[i].get(3)==6
+                            && newRoutes[i].get(4)==5 && newRoutes[i].get(5)==9){
+                        System.out.println("exit");
+                    }
+                }
+            }
+        }*/
     }
 
+    /**
+     * 根据子问题信息，更新主问题
+     * */
     private void updateModel() throws IloException{
-        double[] c=new double[findRoute];
+        int length=this.c.length;
+        double[] cost=new double[length+findRoute];
+        for(int i=0;i<length;i++){
+            cost[i]=this.c[i];
+        }
+        int[][] A=new int[this.a.length][length+findRoute];
+        for(int i=0;i<this.a.length;i++){
+            for(int j=0;j<this.a[1].length;j++){
+                A[i][j]=this.a[i][j];
+            }
+        }
         for(int i=0;i<findRoute;i++){
-            c[i]=getCostOfNewPath(newRoutes[i]);
+            cost[i+length]=getCostOfNewPath(newRoutes[i]);
             int size=paths.keySet().size();
             paths.put(size+1,newRoutes[i]);
             trucks.put(size+1,newVechiles[i]);
-            IloColumn column = MP.column(MPCosts, c[i]);
-            for ( int p = 0; p <H; p++ ){
-                if(newRoutes[i].contains(p+1)){
+            IloColumn column = MP.column(MPCosts, cost[i+length]);
+            for ( int p = 1; p <= H; p++ ){
+                if(newRoutes[i].contains(p)){
+                    A[p][H+i+1]=1;
                     column = column.and(MP.column(Fill[p], 1));
                 }else{
+                    A[p][H+i+1]=0;
                     column = column.and(MP.column(Fill[p], 0));
                 }
             }
-            for(int p=H;p<H+T;p++){
-                if(p-H+1==newVechiles[i]) {
+            for(int p=H+1;p<=H+T;p++){
+                if(p-H==newVechiles[i]) {
+                    A[p][H+i+1]=1;
                     column = column.and(MP.column(Fill[p], 1));
                 }else{
+                    A[p][H+i+1]=0;
                     column = column.and(MP.column(Fill[p], 0));
                 }
             }
-            path.add(MP.numVar(column, 0.,Double.MAX_VALUE,IloNumVarType.Float));
+            path.add(MP.numVar(column, 0.,1,IloNumVarType.Float));
+        }
+        this.c=new double[cost.length];
+        this.c=cost.clone();
+        this.a=new int[A.length][A[1].length];
+        for(int i=0;i<a.length;i++){
+            this.a[i]=A[i].clone();
         }
     }
 
     public void Solve() throws IloException{
+        solveMPModel();
         DPSolve();
         updateModel();
         solveMPModel();
@@ -232,7 +271,11 @@ public class CG {
             throws IloException {
         System.out.println("------Solve details-------");
         System.out.println("目标函数：" + cutSolver.getObjValue());
+        best=cutSolver.getObjValue();
         System.out.println("路径个数: "+Cut.getSize());
+        bestPaths.clear();
+        bestTrucks.clear();
+        setInteger(true);
         for (int j = 0; j < Cut.getSize(); j++) {
             if(cutSolver.getValue(Cut.getElement(j))>0){
                 List<Integer> list=paths.get(j+1);
@@ -244,21 +287,30 @@ public class CG {
                         System.out.print(p+" ");
                     }
                 }
+                bestPaths.put(j+1,list);
+                bestTrucks.put(j+1,trucks.get(j+1));
+                srcs.put(j+1,cutSolver.getValue(Cut.getElement(j)));
                 System.out.println();
             }
         }
-        System.out.println();
         for(int i=0;i<Cut.getSize();i++){
             if(cutSolver.getValue(Cut.getElement(i))>0) {
+                double var1=cutSolver.getValue(Cut.getElement(i));
+                int var2=(int) var1;
+                if(var2!=var1){
+                    setInteger(false);
+                    System.out.println("不是可行解");
+                }
                 System.out.println("Route_" + (i + 1) + "=" + cutSolver.getValue(Cut.getElement(i)));
             }
         }
         System.out.println();
-        for (int i = 0; i < Fill.length; i++) {
-            System.out.println("Dual_" + (i + 1) + " = " + cutSolver.getDual(Fill[i]));
+        for (int i = 1; i < Fill.length; i++) {
+            System.out.println("Dual_" + (i) + " = " + cutSolver.getDual(Fill[i]));
         }
         System.out.println("------Solve details-------");
     }
+
 
     private void report2(IloCplex model,IloNumVar[][] y,IloNumVar[][] x)
             throws IloException{
@@ -278,7 +330,7 @@ public class CG {
         for(i=0;i<=H;i++){
             for(j=0;j<=H;j++){
                 if(i!=j){
-                    if(SP.getValue(x[i][j])>0.99){
+                    if(SP.getValue(x[i][j])>0.9){
                         res+=data.w[i][j]*SP.getValue(x[i][j]);
                     }
                 }
@@ -287,8 +339,68 @@ public class CG {
         return res;
     }
 
+    public HashMap<Integer,List<Integer>> getPaths(){
+        return paths;
+    }
+
+    public void setPaths(HashMap<Integer,List<Integer>> paths){
+        this.paths=paths;
+    }
+
+    public HashMap<Integer,Integer> getTrucks(){
+        return trucks;
+    }
+
+    public HashMap<Integer,Double> getSrcs(){
+        return srcs;
+    }
+
+    public double getBest() {
+        return best;
+    }
+
+    public void setBest(double value){
+        this.best=value;
+    }
+
+    public HashMap<Integer,List<Integer>> getBestPaths(){
+        return this.bestPaths;
+    }
+
+    public int getPathNum(){
+        return paths.keySet().size();
+    }
+
+    public boolean getInteger(){
+        return this.isInteger;
+    }
+
+    public void setInteger(boolean value){
+        this.isInteger=value;
+    }
+
+    public void setC(int index,double value){
+        this.c[index]=value;
+    }
+
+    public double[] getC(){
+        return this.c;
+    }
+
+    public int[][] getA(){
+        return this.a;
+    }
+
+    public int[] getB(){
+        return this.b;
+    }
+
     public IloCplex getMP(){
         return this.MP;
+    }
+
+    private void setMP(IloCplex mp){
+        this.MP=mp;
     }
 
     private void updateMPModel() throws IloException{
@@ -480,4 +592,5 @@ public class CG {
         System.out.println("Solve");
         report2(SP,y,x);
     }
+
 }

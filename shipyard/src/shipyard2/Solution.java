@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Solution {
     Data data;
-    final double epsilon = 0.00001;
+    final double epsilon = 0.0001;
     HashMap<Integer,List<Integer>> res;
     HashMap<Integer,Double> serverTimes;
     HashMap<Integer,List<Double>> time;
@@ -80,7 +80,7 @@ public class Solution {
     }
 
     public void feasion(boolean noTWCheck){
-        //车载荷判断
+        //车载荷判断 && 时间连贯性检查
         for(Integer key:res.keySet()){
             List<Integer> list=res.get(key);
             for(Integer i:list){
@@ -89,7 +89,21 @@ public class Solution {
                     System.exit(0);
                 }
             }
+            int size=list.size();
+            for(int i=0;i<size-1;i++){
+                if(times[list.get(i)]+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]
+                        >times[list.get(i+1)]+epsilon){
+                    System.out.println("同一个车上的任务不满足时间连贯性");
+                    System.out.println(times[list.get(i)]+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]);
+                    System.out.println(times[list.get(i)]);
+                    System.out.println(data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]);
+                    System.out.println(times[list.get(i+1)]);
+                    System.exit(0);
+                }
+            }
         }
+        System.out.println("承重和时间连续性，检查通过");
+
         //时间窗
         for(int i=1;i<data.n;i++){
             if(times[i]+epsilon<data.earlyTime[i] || times[i]-epsilon>data.lateTime[i]){
@@ -97,6 +111,7 @@ public class Solution {
                 System.exit(0);
             }
         }
+        System.out.println("时间窗检查通过");
         showSolution();
     }
 
@@ -119,7 +134,8 @@ public class Solution {
         }
         System.out.println("Carrying task Time is as follow:");
         for(int i=1;i<data.n;i++){
-            System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i]));
+            System.out.println("第"+i+"个任务执行时间："+Data.double_truncate(times[i])+
+            ","+Data.double_truncate(times[i]+data.carryTaskTime[i]));
         }
     }
 
