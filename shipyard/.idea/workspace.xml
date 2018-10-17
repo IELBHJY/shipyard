@@ -50,6 +50,8 @@
       <change beforePath="$PROJECT_DIR$/src/shipyard/CG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/CG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/DP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/DP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shipyard/Parameter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Parameter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shipyard/VRPTW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/VRPTW.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard2/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard2/Parameter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Parameter.java" afterDir="false" />
@@ -66,81 +68,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Parameter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard2/Parameter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabuSearch.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard2/TabuSearch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="966">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
-              <folding>
-                <element signature="e#1148#2279#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CG.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CG.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="252" column="66" lean-forward="true" selection-start-line="252" selection-start-column="66" selection-end-line="252" selection-end-column="66" />
+            <state relative-caret-position="261">
+              <caret line="399" column="43" selection-start-line="399" selection-start-column="43" selection-end-line="399" selection-end-column="43" />
               <folding>
-                <element signature="e#2472#3138#0" />
-                <element signature="e#3143#3799#0" />
-                <element signature="e#4067#4467#0" />
-                <element signature="e#10238#10239#0" expanded="true" />
-                <element signature="e#10266#10267#0" expanded="true" />
-                <element signature="e#10331#10332#0" expanded="true" />
-                <element signature="e#10363#10364#0" expanded="true" />
-                <element signature="e#10413#10414#0" expanded="true" />
-                <element signature="e#10442#10443#0" expanded="true" />
-                <element signature="e#10489#10490#0" expanded="true" />
-                <element signature="e#10516#10517#0" expanded="true" />
-                <element signature="e#10547#10548#0" expanded="true" />
-                <element signature="e#10574#10575#0" expanded="true" />
-                <element signature="e#10614#10615#0" expanded="true" />
-                <element signature="e#10645#10646#0" expanded="true" />
-                <element signature="e#10704#10705#0" expanded="true" />
-                <element signature="e#10741#10742#0" expanded="true" />
-                <element signature="e#10771#10772#0" expanded="true" />
-                <element signature="e#10815#10816#0" expanded="true" />
-                <element signature="e#10849#10850#0" expanded="true" />
-                <element signature="e#10886#10887#0" expanded="true" />
-                <element signature="e#10930#10931#0" expanded="true" />
-                <element signature="e#10966#10967#0" expanded="true" />
-                <element signature="e#11013#11014#0" expanded="true" />
-                <element signature="e#11048#11049#0" expanded="true" />
-                <element signature="e#11077#11078#0" expanded="true" />
-                <element signature="e#11106#11107#0" expanded="true" />
-                <element signature="e#11134#11135#0" expanded="true" />
-                <element signature="e#11163#11164#0" expanded="true" />
-                <element signature="e#11189#11190#0" expanded="true" />
-                <element signature="e#11218#11219#0" expanded="true" />
+                <element signature="e#1383#1402#0" />
+                <element signature="e#1408#2120#0" />
+                <element signature="e#2126#2792#0" />
+                <element signature="e#2797#4100#0" />
+                <element signature="e#4106#4362#0" />
+                <element signature="e#4368#4768#0" />
+                <element signature="e#4774#6059#0" />
+                <element signature="e#6065#7784#0" />
+                <element signature="e#7790#7926#0" />
+                <element signature="e#7932#9710#0" />
+                <element signature="e#9717#10077#0" />
+                <element signature="e#10083#10466#0" />
+                <element signature="e#10986#10987#0" expanded="true" />
+                <element signature="e#11023#11024#0" expanded="true" />
+                <element signature="e#11053#11054#0" expanded="true" />
+                <element signature="e#11097#11098#0" expanded="true" />
+                <element signature="e#11131#11132#0" expanded="true" />
+                <element signature="e#11168#11169#0" expanded="true" />
+                <element signature="e#11212#11213#0" expanded="true" />
                 <element signature="e#11248#11249#0" expanded="true" />
-                <element signature="e#11278#11279#0" expanded="true" />
-                <element signature="e#11316#11317#0" expanded="true" />
-                <element signature="e#11342#11343#0" expanded="true" />
-                <element signature="e#10722#12463#0" />
-                <element signature="e#12469#16396#0" />
-                <element signature="e#16402#16538#0" />
+                <element signature="e#11295#11296#0" expanded="true" />
+                <element signature="e#11330#11331#0" expanded="true" />
+                <element signature="e#11359#11360#0" expanded="true" />
+                <element signature="e#11388#11389#0" expanded="true" />
+                <element signature="e#11416#11417#0" expanded="true" />
+                <element signature="e#11445#11446#0" expanded="true" />
+                <element signature="e#11471#11472#0" expanded="true" />
+                <element signature="e#11500#11501#0" expanded="true" />
+                <element signature="e#11608#11609#0" expanded="true" />
+                <element signature="e#11651#11652#0" expanded="true" />
+                <element signature="e#11674#11784#0" />
+                <element signature="e#11693#11694#0" expanded="true" />
+                <element signature="e#11729#11730#0" expanded="true" />
+                <element signature="e#11530#11531#0" expanded="true" />
+                <element signature="e#11560#11561#0" expanded="true" />
+                <element signature="e#11598#11599#0" expanded="true" />
+                <element signature="e#11624#11625#0" expanded="true" />
+                <element signature="e#11631#13372#0" />
+                <element signature="e#13378#17305#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IloNumVarArray.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard/IloNumVarArray.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="298">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -148,23 +130,50 @@
       <file leaf-file-name="Parameter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+            <state relative-caret-position="92">
+              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DP.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shipyard/Solution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+              <folding>
+                <element signature="method#feasion#0;class#Solution#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VRPTW.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="185" selection-start-line="185" selection-end-line="185" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DP.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="133" column="39" selection-start-line="133" selection-start-column="39" selection-end-line="133" selection-end-column="39" />
+            <state relative-caret-position="352">
+              <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
               <folding>
                 <element signature="method#findRoutes#0;class#DP#0" />
-                <element signature="e#4229#4230#0" expanded="true" />
-                <element signature="e#4311#4312#0" expanded="true" />
-                <element signature="e#4693#4694#0" expanded="true" />
-                <element signature="e#4783#4784#0" expanded="true" />
+                <element signature="e#1043#1044#0" expanded="true" />
+                <element signature="e#1125#1126#0" expanded="true" />
+                <element signature="e#1531#1532#0" expanded="true" />
+                <element signature="e#1621#1622#0" expanded="true" />
+                <element signature="method#findAllRoutes#0;class#DP#0" />
+                <element signature="e#4238#4239#0" expanded="true" />
+                <element signature="e#4320#4321#0" expanded="true" />
+                <element signature="e#4702#4703#0" expanded="true" />
+                <element signature="e#4792#4793#0" expanded="true" />
+                <element signature="method#getRoute#0;class#DP#0" />
                 <element signature="method#getVechile#0;class#DP#0" />
                 <element signature="method#isContain#0;class#DP#0" />
               </folding>
@@ -175,7 +184,7 @@
       <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
+            <state relative-caret-position="253">
               <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
             </state>
           </provider>
@@ -184,13 +193,15 @@
       <file leaf-file-name="BranchAndBound.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="152">
+              <caret line="118" column="81" selection-start-line="118" selection-start-column="81" selection-end-line="118" selection-end-column="81" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#BranchAndBound#0;class#BranchAndBound#0" />
                 <element signature="method#updateLeftModel#0;class#BranchAndBound#0" />
                 <element signature="method#updateRightModel#0;class#BranchAndBound#0" />
+                <element signature="docComment;method#Solve#0;class#BranchAndBound#0" />
+                <element signature="method#Solve#0;class#BranchAndBound#0" />
                 <element signature="method#branch#0;class#BranchAndBound#0" />
               </folding>
             </state>
@@ -213,8 +224,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="21" column="76" lean-forward="true" selection-start-line="21" selection-start-column="76" selection-end-line="21" selection-end-column="76" />
+            <state relative-caret-position="149">
+              <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -237,7 +248,6 @@
         <option value="$PROJECT_DIR$/src/shipyard/State.java" />
         <option value="$PROJECT_DIR$/src/shipyard/Solution.java" />
         <option value="$PROJECT_DIR$/src/shipyard/TabuSearch.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/VRPTW.java" />
         <option value="$PROJECT_DIR$/src/shipyard/Data.java" />
         <option value="$PROJECT_DIR$/MP.lp" />
         <option value="$PROJECT_DIR$/src/shipyard2/Model.java" />
@@ -245,11 +255,12 @@
         <option value="$PROJECT_DIR$/src/shipyard2/Solution.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/Parameter.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/TabuSearch.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
         <option value="$PROJECT_DIR$/src/shipyard/Main.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/DP.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/VRPTW.java" />
         <option value="$PROJECT_DIR$/src/shipyard/CG.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/DP.java" />
       </list>
     </option>
   </component>
@@ -263,7 +274,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -288,6 +298,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -429,19 +440,19 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50080776" side_tool="true" weight="0.47172415" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5016155" side_tool="true" weight="0.32165605" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49919224" weight="0.23089172" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4983845" weight="0.12898089" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32961783" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.41719747" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2374798" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1615509" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4713376" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.04299363" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -457,53 +468,66 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="193" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/shipyard/Main.java</url>
+          <line>32</line>
+          <properties />
+          <option name="timeStamp" value="199" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="202" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="b" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>mp.getPaths()</expression-string>
+        <expression-string>this.c[1796]</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>showA(1)</expression-string>
+        <expression-string>paths.get(1796)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1][1]+&quot; &quot;+a[1][2]+&quot; &quot;+a[1][3]+a[1][4]+&quot; &quot;</expression-string>
+        <expression-string>paths.get(1)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1][1]+&quot; &quot;+a[1][2]+&quot; &quot;+a[1][3]</expression-string>
+        <expression-string>paths.get(0)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1][1]+&quot; &quot;+a[1][2]</expression-string>
+        <expression-string>paths.get(1230)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1][1]</expression-string>
+        <expression-string>this.c[19736]</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1]</expression-string>
+        <expression-string>paths.get(19736)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>a[1].length</expression-string>
+        <expression-string>paths.get(29536)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>paths.get(20414)</expression-string>
+        <expression-string>paths.get(19734)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -532,44 +556,45 @@
         <state relative-caret-position="2565">
           <caret line="189" column="16" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
           <folding>
-            <element signature="e#2472#3138#0" />
-            <element signature="e#3143#3799#0" />
-            <element signature="e#4067#4467#0" />
-            <element signature="e#10238#10239#0" expanded="true" />
-            <element signature="e#10266#10267#0" expanded="true" />
-            <element signature="e#10331#10332#0" expanded="true" />
-            <element signature="e#10363#10364#0" expanded="true" />
-            <element signature="e#10413#10414#0" expanded="true" />
-            <element signature="e#10442#10443#0" expanded="true" />
-            <element signature="e#10489#10490#0" expanded="true" />
-            <element signature="e#10516#10517#0" expanded="true" />
-            <element signature="e#10547#10548#0" expanded="true" />
-            <element signature="e#10574#10575#0" expanded="true" />
-            <element signature="e#10614#10615#0" expanded="true" />
-            <element signature="e#10645#10646#0" expanded="true" />
-            <element signature="e#10704#10705#0" expanded="true" />
-            <element signature="e#10741#10742#0" expanded="true" />
-            <element signature="e#10771#10772#0" expanded="true" />
-            <element signature="e#10815#10816#0" expanded="true" />
-            <element signature="e#10849#10850#0" expanded="true" />
-            <element signature="e#10886#10887#0" expanded="true" />
-            <element signature="e#10930#10931#0" expanded="true" />
-            <element signature="e#10966#10967#0" expanded="true" />
-            <element signature="e#11013#11014#0" expanded="true" />
-            <element signature="e#11048#11049#0" expanded="true" />
-            <element signature="e#11077#11078#0" expanded="true" />
-            <element signature="e#11106#11107#0" expanded="true" />
-            <element signature="e#11134#11135#0" expanded="true" />
-            <element signature="e#11163#11164#0" expanded="true" />
-            <element signature="e#11189#11190#0" expanded="true" />
-            <element signature="e#11218#11219#0" expanded="true" />
+            <element signature="e#1383#1402#0" />
+            <element signature="e#1408#2120#0" />
+            <element signature="e#2126#2792#0" />
+            <element signature="e#2797#4100#0" />
+            <element signature="e#4106#4362#0" />
+            <element signature="e#4368#4768#0" />
+            <element signature="e#4774#6059#0" />
+            <element signature="e#6065#7784#0" />
+            <element signature="e#7790#7926#0" />
+            <element signature="e#7932#9710#0" />
+            <element signature="e#9717#10077#0" />
+            <element signature="e#10083#10466#0" />
+            <element signature="e#10986#10987#0" expanded="true" />
+            <element signature="e#11023#11024#0" expanded="true" />
+            <element signature="e#11053#11054#0" expanded="true" />
+            <element signature="e#11097#11098#0" expanded="true" />
+            <element signature="e#11131#11132#0" expanded="true" />
+            <element signature="e#11168#11169#0" expanded="true" />
+            <element signature="e#11212#11213#0" expanded="true" />
             <element signature="e#11248#11249#0" expanded="true" />
-            <element signature="e#11278#11279#0" expanded="true" />
-            <element signature="e#11316#11317#0" expanded="true" />
-            <element signature="e#11342#11343#0" expanded="true" />
-            <element signature="e#10722#12463#0" />
-            <element signature="e#12469#16396#0" />
-            <element signature="e#16402#16538#0" />
+            <element signature="e#11295#11296#0" expanded="true" />
+            <element signature="e#11330#11331#0" expanded="true" />
+            <element signature="e#11359#11360#0" expanded="true" />
+            <element signature="e#11388#11389#0" expanded="true" />
+            <element signature="e#11416#11417#0" expanded="true" />
+            <element signature="e#11445#11446#0" expanded="true" />
+            <element signature="e#11471#11472#0" expanded="true" />
+            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#11608#11609#0" expanded="true" />
+            <element signature="e#11651#11652#0" expanded="true" />
+            <element signature="e#11674#11784#0" />
+            <element signature="e#11693#11694#0" expanded="true" />
+            <element signature="e#11729#11730#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11624#11625#0" expanded="true" />
+            <element signature="e#11631#13372#0" />
+            <element signature="e#13378#17305#0" />
           </folding>
         </state>
       </provider>
@@ -677,44 +702,45 @@
         <state relative-caret-position="3591">
           <caret line="189" column="16" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
           <folding>
-            <element signature="e#2472#3138#0" />
-            <element signature="e#3143#3799#0" />
-            <element signature="e#4067#4467#0" />
-            <element signature="e#10238#10239#0" expanded="true" />
-            <element signature="e#10266#10267#0" expanded="true" />
-            <element signature="e#10331#10332#0" expanded="true" />
-            <element signature="e#10363#10364#0" expanded="true" />
-            <element signature="e#10413#10414#0" expanded="true" />
-            <element signature="e#10442#10443#0" expanded="true" />
-            <element signature="e#10489#10490#0" expanded="true" />
-            <element signature="e#10516#10517#0" expanded="true" />
-            <element signature="e#10547#10548#0" expanded="true" />
-            <element signature="e#10574#10575#0" expanded="true" />
-            <element signature="e#10614#10615#0" expanded="true" />
-            <element signature="e#10645#10646#0" expanded="true" />
-            <element signature="e#10704#10705#0" expanded="true" />
-            <element signature="e#10741#10742#0" expanded="true" />
-            <element signature="e#10771#10772#0" expanded="true" />
-            <element signature="e#10815#10816#0" expanded="true" />
-            <element signature="e#10849#10850#0" expanded="true" />
-            <element signature="e#10886#10887#0" expanded="true" />
-            <element signature="e#10930#10931#0" expanded="true" />
-            <element signature="e#10966#10967#0" expanded="true" />
-            <element signature="e#11013#11014#0" expanded="true" />
-            <element signature="e#11048#11049#0" expanded="true" />
-            <element signature="e#11077#11078#0" expanded="true" />
-            <element signature="e#11106#11107#0" expanded="true" />
-            <element signature="e#11134#11135#0" expanded="true" />
-            <element signature="e#11163#11164#0" expanded="true" />
-            <element signature="e#11189#11190#0" expanded="true" />
-            <element signature="e#11218#11219#0" expanded="true" />
+            <element signature="e#1383#1402#0" />
+            <element signature="e#1408#2120#0" />
+            <element signature="e#2126#2792#0" />
+            <element signature="e#2797#4100#0" />
+            <element signature="e#4106#4362#0" />
+            <element signature="e#4368#4768#0" />
+            <element signature="e#4774#6059#0" />
+            <element signature="e#6065#7784#0" />
+            <element signature="e#7790#7926#0" />
+            <element signature="e#7932#9710#0" />
+            <element signature="e#9717#10077#0" />
+            <element signature="e#10083#10466#0" />
+            <element signature="e#10986#10987#0" expanded="true" />
+            <element signature="e#11023#11024#0" expanded="true" />
+            <element signature="e#11053#11054#0" expanded="true" />
+            <element signature="e#11097#11098#0" expanded="true" />
+            <element signature="e#11131#11132#0" expanded="true" />
+            <element signature="e#11168#11169#0" expanded="true" />
+            <element signature="e#11212#11213#0" expanded="true" />
             <element signature="e#11248#11249#0" expanded="true" />
-            <element signature="e#11278#11279#0" expanded="true" />
-            <element signature="e#11316#11317#0" expanded="true" />
-            <element signature="e#11342#11343#0" expanded="true" />
-            <element signature="e#10722#12463#0" />
-            <element signature="e#12469#16396#0" />
-            <element signature="e#16402#16538#0" />
+            <element signature="e#11295#11296#0" expanded="true" />
+            <element signature="e#11330#11331#0" expanded="true" />
+            <element signature="e#11359#11360#0" expanded="true" />
+            <element signature="e#11388#11389#0" expanded="true" />
+            <element signature="e#11416#11417#0" expanded="true" />
+            <element signature="e#11445#11446#0" expanded="true" />
+            <element signature="e#11471#11472#0" expanded="true" />
+            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#11608#11609#0" expanded="true" />
+            <element signature="e#11651#11652#0" expanded="true" />
+            <element signature="e#11674#11784#0" />
+            <element signature="e#11693#11694#0" expanded="true" />
+            <element signature="e#11729#11730#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11624#11625#0" expanded="true" />
+            <element signature="e#11631#13372#0" />
+            <element signature="e#13378#17305#0" />
           </folding>
         </state>
       </provider>
@@ -817,13 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
-          <caret line="78" column="8" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Applications/CPLEX_Studio128/cplex/lib/cplex.jar!/ilog/concert/IloRange.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -845,24 +864,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4094">
-          <caret line="188" column="12" selection-start-line="188" selection-start-column="12" selection-end-line="188" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard2/Model.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5428">
           <caret line="246" column="35" selection-start-line="246" selection-start-column="35" selection-end-line="246" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -877,12 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="874">
           <caret line="100" column="20" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
-          <folding>
-            <element signature="method#Solution#0;class#Solution#0" />
-            <element signature="method#Solution#1;class#Solution#0" />
-            <element signature="method#feasion#0;class#Solution#0" />
-            <element signature="method#calObjection#0;class#Solution#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -921,100 +920,133 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+        <state relative-caret-position="92">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+          <folding>
+            <element signature="method#feasion#0;class#Solution#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="185" selection-start-line="185" selection-end-line="185" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="21" column="76" lean-forward="true" selection-start-line="21" selection-start-column="76" selection-end-line="21" selection-end-column="76" />
+        <state relative-caret-position="149">
+          <caret line="31" column="39" lean-forward="true" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/State.java">
+    <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="133" column="39" selection-start-line="133" selection-start-column="39" selection-end-line="133" selection-end-column="39" />
+        <state relative-caret-position="261">
+          <caret line="399" column="43" selection-start-line="399" selection-start-column="43" selection-end-line="399" selection-end-column="43" />
           <folding>
-            <element signature="method#findRoutes#0;class#DP#0" />
-            <element signature="e#4229#4230#0" expanded="true" />
-            <element signature="e#4311#4312#0" expanded="true" />
-            <element signature="e#4693#4694#0" expanded="true" />
-            <element signature="e#4783#4784#0" expanded="true" />
-            <element signature="method#getVechile#0;class#DP#0" />
-            <element signature="method#isContain#0;class#DP#0" />
+            <element signature="e#1383#1402#0" />
+            <element signature="e#1408#2120#0" />
+            <element signature="e#2126#2792#0" />
+            <element signature="e#2797#4100#0" />
+            <element signature="e#4106#4362#0" />
+            <element signature="e#4368#4768#0" />
+            <element signature="e#4774#6059#0" />
+            <element signature="e#6065#7784#0" />
+            <element signature="e#7790#7926#0" />
+            <element signature="e#7932#9710#0" />
+            <element signature="e#9717#10077#0" />
+            <element signature="e#10083#10466#0" />
+            <element signature="e#10986#10987#0" expanded="true" />
+            <element signature="e#11023#11024#0" expanded="true" />
+            <element signature="e#11053#11054#0" expanded="true" />
+            <element signature="e#11097#11098#0" expanded="true" />
+            <element signature="e#11131#11132#0" expanded="true" />
+            <element signature="e#11168#11169#0" expanded="true" />
+            <element signature="e#11212#11213#0" expanded="true" />
+            <element signature="e#11248#11249#0" expanded="true" />
+            <element signature="e#11295#11296#0" expanded="true" />
+            <element signature="e#11330#11331#0" expanded="true" />
+            <element signature="e#11359#11360#0" expanded="true" />
+            <element signature="e#11388#11389#0" expanded="true" />
+            <element signature="e#11416#11417#0" expanded="true" />
+            <element signature="e#11445#11446#0" expanded="true" />
+            <element signature="e#11471#11472#0" expanded="true" />
+            <element signature="e#11500#11501#0" expanded="true" />
+            <element signature="e#11608#11609#0" expanded="true" />
+            <element signature="e#11651#11652#0" expanded="true" />
+            <element signature="e#11674#11784#0" />
+            <element signature="e#11693#11694#0" expanded="true" />
+            <element signature="e#11729#11730#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11624#11625#0" expanded="true" />
+            <element signature="e#11631#13372#0" />
+            <element signature="e#13378#17305#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="152">
+          <caret line="118" column="81" selection-start-line="118" selection-start-column="81" selection-end-line="118" selection-end-column="81" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#BranchAndBound#0;class#BranchAndBound#0" />
             <element signature="method#updateLeftModel#0;class#BranchAndBound#0" />
             <element signature="method#updateRightModel#0;class#BranchAndBound#0" />
+            <element signature="docComment;method#Solve#0;class#BranchAndBound#0" />
+            <element signature="method#Solve#0;class#BranchAndBound#0" />
             <element signature="method#branch#0;class#BranchAndBound#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
+    <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="252" column="66" lean-forward="true" selection-start-line="252" selection-start-column="66" selection-end-line="252" selection-end-column="66" />
+        <state relative-caret-position="352">
+          <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
           <folding>
-            <element signature="e#2472#3138#0" />
-            <element signature="e#3143#3799#0" />
-            <element signature="e#4067#4467#0" />
-            <element signature="e#10238#10239#0" expanded="true" />
-            <element signature="e#10266#10267#0" expanded="true" />
-            <element signature="e#10331#10332#0" expanded="true" />
-            <element signature="e#10363#10364#0" expanded="true" />
-            <element signature="e#10413#10414#0" expanded="true" />
-            <element signature="e#10442#10443#0" expanded="true" />
-            <element signature="e#10489#10490#0" expanded="true" />
-            <element signature="e#10516#10517#0" expanded="true" />
-            <element signature="e#10547#10548#0" expanded="true" />
-            <element signature="e#10574#10575#0" expanded="true" />
-            <element signature="e#10614#10615#0" expanded="true" />
-            <element signature="e#10645#10646#0" expanded="true" />
-            <element signature="e#10704#10705#0" expanded="true" />
-            <element signature="e#10741#10742#0" expanded="true" />
-            <element signature="e#10771#10772#0" expanded="true" />
-            <element signature="e#10815#10816#0" expanded="true" />
-            <element signature="e#10849#10850#0" expanded="true" />
-            <element signature="e#10886#10887#0" expanded="true" />
-            <element signature="e#10930#10931#0" expanded="true" />
-            <element signature="e#10966#10967#0" expanded="true" />
-            <element signature="e#11013#11014#0" expanded="true" />
-            <element signature="e#11048#11049#0" expanded="true" />
-            <element signature="e#11077#11078#0" expanded="true" />
-            <element signature="e#11106#11107#0" expanded="true" />
-            <element signature="e#11134#11135#0" expanded="true" />
-            <element signature="e#11163#11164#0" expanded="true" />
-            <element signature="e#11189#11190#0" expanded="true" />
-            <element signature="e#11218#11219#0" expanded="true" />
-            <element signature="e#11248#11249#0" expanded="true" />
-            <element signature="e#11278#11279#0" expanded="true" />
-            <element signature="e#11316#11317#0" expanded="true" />
-            <element signature="e#11342#11343#0" expanded="true" />
-            <element signature="e#10722#12463#0" />
-            <element signature="e#12469#16396#0" />
-            <element signature="e#16402#16538#0" />
+            <element signature="method#findRoutes#0;class#DP#0" />
+            <element signature="e#1043#1044#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1531#1532#0" expanded="true" />
+            <element signature="e#1621#1622#0" expanded="true" />
+            <element signature="method#findAllRoutes#0;class#DP#0" />
+            <element signature="e#4238#4239#0" expanded="true" />
+            <element signature="e#4320#4321#0" expanded="true" />
+            <element signature="e#4702#4703#0" expanded="true" />
+            <element signature="e#4792#4793#0" expanded="true" />
+            <element signature="method#getRoute#0;class#DP#0" />
+            <element signature="method#getVechile#0;class#DP#0" />
+            <element signature="method#isContain#0;class#DP#0" />
           </folding>
         </state>
       </provider>

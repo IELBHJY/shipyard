@@ -184,8 +184,8 @@ public class VRPTW {
     public void Solve() throws IloException {
         if (model.solve() == true) {
             System.out.println("solve");
-            paths = new HashMap<>(16);
-            serverTimes=new HashMap<>(16);
+            paths = new HashMap<>();
+            serverTimes=new HashMap<>();
             times=new double[data.n];
             for(int i=1;i<data.n;i++){
                 serverTimes.put(i,model.getValue(s[i]));
@@ -194,7 +194,7 @@ public class VRPTW {
             for (int k = 1; k < data.t; k++) {
                 List<Integer> list = new ArrayList<>();
                 for (int i = 1; i < data.n; i++) {
-                    if (model.getValue(z_o[i][k])>0.9999999999) {
+                    if (model.getValue(z_o[i][k])>0.9) {
                         list.add(i);
                     }
                 }
@@ -206,7 +206,7 @@ public class VRPTW {
                     for (int i = 1; i < data.n; i++) {
                         int start = list.get(size - 1);
                         if (i != start) {
-                            if (model.getValue(z[start][i][k]) == 1) {
+                            if (model.getValue(z[start][i][k])>0.9) {
                                 list.add(i);
                             }
                         }

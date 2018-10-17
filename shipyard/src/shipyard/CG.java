@@ -41,7 +41,7 @@ public class CG {
     IloNumVar[][] y;
     int Q=10000;
     int findRoute;
-    int[][] tabuEdges;
+    int[][] tabuEdges;//由于分支造成的不能选，或者必须选的边，不能选的边用-1表示，必须选的边用1表示。
 
     public CG(int h,int t,int z,Data data) throws IloException {
         MP=new IloCplex();
@@ -57,7 +57,7 @@ public class CG {
         bestPaths=new HashMap<>();
         bestTrucks=new HashMap<>();
         srcs=new HashMap<>();
-        tabuEdges=new int[h][h];
+        tabuEdges=new int[h+1][h+1];
     }
 
     public CG(){
@@ -75,18 +75,6 @@ public class CG {
         for(int i=0;i<a.length;i++){
             this.a[i]=a[i].clone();
         }
-        /*for(Integer key:paths.keySet()){
-            for(int i=0;i<H;i++){
-                if(paths.get(key).contains(i+1)){
-                    a[i][key-1]=1;
-                }else{
-                    a[i][key-1]=0;
-                }
-            }
-            a[H+key-1][key-1]=1;
-            this.paths.put(key,paths.get(key));
-        }*/
-
         for(Integer key:paths.keySet()){
             List<Integer> path=new ArrayList<>();
             for(Integer p:paths.get(key)){
@@ -130,6 +118,17 @@ public class CG {
      * **/
     public void buildMPModel() throws IloException{
         MP.setOut(null);
+        /*for(int i=0;i<a[0].length;i++){
+            if(a[3][i]==1 && a[7][i]==1 && a[8][i]==1 && a[10][i]==1 && a[11][i]==1
+                    && a[1][i]==0 && a[2][i]==0 && a[4][i]==0 && a[5][i]==0 &&
+                    a[6][i]==0 && a[9][i]==0 && a[12][i]==0){
+                System.out.println("first path:"+i+" "+this.c[i]);
+            }
+            if(a[1][i]==1 && a[2][i]==1 && a[4][i]==1 && a[5][i]==1 && a[6][i]==1 && a[9][i]==1 &&a[12][i]==1
+                    && a[3][i]==0 && a[7][i]==0 && a[8][i]==0 && a[10][i]==0 && a[11][i]==0 ){
+                System.out.println("second path:"+i+" "+this.c[i]);
+            }
+        }*/
         MPCosts = MP.addMinimize();
         Fill = new IloRange[a.length];
         for (int f = 1; f < a.length; f++ ) {
@@ -186,7 +185,7 @@ public class CG {
         }
         /*还需要传入tabuEdges，用于找到符合条件的列
         * */
-        DP dp=new DP(findRoute,data,price1,price2,paths);
+        DP dp=new DP(findRoute,data,price1,price2,paths,tabuEdges);
         int sum=dp.findAllRoutes();
         if(sum==0){
             System.out.println("找不到那么多小于0的列");
@@ -305,9 +304,9 @@ public class CG {
             }
         }
         System.out.println();
-        for (int i = 1; i < Fill.length; i++) {
+        /*for (int i = 1; i < Fill.length; i++) {
             System.out.println("Dual_" + (i) + " = " + cutSolver.getDual(Fill[i]));
-        }
+        }*/
         System.out.println("------Solve details-------");
     }
 
@@ -393,6 +392,19 @@ public class CG {
 
     public int[] getB(){
         return this.b;
+    }
+
+    public void setTabuEdges(int edge1,int edge2,int value){
+        this.tabuEdges[edge1][edge2]=value;
+    }
+    public void setTabuEdges(int[][] edges){
+        for(int i=0;i<edges.length;i++){
+            this.tabuEdges[i]=edges[i].clone();
+        }
+    }
+
+    public int[][] getTabuEdges(){
+        return this.tabuEdges;
     }
 
     public IloCplex getMP(){

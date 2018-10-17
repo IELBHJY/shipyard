@@ -13,7 +13,12 @@ public class DP {
     double[] price2;
     int[] max_per_truck;
     HashMap<Integer,List<Integer>> paths;
-    public DP(int findRoute,Data data,double[] price11,double[] price22,HashMap<Integer,List<Integer>> paths) {
+    int[][] tabuEdges;
+    /*
+    * 找路径的时候，需要知道路径集合里已经存在的路径，以及分支之后，
+    * 不能走的路径和必须走的路径，可以加速 find paths。
+    * */
+    public DP(int findRoute,Data data,double[] price11,double[] price22,HashMap<Integer,List<Integer>> paths,int[][] tabuEdges) {
         this.findRoute = findRoute;
         route=new HashMap<>();
         vechile=new HashMap<>();
@@ -26,8 +31,14 @@ public class DP {
         this.price2=price22;
         max_per_truck=new int[]{5,2,2,2,2};
         this.paths=paths;
+        for(int i=0;i<tabuEdges.length;i++) {
+            this.tabuEdges[i] = tabuEdges[i].clone();
+        }
     }
 
+    /*
+    * 找路径，paths（路径集合）里面存在的路径不再需要，tabuEdges里面被禁止的边不能出现，必须走的路径必须出现。
+    * */
     public boolean findRoutes(){
         int sum=1;
         Queue<State> queue=new PriorityQueue<>(new Comparator<State>() {
@@ -204,4 +215,5 @@ public class DP {
         }
         return res;
     }
+
 }

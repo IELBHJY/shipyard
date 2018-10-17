@@ -14,7 +14,7 @@ public class BranchAndBound {
     private int task;
     private int truck;
     private Data data;
-    private Double upperBound;
+    private Double upperBound=Double.MAX_VALUE;
     CG mp;
     /*
      * 搜索树里面存储主模型，但是不建模，只把相关的参数矩阵存储。
@@ -44,15 +44,17 @@ public class BranchAndBound {
          mp=new CG(task,truck,task,data);
          mp.creatInitalSolution();
          mp.Solve();
-         upperBound=mp.getBest();
+         if(mp.getInteger()) {
+             upperBound = mp.getBest();
+         }
         //处理根结点，先建立根结点，然后判断是否是整数，分支，子树进队列
         if(mp.getInteger()) return;
         int[] edge=branch(mp);
         //根据mp重新建立左右子树
         CG left=new CG(task,truck,mp.getPaths().keySet().size(),data);
-        updateLeftModel(edge,left);
+        updateLeftModel(edge,left,mp);
         CG right=new CG(task,truck,mp.getPaths().keySet().size(),data);
-        updateRightModel(edge,right);
+        updateRightModel(edge,right,mp);
         searchTree.offer(left);
         searchTree.offer(right);
      }
@@ -63,7 +65,7 @@ public class BranchAndBound {
      * @param edge
      * @param left
      */
-     private void updateLeftModel(int[] edge,CG left) throws IloException{
+     private void updateLeftModel(int[] edge,CG left,CG mp) throws IloException{
           int [][] a=mp.getA();
           int[] b=mp.getB();
           double[] c=mp.getC();
@@ -94,6 +96,18 @@ public class BranchAndBound {
           }
           left.initalModelInfor(mp.getPaths(),mp.getTrucks(),a,c,b);
           left.setBest(mp.getBest());
+          int[][] tabuEdges=mp.getTabuEdges();
+          left.setTabuEdges(tabuEdges);
+          //edge[0]-->edge[1]边必走
+          left.setTabuEdges(edge[0],edge[1],1);
+          for(int i=1;i<=task;i++){
+             if(i!=edge[1]){
+                 left.setTabuEdges(edge[0],i,-1);
+             }
+             if(i!=edge[0]){
+                 left.setTabuEdges(i,edge[1],-1);
+             }
+          }
      }
 
     /***
@@ -102,7 +116,7 @@ public class BranchAndBound {
      * @param edge
      * @param right
      */
-     private void updateRightModel(int[] edge,CG right) throws IloException{
+     private void updateRightModel(int[] edge,CG right,CG mp) throws IloException{
          int [][] a=mp.getA();
          int[] b=mp.getB();
          double[] c=mp.getC();
@@ -115,7 +129,6 @@ public class BranchAndBound {
                  int index=path.indexOf(start);
                  if(index<path.size()-1){
                      if(path.get(index+1)==end){
-                         //right.setC(key,INF);
                          c[key]=INF;
                      }
                  }
@@ -123,6 +136,10 @@ public class BranchAndBound {
          }
          right.initalModelInfor(mp.getPaths(),mp.getTrucks(),a,c,b);
          right.setBest(mp.getBest());
+         //edge[0]-->>edge[1]设定不走既可
+         int[][] tabuEdges=mp.getTabuEdges();
+         right.setTabuEdges(tabuEdges);
+         right.setTabuEdges(edge[0],edge[1],-1);
      }
 
      /**
@@ -141,11 +158,11 @@ public class BranchAndBound {
              if(!top.getInteger()) {
                  int[] edge = branch(top);
                  System.out.println("branch edge is:" + edge[0] + "-" + edge[1]);
-                 //根据mp重新建立左右子树
+                 //根据top重新建立左右子树
                  CG left = new CG(task, truck, top.getPaths().keySet().size(), data);
-                 updateLeftModel(edge, left);
+                 updateLeftModel(edge, left,top);
                  CG right = new CG(task, truck, top.getPaths().keySet().size(), data);
-                 updateRightModel(edge, right);
+                 updateRightModel(edge, right,top);
                  searchTree.offer(left);
                  searchTree.offer(right);
              }
@@ -160,7 +177,6 @@ public class BranchAndBound {
      */
      public int[] branch(CG mp){
          HashMap<Integer,List<Integer>> paths=mp.bestPaths;
-         HashMap<Integer,Double> srcs=mp.getSrcs();
          List<Integer> num=new ArrayList<>(paths.keySet());
          int[] ans=new int[2];
          for(int i=0;i<num.size();i++){
