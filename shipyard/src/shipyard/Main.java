@@ -14,12 +14,14 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
-        long start=System.currentTimeMillis();
+        //System.out.println(data.w[0][2]+data.w[2][1]+data.w[1][4]+data.w[4][8]+data.w[8][7]+data.w[7][10]+data.w[10][0]);
+        //System.out.println(data.w[0][3]+data.w[3][6]+data.w[6][5]+data.w[5][9]+data.w[9][0]);
+        /*long start=System.currentTimeMillis();
         VRPTW problem=new VRPTW(data);
         problem.build_model();
         problem.Solve();
         long end=System.currentTimeMillis();
-        System.out.println("Solving Time:"+ (end-start)/1000.0 +" seconds");
+        System.out.println("Solving Time:"+ (end-start)/1000.0 +" seconds");*/
         /*TabuSearch ts=new TabuSearch(data,Parameter.size);
         ts.update();
         CG masterproblem=new CG(task,truck,2,data);

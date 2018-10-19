@@ -20,6 +20,11 @@ public class State {
         S=new int[sum+2];
     }
 
+    public State clone(){
+        State res=new State(task,vechileType,pre,costs,time);
+        res.setS(this.S);
+        return res;
+    }
 
     public int getVechileType() {
         return vechileType;

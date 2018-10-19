@@ -2,7 +2,6 @@ package shipyard;
 
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +39,10 @@ public class CG {
     IloNumVar[] st;
     IloNumVar[][] y;
     int Q=10000;
-    int findRoute;
+    int findRoute=100;
     int[][] tabuEdges;//由于分支造成的不能选，或者必须选的边，不能选的边用-1表示，必须选的边用1表示。
+    boolean hasPaths=true;
+    String name="name";
 
     public CG(int h,int t,int z,Data data) throws IloException {
         MP=new IloCplex();
@@ -144,6 +145,27 @@ public class CG {
         }
     }
 
+    public void test(){
+        if(trucks.keySet().size()!=paths.keySet().size()){
+            System.exit(0);
+        }
+        for(Integer num:trucks.keySet()){
+            if(trucks.get(num)==1){
+                List<Integer> path=paths.get(num);
+                if(path.size()!=4) continue;
+                if(path.get(0)==3 && path.get(1)==10 && path.get(2)==7 && path.get(3)==8){
+                    System.out.println(this.c[num]);
+                }
+            }else if(trucks.get(num)==2){
+                List<Integer> path=paths.get(num);
+                if(path.size()!=6) continue;
+                if(path.get(0)==2 && path.get(1)==1 && path.get(2)==4 && path.get(3)==6 && path.get(4)==5
+                        && path.get(5)==9){
+                    System.out.println(this.c[num]);
+                }
+            }
+        }
+    }
     /**
      * 求解主问题模型
      * */
@@ -193,21 +215,17 @@ public class CG {
             System.exit(0);
         }
         findRoute=sum;
-        newRoutes=new List[sum];
-        newVechiles=new int[sum];
+        /*boolean res=dp.findRoutes();
+        if(!res){
+            System.out.println("找不到那么多小于0的列");
+            solveMPModel();
+            hasPaths=false;
+            return;
+        }*/
+        newRoutes=new List[findRoute];
+        newVechiles=new int[findRoute];
         newRoutes=dp.getRoute();
         newVechiles=dp.getVechile();
-        /*for(int i=0;i<newRoutes.length;i++){
-            if(newVechiles[i]==2){
-                if(newRoutes[i].size()==6){
-                    if(newRoutes[i].get(0)==2 && newRoutes[i].get(1)==1
-                            && newRoutes[i].get(2)==4 && newRoutes[i].get(3)==6
-                            && newRoutes[i].get(4)==5 && newRoutes[i].get(5)==9){
-                        System.out.println("exit");
-                    }
-                }
-            }
-        }*/
     }
 
     /**
@@ -266,9 +284,24 @@ public class CG {
         solveMPModel();
     }
 
+    //列生产部分的求解过程和终止条件
+    public void Solve1() throws IloException{
+        while (true) {
+            solveMPModel();
+            DPSolve();
+            if(!hasPaths){
+                break;
+            }
+            updateModel();
+            solveMPModel();
+        }
+    }
+
+
     public void report1(IloCplex cutSolver, IloNumVarArray Cut, IloRange[] Fill)
             throws IloException {
         System.out.println("------Solve details-------");
+        System.out.println(getName());
         System.out.println("目标函数：" + cutSolver.getObjValue());
         best=cutSolver.getObjValue();
         System.out.println("路径个数: "+Cut.getSize());
@@ -405,6 +438,13 @@ public class CG {
 
     public int[][] getTabuEdges(){
         return this.tabuEdges;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String var){
+        this.name=var;
     }
 
     public IloCplex getMP(){

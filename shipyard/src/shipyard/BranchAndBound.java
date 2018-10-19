@@ -43,6 +43,7 @@ public class BranchAndBound {
     private void firstMPModel() throws IloException {
          mp=new CG(task,truck,task,data);
          mp.creatInitalSolution();
+         mp.setName("masterModel");
          mp.Solve();
          if(mp.getInteger()) {
              upperBound = mp.getBest();
@@ -54,6 +55,7 @@ public class BranchAndBound {
         CG left=new CG(task,truck,mp.getPaths().keySet().size(),data);
         updateLeftModel(edge,left,mp);
         CG right=new CG(task,truck,mp.getPaths().keySet().size(),data);
+        right.test();
         updateRightModel(edge,right,mp);
         searchTree.offer(left);
         searchTree.offer(right);
@@ -66,10 +68,14 @@ public class BranchAndBound {
      * @param left
      */
      private void updateLeftModel(int[] edge,CG left,CG mp) throws IloException{
-          int [][] a=mp.getA();
-          int[] b=mp.getB();
-          double[] c=mp.getC();
+          int [][] a=new int[mp.getA().length][mp.getA()[0].length];
+          for(int i=0;i<a.length;i++){
+              a[i]=mp.getA()[i].clone();
+          }
+          int[] b=mp.getB().clone();
+          double[] c=mp.getC().clone();
           HashMap<Integer,List<Integer>> list=mp.getPaths();
+          mp.test();
           for(Integer key:list.keySet()){
               List<Integer> path=list.get(key);
               int start=edge[0];
@@ -108,6 +114,11 @@ public class BranchAndBound {
                  left.setTabuEdges(i,edge[1],-1);
              }
           }
+          left.setName(edge[0]+"-"+edge[1]+":leftModel");
+          System.out.println("---------");
+          System.out.println(left.getName());
+          left.test();
+          System.out.println("-----------");
      }
 
     /***
@@ -117,10 +128,14 @@ public class BranchAndBound {
      * @param right
      */
      private void updateRightModel(int[] edge,CG right,CG mp) throws IloException{
-         int [][] a=mp.getA();
-         int[] b=mp.getB();
-         double[] c=mp.getC();
+         int [][] a=new int[mp.getA().length][mp.getA()[0].length];
+         for(int i=0;i<a.length;i++){
+             a[i]=mp.getA()[i].clone();
+         }
+         int[] b=mp.getB().clone();
+         double[] c=mp.getC().clone();
          HashMap<Integer,List<Integer>> list=mp.getPaths();
+         mp.test();
          for(Integer key:list.keySet()){
              List<Integer> path=list.get(key);
              int start=edge[0];
@@ -140,11 +155,17 @@ public class BranchAndBound {
          int[][] tabuEdges=mp.getTabuEdges();
          right.setTabuEdges(tabuEdges);
          right.setTabuEdges(edge[0],edge[1],-1);
+         right.setName(edge[0]+"-"+edge[1]+":rightModel");
+         System.out.println("----------");
+         System.out.println(right.getName());
+         right.test();
+         System.out.println("-----------");
      }
 
      /**
       * 判断解是否是整数，如果不是整数，需要分支，并完成分支，然后初始化两个分支后的主问题，加入主问题队列
       * 需要根据新的分支问题，更新主问题模型，调用cg求解模型
+      * 需要记录模型的分支情况，即分支过的，就不要在分支了。
       * */
      public void Solve() throws IloException{
          firstMPModel();
@@ -155,9 +176,12 @@ public class BranchAndBound {
              if(top.getInteger() && top.getBest()<upperBound){
                  upperBound=top.getBest();
              }
+             if(!top.getInteger() && top.getBest()>upperBound){
+                 continue;
+             }
              if(!top.getInteger()) {
                  int[] edge = branch(top);
-                 System.out.println("branch edge is:" + edge[0] + "-" + edge[1]);
+                 //System.out.println("branch edge is:" + edge[0] + "-" + edge[1]);
                  //根据top重新建立左右子树
                  CG left = new CG(task, truck, top.getPaths().keySet().size(), data);
                  updateLeftModel(edge, left,top);
@@ -172,7 +196,7 @@ public class BranchAndBound {
 
     /***
      * 返回分支的弧
-     * @param mp 主问题模型
+     * @param mp 主问题模型，CG类中包含分支记录，分支时要考虑历史分支情况
      * @return
      */
      public int[] branch(CG mp){
@@ -187,6 +211,10 @@ public class BranchAndBound {
                      if(list1.contains(task)){
                          int index=list1.indexOf(task);
                          if(index<list1.size()-1){
+                             int second_task=list1.get(index+1);
+                             if(mp.getTabuEdges()[task][second_task]!=0){
+                                 continue;
+                             }
                              ans[0]=task;
                              ans[1]=list1.get(index+1);
                              return ans;

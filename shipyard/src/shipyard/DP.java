@@ -24,13 +24,14 @@ public class DP {
         vechile=new HashMap<>();
         costs=new double[findRoute];
         indexs=new int[findRoute];
-        price1=new double[data.n-1];
-        price2=new double[data.t-1];
+        price1=new double[price11.length];
+        price2=new double[price22.length];
         this.data=data;
         this.price1=price11;
         this.price2=price22;
         max_per_truck=new int[]{5,2,2,2,2};
         this.paths=paths;
+        this.tabuEdges=new int[tabuEdges.length][tabuEdges.length];
         for(int i=0;i<tabuEdges.length;i++) {
             this.tabuEdges[i] = tabuEdges[i].clone();
         }
@@ -48,6 +49,9 @@ public class DP {
             }
         });
         for(int t=1;t<data.t;t++) {
+            if(sum>findRoute/data.t){
+                break;
+            }
             int sum1=0;
             State start = new State(0, t,null,0.0,0.0);
             start.setS(0,1);
@@ -61,36 +65,46 @@ public class DP {
             });
             stack.offer(start);
             while(!stack.isEmpty()){
+                if(sum1>findRoute/data.t){
+                    break;
+                }
                 State top=stack.poll();
                 if(top.getTask()>0){
                     double cost=top.getCosts();
-                    cost+=data.w[top.getTask()][0];
-                    if(cost<0){
+                    if(cost + data.w[top.getTask()][0] < 0){
+                        State tmp=top.clone();
+                        tmp.setCosts(cost + data.w[top.getTask()][0]);
                         List<Integer> list=new ArrayList<>();
-                        State temp=top;
+                        State temp=tmp;
                         while(temp.getPre()!=null){
                             list.add(temp.getTask());
                             temp=temp.getPre();
                         }
-                        top.setCosts(cost);
-                        queue.offer(top);
-                        sum1++;
-                        sum++;
-                        /*if(sum1>=max_per_truck[t]){
-                           break;
-                        }*/
+                        //判断路径是否已经在路径集合中存在
+                        if(isContain(list)){
+
+                        }else {
+                            queue.offer(tmp);
+                            sum1++;
+                            sum++;
+                        }
                     }
                 }
                 for(int i=1;i<data.n;i++){
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
-                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {continue;}
+                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]
+                            || tabuEdges[top.getTask()][i]==-1) {
+                        continue;
+                    }
                     double cost=top.getCosts()+data.w[top.getTask()][i];
-                    cost-=price1[i-1]+price2[t-1];
+                    cost-=price1[i]+price2[t];
                     double time=top.getTime()+data.w[top.getTask()][i];
                     if(time<data.earlyTime[i]){
                         time=data.earlyTime[i]+data.carryTaskTime[i];
-                    }else{
-                        time=time+data.carryTaskTime[i];
+                    }else if(time>= data.earlyTime[i] && time<=data.lateTime[i]){
+                        time+=data.carryTaskTime[i];
+                    } else{
+                        continue;
                     }
                     State state=new State(i,t,top,cost,time);
                     state.setS(top.getS());
@@ -100,14 +114,13 @@ public class DP {
             }
         }
         System.out.println("一共找到："+sum+" 条可行路径");
-        findRoute=sum;
-        /*if(sum<findRoute){
+        if(sum<findRoute){
             return false;
         }else{
             for(int i=0;i<findRoute;i++){
                 State temp=queue.poll();
                 if(temp==null){
-                    System.out.println(1);
+                    continue;
                 }
                 vechile.put(i,temp.getVechileType());
                 List<Integer> list=new ArrayList<>();
@@ -117,7 +130,7 @@ public class DP {
                 }
                 route.put(i,list);
             }
-        }*/
+        }
         return true;
     }
 
@@ -145,10 +158,10 @@ public class DP {
                 State top=stack.poll();
                 if(top.getTask()>0){
                     double cost=top.getCosts();
-                    cost+=data.w[top.getTask()][0];
-                    if(cost<0){
-                        top.setCosts(cost);
-                        queue.offer(top);
+                    if(cost+data.w[top.getTask()][0] < 0){
+                        State temp=top.clone();
+                        temp.setCosts(cost+data.w[top.getTask()][0]);
+                        queue.offer(temp);
                         sum++;
                     }
                 }
@@ -160,8 +173,10 @@ public class DP {
                     double time=top.getTime()+data.w[top.getTask()][i];
                     if(time<data.earlyTime[i]){
                         time=data.earlyTime[i]+data.carryTaskTime[i];
-                    }else{
+                    }else if(time<=data.lateTime[i] && time>=data.earlyTime[i]){
                         time=time+data.carryTaskTime[i];
+                    } else{
+                        continue;
                     }
                     State state=new State(i,t,top,cost,time);
                     state.setS(top.getS());
@@ -201,9 +216,9 @@ public class DP {
         return ans;
     }
 
-    private boolean isContain(HashMap<Integer,List<Integer>> paths,List<Integer> list){
+    private boolean isContain(List<Integer> list){
         boolean res=false;
-        for(Integer key:paths.keySet()){
+        for(Integer key:this.paths.keySet()){
             List<Integer> value=paths.get(key);
             if(value.size()!=list.size()){
                 continue;
