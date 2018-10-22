@@ -51,11 +51,12 @@ public class BranchAndBound {
         //处理根结点，先建立根结点，然后判断是否是整数，分支，子树进队列
         if(mp.getInteger()) return;
         int[] edge=branch(mp);
+        System.out.println("branch edge is :"+edge[0]+"-"+edge[1]);
         //根据mp重新建立左右子树
         CG left=new CG(task,truck,mp.getPaths().keySet().size(),data);
         updateLeftModel(edge,left,mp);
         CG right=new CG(task,truck,mp.getPaths().keySet().size(),data);
-        right.test();
+        //right.test();
         updateRightModel(edge,right,mp);
         searchTree.offer(left);
         searchTree.offer(right);
@@ -68,6 +69,7 @@ public class BranchAndBound {
      * @param left
      */
      private void updateLeftModel(int[] edge,CG left,CG mp) throws IloException{
+         String TAG="updateLeftModel";
           int [][] a=new int[mp.getA().length][mp.getA()[0].length];
           for(int i=0;i<a.length;i++){
               a[i]=mp.getA()[i].clone();
@@ -75,7 +77,7 @@ public class BranchAndBound {
           int[] b=mp.getB().clone();
           double[] c=mp.getC().clone();
           HashMap<Integer,List<Integer>> list=mp.getPaths();
-          mp.test();
+          //mp.test();
           for(Integer key:list.keySet()){
               List<Integer> path=list.get(key);
               int start=edge[0];
@@ -119,6 +121,7 @@ public class BranchAndBound {
           System.out.println(left.getName());
           left.test();
           System.out.println("-----------");
+          //System.out.println(TAG);
      }
 
     /***
@@ -128,6 +131,7 @@ public class BranchAndBound {
      * @param right
      */
      private void updateRightModel(int[] edge,CG right,CG mp) throws IloException{
+         String TAG="updateRightModel";
          int [][] a=new int[mp.getA().length][mp.getA()[0].length];
          for(int i=0;i<a.length;i++){
              a[i]=mp.getA()[i].clone();
@@ -135,7 +139,7 @@ public class BranchAndBound {
          int[] b=mp.getB().clone();
          double[] c=mp.getC().clone();
          HashMap<Integer,List<Integer>> list=mp.getPaths();
-         mp.test();
+         //mp.test();
          for(Integer key:list.keySet()){
              List<Integer> path=list.get(key);
              int start=edge[0];
@@ -160,6 +164,7 @@ public class BranchAndBound {
          System.out.println(right.getName());
          right.test();
          System.out.println("-----------");
+         //System.out.println(TAG);
      }
 
      /**
@@ -171,6 +176,9 @@ public class BranchAndBound {
          firstMPModel();
          while(!searchTree.isEmpty()) {
              CG top = searchTree.poll();
+             if(top.getBest()>=upperBound || top.getBest()>=169.799999){
+                 continue;
+             }
              top.buildMPModel();
              top.solveMPModel();
              if(top.getInteger() && top.getBest()<upperBound){
@@ -181,6 +189,10 @@ public class BranchAndBound {
              }
              if(!top.getInteger()) {
                  int[] edge = branch(top);
+                 System.out.println(edge[0]+"----"+edge[1]);
+                 if(edge[0]==0 && edge[1]==0){
+                     System.exit(0);
+                 }
                  //System.out.println("branch edge is:" + edge[0] + "-" + edge[1]);
                  //根据top重新建立左右子树
                  CG left = new CG(task, truck, top.getPaths().keySet().size(), data);
@@ -209,14 +221,36 @@ public class BranchAndBound {
                  for(int j=i+1;j<num.size();j++){
                      List<Integer> list1=paths.get(num.get(j));
                      if(list1.contains(task)){
-                         int index=list1.indexOf(task);
-                         if(index<list1.size()-1){
-                             int second_task=list1.get(index+1);
+                         int index=list.indexOf(task);
+                         if(index==0){
+                             int second_task=list.get(index+1);
                              if(mp.getTabuEdges()[task][second_task]!=0){
                                  continue;
                              }
                              ans[0]=task;
-                             ans[1]=list1.get(index+1);
+                             ans[1]=second_task;
+                             return ans;
+                         }else if(index<list.size()-1){
+                             int second_task=list.get(index-1);
+                             if(mp.getTabuEdges()[second_task][task]!=0){
+                                second_task=list.get(index+1);
+                                if(mp.getTabuEdges()[task][second_task]!=0){
+                                    continue;
+                                }
+                                ans[0]=task;
+                                ans[1]=second_task;
+                                return ans;
+                             }
+                             ans[0]=second_task;
+                             ans[1]=task;
+                             return ans;
+                         }else{
+                             int second_task=list.get(index-1);
+                             if(mp.getTabuEdges()[second_task][task]!=0){
+                                 continue;
+                             }
+                             ans[0]=second_task;
+                             ans[1]=task;
                              return ans;
                          }
                      }

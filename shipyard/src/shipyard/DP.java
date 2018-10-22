@@ -6,6 +6,7 @@ public class DP {
     int findRoute;
     HashMap<Integer,List<Integer>> route;
     HashMap<Integer,Integer> vechile;
+    HashMap<Integer,List<Double>> time;
     double[] costs;
     int[] indexs;
     Data data;
@@ -22,6 +23,7 @@ public class DP {
         this.findRoute = findRoute;
         route=new HashMap<>();
         vechile=new HashMap<>();
+        time=new HashMap<>();
         costs=new double[findRoute];
         indexs=new int[findRoute];
         price1=new double[price11.length];
@@ -167,7 +169,9 @@ public class DP {
                 }
                 for(int i=1;i<data.n;i++){
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
-                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {continue;}
+                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {
+                        continue;
+                    }
                     double cost=top.getCosts()+data.w[top.getTask()][i];
                     cost-=price1[i]+price2[t];
                     double time=top.getTime()+data.w[top.getTask()][i];
@@ -191,13 +195,41 @@ public class DP {
             State temp=queue.poll();
             vechile.put(i,temp.getVechileType());
             List<Integer> list=new ArrayList<>();
+            List<Double> list1=new ArrayList<>();
             while(temp.getPre()!=null){
                 list.add(0,temp.getTask());
+                list1.add(0,temp.getTime()-data.carryTaskTime[temp.getTask()]);
                 temp=temp.getPre();
             }
+            time.put(i,list1);
             route.put(i,list);
         }
+        test();
         return sum;
+    }
+
+    public void test(){
+        if(vechile.keySet().size()!=route.keySet().size()){
+            System.exit(0);
+        }
+        for(Integer num:vechile.keySet()){
+            if(vechile.get(num)==2){
+                List<Integer> path=route.get(num);
+                if(path.size()!=5) continue;
+                if(path.get(0)==3 && path.get(1)==12 && path.get(2)==8 && path.get(3)==7 && path.get(4)==9){
+                    List<Double> t=time.get(num);
+                    System.out.println(1);
+                }
+            }else if(vechile.get(num)==3){
+                List<Integer> path=route.get(num);
+                if(path.size()!=6) continue;
+                if(path.get(0)==5 && path.get(1)==12 && path.get(2)==4 && path.get(3)==6 && path.get(4)==10
+                        && path.get(5)==11){
+                    List<Double> t=time.get(num);
+                    System.out.println(2);
+                }
+            }
+        }
     }
 
     public List<Integer>[] getRoute() {

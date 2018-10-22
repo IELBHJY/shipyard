@@ -133,7 +133,11 @@ public class CG {
         MPCosts = MP.addMinimize();
         Fill = new IloRange[a.length];
         for (int f = 1; f < a.length; f++ ) {
-            Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
+            if(f<=H){
+                Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
+            }else {
+                Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
+            }
         }
         path = new IloNumVarArray();
         for(int i=1;i<c.length;i++){
@@ -308,6 +312,10 @@ public class CG {
         bestPaths.clear();
         bestTrucks.clear();
         setInteger(true);
+        HashMap<Integer,Integer> results=new HashMap<>();
+        for(int i=1;i<=H;i++){
+            results.put(i,0);
+        }
         for (int j = 0; j < Cut.getSize(); j++) {
             if(cutSolver.getValue(Cut.getElement(j))>0){
                 List<Integer> list=paths.get(j+1);
@@ -317,6 +325,11 @@ public class CG {
                     System.out.print(trucks.get(j+1)+": ");
                     for(Integer p:list){
                         System.out.print(p+" ");
+                        if(results.get(p)==1){
+                            setInteger(false);
+                        }else{
+                            results.put(p,1);
+                        }
                     }
                 }
                 bestPaths.put(j+1,list);
@@ -331,12 +344,11 @@ public class CG {
                 int var2=(int) var1;
                 if(var2!=var1){
                     setInteger(false);
-                    System.out.println("不是可行解");
                 }
                 System.out.println("Route_" + (i + 1) + "=" + cutSolver.getValue(Cut.getElement(i)));
             }
         }
-        System.out.println();
+        //System.out.println();
         /*for (int i = 1; i < Fill.length; i++) {
             System.out.println("Dual_" + (i) + " = " + cutSolver.getDual(Fill[i]));
         }*/

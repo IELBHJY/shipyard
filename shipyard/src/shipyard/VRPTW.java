@@ -31,7 +31,7 @@ public class VRPTW {
     public void build_model() throws IloException{
         model=new IloCplex();
         model.setOut(null);
-        model.setParam(IloCplex.Param.TimeLimit,120);
+        model.setParam(IloCplex.Param.TimeLimit,3600);
         y=new IloNumVar[data.n][data.t];
         z=new IloNumVar[data.n][data.n][data.t];
         z_o=new IloNumVar[data.n][data.t];
