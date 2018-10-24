@@ -1,17 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Login">
-   <children>
-      <Label fx:id="user_id" layoutX="71.0" layoutY="79.0" text="用户账号" />
-      <Label fx:id="password" layoutX="84.0" layoutY="143.0" text="密码" />
-      <TextField fx:id="user_id_text" layoutX="133.0" layoutY="74.0" />
-      <TextField fx:id="password_text" layoutX="133.0" layoutY="138.0" />
-      <Button fx:id="OK" layoutX="241.0" layoutY="214.0" mnemonicParsing="false" onAction="#button_ok_click" text="确定" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: ;" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <SplitPane dividerPositions="0.7445255474452555" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane fx:id="anchorpane1" minHeight="0.0" minWidth="0.0" prefHeight="451.0" prefWidth="1048.0">
+               <children>
+                  <GridPane prefHeight="550.0" prefWidth="750.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="222.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="685.0" minWidth="10.0" prefWidth="446.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="646.0" minWidth="0.0" prefWidth="83.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="537.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="179.0" minHeight="10.0" prefHeight="153.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane fx:id="gridPane" prefHeight="364.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="128.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="589.0" minWidth="10.0" prefWidth="316.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="166.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="188.0" minHeight="2.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="245.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="lblSign" prefHeight="37.0" prefWidth="108.0" text="用户登录 ">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets bottom="2.0" left="7.0" />
+                                 </padding></Label>
+                              <Label text="用户名：" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="35.0" />
+                                 </GridPane.margin></Label>
+                              <Label text="密   码：" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="35.0" />
+                                 </GridPane.margin></Label>
+                              <Label fx:id="lblLogin" text="UserLogin" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></Label>
+                              <TextField fx:id="nameText" maxWidth="-Infinity" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></TextField>
+                              <PasswordField fx:id="passField" maxWidth="-Infinity" prefHeight="36.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin></PasswordField>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="95.0" text="登录">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="35.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <CheckBox mnemonicParsing="false" text="记住账号">
+                                       <HBox.margin>
+                                          <Insets top="40.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </CheckBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                        <VBox fx:id="vBox3" prefHeight="253.0" prefWidth="221.0" spacing="2.0" GridPane.rowIndex="1">
+                           <children>
+                              <AnchorPane fx:id="anchorpane3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="120.0">
+                                 <VBox.margin>
+                                    <Insets left="100.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane fx:id="anchorpane4" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="120.0">
+                                 <VBox.margin>
+                                    <Insets left="100.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                              <AnchorPane fx:id="anchorpane5" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="120.0">
+                                 <VBox.margin>
+                                    <Insets left="100.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="109.0" prefWidth="446.0" spacing="5.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label fx:id="lblTitle" text="SWS分段调度系统">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label fx:id="lable2" text="SWS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="anchorpane2" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

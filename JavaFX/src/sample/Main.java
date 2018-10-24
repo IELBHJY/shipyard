@@ -11,12 +11,10 @@ public class Main extends Application {
     public static Stage login_stage;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         login_stage=new Stage();
         login_stage.setTitle("用户登陆");
-        //primaryStage.getIcons().add(new Image(""));
-        //login_stage.setIconified(true);
-        login_stage.setScene(new Scene(root, 400, 300));
+        login_stage.setScene(new Scene(root, 800, 600));
         login_stage.show();
     }
 
