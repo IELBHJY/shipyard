@@ -94,7 +94,7 @@ public class TabuSearch {
         //计算目标函数
         double res=calObjection(m,solution);
         //判断优先级是否满足，不满足则加惩罚
-        double penty=0.0;
+        /*double penty=0.0;
         for(int i=1;i<=task;i++){
             if(prior[i]>0){
                 int priorTask=prior[i];
@@ -104,7 +104,7 @@ public class TabuSearch {
             }
         }
         isPrior[m]=(penty==0) ? true :false;
-        //res+=weight2*penty;
+        //res+=weight2*penty;*/
         return res;
     }
 
@@ -125,11 +125,11 @@ public class TabuSearch {
                 res+=data.w[list.get(i)][list.get(i+1)];
             }
             res+=data.w[last][0];
-            penty+=taskTWfeasion(m,list);
+            penty+=calTasksTime(m,list);
             AllperTruckcost[m][key-1]=res+10*penty;
         }
-        res+=10*penty;
-        if(penty<0.5) {
+        res+=50*penty;
+        if(penty<0.1) {
             isFeasion[m] = true;
         }else{
             isFeasion[m]=false;
@@ -137,8 +137,11 @@ public class TabuSearch {
         return res;
     }
 
-    public static double taskTWfeasion(int m,List<Integer> list){
+    public static double calTasksTime(int m,List<Integer> list){
         double res=0;
+        if(list.size()==0){
+            return res;
+        }
         int first=list.get(0);
         if(data.w[0][first]>=data.earlyTime[first] && data.w[0][first]<=data.lateTime[first]){
             taskTimes[m][first]=data.w[0][first];
@@ -150,7 +153,6 @@ public class TabuSearch {
         }
         for(int i=1;i<list.size();i++){
             double temp=taskTimes[m][list.get(i-1)]+data.carryTaskTime[list.get(i-1)]+data.w[list.get(i-1)][list.get(i)];
-            //System.out.println(taskTimes[m][list.get(i-1)]+" "+data.carryTaskTime[list.get(i-1)]+" "+data.w[list.get(i-1)][list.get(i)]);
             if(temp>=data.earlyTime[list.get(i)] && temp<=data.lateTime[list.get(i)]){
                 taskTimes[m][list.get(i)]=temp;
             }else if(temp<data.earlyTime[list.get(i)]){
@@ -245,15 +247,16 @@ public class TabuSearch {
         int task1=a[first];
         int task2=a[last];
         String temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-        if(task1>task2)
-            temp1=String.valueOf(task2)+"-"+String.valueOf(task1);
+        if(task1>task2) {
+            temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+        }
         while(last==first || tabuTable.keySet().contains(temp1)){
             last=1+(int)(Math.random()*task);
             task2=a[last];
             temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-            if(task1>task2)
-                temp1=String.valueOf(task2)+"-"+String.valueOf(task1);
-
+            if(task1>task2) {
+                temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+            }
         }
         task1=a[first];
         task2=a[last];
@@ -310,15 +313,16 @@ public class TabuSearch {
         int task1=a[first];
         int task2=a[last];
         String temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-        if(task1>task2)
-            temp1=String.valueOf(task2)+"-"+String.valueOf(task1);
+        if(task1>task2) {
+            temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+        }
         while(last==first || tabuTable.keySet().contains(temp1)){
             last=1+(int)(Math.random()*task);
             task2=a[last];
             temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-            if(task1>task2)
-                temp1=String.valueOf(task2)+"-"+String.valueOf(task1);
-            //System.out.println("last==first || tabuTable.keySet().contains(temp1)");
+            if(task1>task2) {
+                temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+            }
         }
         task1=a[first];
         task2=a[last];
@@ -352,7 +356,7 @@ public class TabuSearch {
     }
 
     public void updateSolution(){
-        if (best > objections[0] && isPrior[label]) {
+        if (best > objections[0] && isFeasion[label]) {
             best = objections[0];
             System.out.println("best solution is update:"+best);
             bestTasks = tasks[label].clone();
@@ -365,11 +369,6 @@ public class TabuSearch {
         }else{
             weight1/=0.95;
         }
-        if(isPrior[label]){
-            weight2*=0.99;
-        }else{
-            weight2/=0.99;
-        }
         for (int i = 1; i < data.n; i++) {
             tasks[0][i] = tasks[label][i];
             trucks[0][i] = trucks[label][i];
@@ -378,9 +377,9 @@ public class TabuSearch {
         if(operations.keySet().contains(label)){
             action=operations.get(label);
             updateTabuTable();
-            //updateTable();
         }else{
-            System.out.println("operations.keySet().contains(label)");
+            System.out.println("!operations.keySet().contains(label)");
+            //System.exit(0);
         }
     }
 
@@ -389,14 +388,15 @@ public class TabuSearch {
          if(action[0]>action[1]) {
              key = String.valueOf(action[1]) + "-" + String.valueOf(action[0]);
          }
-         tabuTable.put(key,Parameter.tabuLength);
-         for(String keys:tabuTable.keySet()){
-             if(tabuTable.get(key)==0){
+         List<String> list=new ArrayList<>(tabuTable.keySet());
+         for(String keys:list){
+             if(tabuTable.get(keys)==0){
                  tabuTable.remove(keys);
-             }else{
+             } else {
                  tabuTable.put(keys,tabuTable.get(keys)-1);
              }
          }
+         tabuTable.put(key,Parameter.tabuLength);
     }
 
     private void updateTable(){
@@ -506,17 +506,13 @@ public class TabuSearch {
         evaluteSolution();
         updateSolution();
         int current_iteration=0;
-        int stop_iteration=0;
-        while(current_iteration<Parameter.max_iteration && stop_iteration<Parameter.stop_iteration) {
-            double before=best;
+        while(current_iteration<Parameter.max_iteration) {
             creatNeighbours();
             evaluteSolution();
             updateSolution();
+            //updateTable();
             current_iteration++;
-            double after=best;
-            if(before==after) {
-                stop_iteration++;
-            }
+            //System.out.println(current_iteration+":"+label);
         }
         long end=System.currentTimeMillis();
         showSolutions();

@@ -15,6 +15,7 @@ public class DP {
     int[] max_per_truck;
     HashMap<Integer,List<Integer>> paths;
     int[][] tabuEdges;
+    Queue<State> queue;
     /*
     * 找路径的时候，需要知道路径集合里已经存在的路径，以及分支之后，
     * 不能走的路径和必须走的路径，可以加速 find paths。
@@ -37,23 +38,20 @@ public class DP {
         for(int i=0;i<tabuEdges.length;i++) {
             this.tabuEdges[i] = tabuEdges[i].clone();
         }
+        queue=new PriorityQueue<>(new Comparator<State>() {
+            @Override
+            public int compare(State o1, State o2) {
+                return Double.compare(o1.getCosts(),o2.getCosts());
+            }
+        });
     }
 
     /*
     * 找路径，paths（路径集合）里面存在的路径不再需要，tabuEdges里面被禁止的边不能出现，必须走的路径必须出现。
     * */
     public boolean findRoutes(){
-        int sum=1;
-        Queue<State> queue=new PriorityQueue<>(new Comparator<State>() {
-            @Override
-            public int compare(State o1, State o2) {
-                return Double.compare(o1.getCosts(),o2.getCosts());
-            }
-        });
+        int sum=0;
         for(int t=1;t<data.t;t++) {
-            if(sum>findRoute/data.t){
-                break;
-            }
             int sum1=0;
             State start = new State(0, t,null,0.0,0.0);
             start.setS(0,1);
@@ -67,9 +65,6 @@ public class DP {
             });
             stack.offer(start);
             while(!stack.isEmpty()){
-                if(sum1>findRoute/data.t){
-                    break;
-                }
                 State top=stack.poll();
                 if(top.getTask()>0){
                     double cost=top.getCosts();
@@ -77,7 +72,7 @@ public class DP {
                         State tmp=top.clone();
                         tmp.setCosts(cost + data.w[top.getTask()][0]);
                         List<Integer> list=new ArrayList<>();
-                        State temp=tmp;
+                        State temp=tmp.clone();
                         while(temp.getPre()!=null){
                             list.add(temp.getTask());
                             temp=temp.getPre();
@@ -87,8 +82,15 @@ public class DP {
 
                         }else {
                             queue.offer(tmp);
-                            sum1++;
                             sum++;
+                            sum1++;
+                            if(sum1>findRoute/2){
+                                break;
+                            }
+                            if(sum>=findRoute){
+                                helper();
+                                return true;
+                            }
                         }
                     }
                 }
@@ -118,22 +120,25 @@ public class DP {
         System.out.println("一共找到："+sum+" 条可行路径");
         if(sum<findRoute){
             return false;
-        }else{
-            for(int i=0;i<findRoute;i++){
-                State temp=queue.poll();
-                if(temp==null){
-                    continue;
-                }
-                vechile.put(i,temp.getVechileType());
-                List<Integer> list=new ArrayList<>();
-                while(temp.getPre()!=null){
-                    list.add(temp.getTask());
-                    temp=temp.getPre();
-                }
-                route.put(i,list);
-            }
         }
+        helper();
         return true;
+    }
+
+    private void helper(){
+        for(int i=0;i<findRoute;i++){
+            State temp=queue.poll();
+            vechile.put(i,temp.getVechileType());
+            List<Integer> list=new ArrayList<>();
+            List<Double> list1=new ArrayList<>();
+            while(temp.getPre()!=null){
+                list.add(0,temp.getTask());
+                list1.add(0,temp.getTime()-data.carryTaskTime[temp.getTask()]);
+                temp=temp.getPre();
+            }
+            time.put(i,list1);
+            route.put(i,list);
+        }
     }
 
     public int findAllRoutes(){
@@ -169,7 +174,7 @@ public class DP {
                 }
                 for(int i=1;i<data.n;i++){
                     if(top.getS()[i]==1 || data.taskWeights[i]>data.truckCaptitys[t]
-                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i]) {
+                            || top.getTime()+data.w[top.getTask()][i]>data.lateTime[i] || tabuEdges[top.getTask()][i]==-1) {
                         continue;
                     }
                     double cost=top.getCosts()+data.w[top.getTask()][i];
@@ -204,7 +209,7 @@ public class DP {
             time.put(i,list1);
             route.put(i,list);
         }
-        test();
+        //test();
         return sum;
     }
 

@@ -10,7 +10,7 @@ public class Main {
         /*输入、 任务数、车数、路口数、堆位数*/
         Data data=new Data(task,truck,16,224);
         try {
-            data.readData("data/shipyard1.xls");
+            data.readData("data/shipyard_ovoc.xls");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -33,8 +33,8 @@ public class Main {
         for(int i=0;i<task+truck;i++){
             b[i]=1;
         }
-        masterproblem.inital(TabuSearch.res,c,b);*/
-        //masterproblem.buildMPModel();
+        masterproblem.inital(TabuSearch.res,c,b);
+        masterproblem.buildMPModel();*/
         BranchAndBound b=new BranchAndBound(task,truck,data);
         b.Solve();
     }

@@ -39,13 +39,12 @@ public class CG {
     IloNumVar[] st;
     IloNumVar[][] y;
     int Q=10000;
-    int findRoute=100;
+    int findRoute=50;
     int[][] tabuEdges;//由于分支造成的不能选，或者必须选的边，不能选的边用-1表示，必须选的边用1表示。
     boolean hasPaths=true;
     String name="name";
 
     public CG(int h,int t,int z,Data data) throws IloException {
-        MP=new IloCplex();
         this.H=h;
         this.T=t;
         this.z=z;
@@ -118,26 +117,12 @@ public class CG {
      * 构造主问题模型
      * **/
     public void buildMPModel() throws IloException{
+        MP=new IloCplex();
         MP.setOut(null);
-        /*for(int i=0;i<a[0].length;i++){
-            if(a[3][i]==1 && a[7][i]==1 && a[8][i]==1 && a[10][i]==1 && a[11][i]==1
-                    && a[1][i]==0 && a[2][i]==0 && a[4][i]==0 && a[5][i]==0 &&
-                    a[6][i]==0 && a[9][i]==0 && a[12][i]==0){
-                System.out.println("first path:"+i+" "+this.c[i]);
-            }
-            if(a[1][i]==1 && a[2][i]==1 && a[4][i]==1 && a[5][i]==1 && a[6][i]==1 && a[9][i]==1 &&a[12][i]==1
-                    && a[3][i]==0 && a[7][i]==0 && a[8][i]==0 && a[10][i]==0 && a[11][i]==0 ){
-                System.out.println("second path:"+i+" "+this.c[i]);
-            }
-        }*/
         MPCosts = MP.addMinimize();
         Fill = new IloRange[a.length];
         for (int f = 1; f < a.length; f++ ) {
-            if(f<=H){
-                Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
-            }else {
-                Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
-            }
+            Fill[f] = MP.addRange(b[f], Double.MAX_VALUE);
         }
         path = new IloNumVarArray();
         for(int i=1;i<c.length;i++){
@@ -145,7 +130,7 @@ public class CG {
             for (int p = 1; p < a.length; p++) {
                 column = column.and(MP.column(Fill[p], a[p][i]));
             }
-            path.add(MP.numVar(column, 0., Double.MAX_VALUE, IloNumVarType.Float));
+            path.add(MP.numVar(column, 0., 1, IloNumVarType.Float));
         }
     }
 
@@ -219,13 +204,32 @@ public class CG {
             System.exit(0);
         }
         findRoute=sum;
-        /*boolean res=dp.findRoutes();
+        newRoutes=new List[findRoute];
+        newVechiles=new int[findRoute];
+        newRoutes=dp.getRoute();
+        newVechiles=dp.getVechile();
+    }
+
+    private void DPSolve1() throws IloException{
+        double[] price1=new double[H+1];
+        double[] price2=new double[T+1];
+        for(int i=1;i<Fill.length;i++){
+            if(i<=H){
+                price1[i]=MP.getDual(Fill[i]);
+            }else{
+                price2[i-H]=MP.getDual(Fill[i]);
+            }
+        }
+        /*还需要传入tabuEdges，用于找到符合条件的列
+         * */
+        DP dp=new DP(findRoute,data,price1,price2,paths,tabuEdges);
+        boolean res=dp.findRoutes();
         if(!res){
             System.out.println("找不到那么多小于0的列");
             solveMPModel();
             hasPaths=false;
             return;
-        }*/
+        }
         newRoutes=new List[findRoute];
         newVechiles=new int[findRoute];
         newRoutes=dp.getRoute();
@@ -290,14 +294,15 @@ public class CG {
 
     //列生产部分的求解过程和终止条件
     public void Solve1() throws IloException{
-        while (true) {
+        int count=0;
+        while (count<2) {
             solveMPModel();
-            DPSolve();
+            DPSolve1();
             if(!hasPaths){
                 break;
             }
             updateModel();
-            solveMPModel();
+            count++;
         }
     }
 
@@ -348,6 +353,9 @@ public class CG {
                 System.out.println("Route_" + (i + 1) + "=" + cutSolver.getValue(Cut.getElement(i)));
             }
         }
+        if(bestTrucks.keySet().size()>T && getInteger()){
+            setInteger(false);
+        }
         //System.out.println();
         /*for (int i = 1; i < Fill.length; i++) {
             System.out.println("Dual_" + (i) + " = " + cutSolver.getDual(Fill[i]));
@@ -355,6 +363,16 @@ public class CG {
         System.out.println("------Solve details-------");
     }
 
+    private void test(IloCplex cutSolver, IloNumVarArray Cut, IloRange[] Fill) throws IloException{
+        for(int j=1;j<=H;j++) {
+            double sum=0;
+            for (int i = 0; i < Cut.getSize(); i++) {
+                sum += a[j][i+1] * cutSolver.getValue(Cut.getElement(i));
+            }
+            System.out.println(sum);
+        }
+        System.out.println(1);
+    }
 
     private void report2(IloCplex model,IloNumVar[][] y,IloNumVar[][] x)
             throws IloException{
@@ -411,6 +429,10 @@ public class CG {
         return this.bestPaths;
     }
 
+    public HashMap<Integer,Integer> getBestTrucks(){
+        return this.bestTrucks;
+    }
+
     public int getPathNum(){
         return paths.keySet().size();
     }
@@ -442,6 +464,7 @@ public class CG {
     public void setTabuEdges(int edge1,int edge2,int value){
         this.tabuEdges[edge1][edge2]=value;
     }
+
     public void setTabuEdges(int[][] edges){
         for(int i=0;i<edges.length;i++){
             this.tabuEdges[i]=edges[i].clone();

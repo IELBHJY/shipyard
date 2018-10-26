@@ -44,19 +44,22 @@ public class BranchAndBound {
          mp=new CG(task,truck,task,data);
          mp.creatInitalSolution();
          mp.setName("masterModel");
-         mp.Solve();
+         mp.Solve1();
+         mp.solveMPModel();
          if(mp.getInteger()) {
              upperBound = mp.getBest();
          }
         //处理根结点，先建立根结点，然后判断是否是整数，分支，子树进队列
         if(mp.getInteger()) return;
         int[] edge=branch(mp);
+        //if(edge[0]==0 && edge[1]==0) return;
         System.out.println("branch edge is :"+edge[0]+"-"+edge[1]);
         //根据mp重新建立左右子树
         CG left=new CG(task,truck,mp.getPaths().keySet().size(),data);
         updateLeftModel(edge,left,mp);
+        left.buildMPModel();
+        left.solveMPModel();
         CG right=new CG(task,truck,mp.getPaths().keySet().size(),data);
-        //right.test();
         updateRightModel(edge,right,mp);
         searchTree.offer(left);
         searchTree.offer(right);
@@ -76,8 +79,9 @@ public class BranchAndBound {
           }
           int[] b=mp.getB().clone();
           double[] c=mp.getC().clone();
+
+
           HashMap<Integer,List<Integer>> list=mp.getPaths();
-          //mp.test();
           for(Integer key:list.keySet()){
               List<Integer> path=list.get(key);
               int start=edge[0];
@@ -176,11 +180,12 @@ public class BranchAndBound {
          firstMPModel();
          while(!searchTree.isEmpty()) {
              CG top = searchTree.poll();
-             if(top.getBest()>=upperBound || top.getBest()>=169.799999){
+             if(top.getBest()>=upperBound){
                  continue;
              }
              top.buildMPModel();
-             top.solveMPModel();
+             //top.solveMPModel();
+             top.Solve1();
              if(top.getInteger() && top.getBest()<upperBound){
                  upperBound=top.getBest();
              }
@@ -191,7 +196,7 @@ public class BranchAndBound {
                  int[] edge = branch(top);
                  System.out.println(edge[0]+"----"+edge[1]);
                  if(edge[0]==0 && edge[1]==0){
-                     System.exit(0);
+                     continue;
                  }
                  //System.out.println("branch edge is:" + edge[0] + "-" + edge[1]);
                  //根据top重新建立左右子树
@@ -213,6 +218,7 @@ public class BranchAndBound {
      */
      public int[] branch(CG mp){
          HashMap<Integer,List<Integer>> paths=mp.bestPaths;
+         HashMap<Integer,Integer> trucks=mp.getBestTrucks();
          List<Integer> num=new ArrayList<>(paths.keySet());
          int[] ans=new int[2];
          for(int i=0;i<num.size();i++){
@@ -222,6 +228,9 @@ public class BranchAndBound {
                      List<Integer> list1=paths.get(num.get(j));
                      if(list1.contains(task)){
                          int index=list.indexOf(task);
+                         if(list.size()==1){
+                             continue;
+                         }
                          if(index==0){
                              int second_task=list.get(index+1);
                              if(mp.getTabuEdges()[task][second_task]!=0){
@@ -256,6 +265,32 @@ public class BranchAndBound {
                      }
                  }
              }
+         }
+         //满足路径变量是整数，并且每个任务只出现一次，但是车的数量出现多次，也是需要分支的
+         //ans=branch1(paths,trucks);
+         return ans;
+     }
+
+     private int[] branch1(HashMap<Integer,List<Integer>> paths,HashMap<Integer,Integer> trucks){
+         int[] ans=new int[2];
+         HashMap<Integer,Integer> list=new HashMap<>();
+         int second=0;
+         for(Integer key:trucks.keySet()){
+             if(!list.containsValue(trucks.get(key))){
+                 list.put(key,trucks.get(key));
+             }else{
+                 second=key;
+                 break;
+             }
+         }
+         List<Integer> path1=paths.get(second);
+         int position=(int)Math.random()*(path1.size());
+         if(position<path1.size()&& position!=0){
+             ans[0]=path1.get(position-1);
+             ans[1]=path1.get(position);
+         }else{
+             ans[0]=path1.get(position);
+             ans[1]=path1.get(position+1);
          }
          return ans;
      }

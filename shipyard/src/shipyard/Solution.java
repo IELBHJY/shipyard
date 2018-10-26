@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Solution {
     Data data;
-    final double epsilon = 0.01;
+    final double epsilon = 0.1;
     HashMap<Integer,List<Integer>> res;
     HashMap<Integer,Double> serverTimes;
     double[] times;
@@ -94,6 +94,8 @@ public class Solution {
         for(int i=1;i<data.n;i++){
             if(times[i]+epsilon<data.earlyTime[i] || times[i]-epsilon>data.lateTime[i]){
                 System.out.println("不满足时间窗");
+                System.out.println(times[i]);
+                System.out.println(data.earlyTime[i]+"  "+data.lateTime[i]);
                 System.exit(0);
             }
         }
@@ -108,7 +110,7 @@ public class Solution {
                 }
             }
         }
-        //showSolution();
+        showSolution();
     }
 
     public void showSolution(){
