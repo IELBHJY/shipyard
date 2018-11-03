@@ -5,61 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6718f1e-1904-42b0-9d9e-870a0ab3cf79" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/shipyard.xls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/CG$IloNumVarArray.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/CG.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/CutStock$IloNumVarArray.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/CutStock.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/Data.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/SP_TimeConstraint.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/TSP.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/Vrptw.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/duals.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/com/company/test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/CG.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/Data.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/IloNumVarArray.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/Parameter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/TabuSearch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard/VRPTW.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/Data.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/Model.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/Parameter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/Solution.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/TabuSearch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cplex-test/shipyard2/VariableNeighbourSearch.class" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shipyard/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/Login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/main_stage.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/Login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/src/sample/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/Main_stage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/src/sample/Main_stage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/main_stage.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bug.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MP.lp" beforeDir="false" afterPath="$PROJECT_DIR$/MP.lp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MP1.lp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/shipyard_ovoc.xls" beforeDir="false" afterPath="$PROJECT_DIR$/data/shipyard_ovoc.xls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/BranchAndBound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/BranchAndBound.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/CG.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/CG.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/DP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/DP.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Data.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Parameter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Parameter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Solution.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Solution.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/TabuSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/TabuSearch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/VRPTW.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/VRPTW.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Data.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Parameter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Parameter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Solution.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Solution.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/TabuSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/TabuSearch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/VariableNeighbourSearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/VariableNeighbourSearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JavaFX/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/CG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/CG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/DP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/DP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Parameter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Parameter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/TabuSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/TabuSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/VRPTW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/VRPTW.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard2/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard2/Parameter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Parameter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard2/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard2/TabuSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/TabuSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../列生成模型.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../考虑平板车承重能力的船舶分段运输调度方法10-08.docx" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -75,22 +57,32 @@
         <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="138">
-              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BranchAndBound.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Genetic.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/shipyard/Genetic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BranchAndBound.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="61" selection-start-line="61" selection-end-line="61" />
+            <state relative-caret-position="874">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#BranchAndBound#0;class#BranchAndBound#0" />
+                <element signature="method#test#0;class#BranchAndBound#0" />
+                <element signature="method#test1#0;class#BranchAndBound#0" />
                 <element signature="method#updateLeftModel#0;class#BranchAndBound#0" />
                 <element signature="method#updateRightModel#0;class#BranchAndBound#0" />
-                <element signature="method#Solve#0;class#BranchAndBound#0" />
                 <element signature="method#branch#0;class#BranchAndBound#0" />
                 <element signature="method#branch1#0;class#BranchAndBound#0" />
               </folding>
@@ -99,19 +91,10 @@
         </entry>
       </file>
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/JavaFX/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
+            <state relative-caret-position="368">
+              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -128,55 +111,10 @@
       <file leaf-file-name="CG.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-953">
-              <caret line="310" column="33" selection-start-line="310" selection-start-column="33" selection-end-line="310" selection-end-column="33" />
+            <state relative-caret-position="6854">
+              <caret line="302" column="22" selection-start-line="302" selection-start-column="22" selection-end-line="302" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11064#11406#0" />
-                <element signature="e#11007#11367#0" />
-                <element signature="e#11373#11756#0" />
-                <element signature="e#12215#12216#0" expanded="true" />
-                <element signature="e#12243#12244#0" expanded="true" />
-                <element signature="e#12308#12309#0" expanded="true" />
-                <element signature="e#12340#12341#0" expanded="true" />
-                <element signature="e#12390#12391#0" expanded="true" />
-                <element signature="e#12419#12420#0" expanded="true" />
-                <element signature="e#12466#12467#0" expanded="true" />
-                <element signature="e#12493#12494#0" expanded="true" />
-                <element signature="e#12524#12525#0" expanded="true" />
-                <element signature="e#12551#12552#0" expanded="true" />
-                <element signature="e#12591#12592#0" expanded="true" />
-                <element signature="e#12622#12623#0" expanded="true" />
-                <element signature="e#12681#12682#0" expanded="true" />
-                <element signature="e#12718#12719#0" expanded="true" />
-                <element signature="e#12772#12773#0" expanded="true" />
-                <element signature="e#12810#12811#0" expanded="true" />
-                <element signature="e#12840#12841#0" expanded="true" />
-                <element signature="e#12884#12885#0" expanded="true" />
-                <element signature="e#12918#12919#0" expanded="true" />
-                <element signature="e#12955#12956#0" expanded="true" />
-                <element signature="e#12999#13000#0" expanded="true" />
-                <element signature="e#13035#13036#0" expanded="true" />
-                <element signature="e#13082#13083#0" expanded="true" />
-                <element signature="e#13117#13118#0" expanded="true" />
-                <element signature="e#13146#13147#0" expanded="true" />
-                <element signature="e#13175#13176#0" expanded="true" />
-                <element signature="e#13203#13204#0" expanded="true" />
-                <element signature="e#13232#13233#0" expanded="true" />
-                <element signature="e#13258#13259#0" expanded="true" />
-                <element signature="e#13287#13288#0" expanded="true" />
-                <element signature="e#13349#13350#0" expanded="true" />
-                <element signature="e#13399#13400#0" expanded="true" />
-                <element signature="e#13586#13587#0" expanded="true" />
-                <element signature="e#13623#13624#0" expanded="true" />
-                <element signature="e#13653#13654#0" expanded="true" />
-                <element signature="e#13685#13686#0" expanded="true" />
-                <element signature="e#13722#13723#0" expanded="true" />
-                <element signature="e#13751#13752#0" expanded="true" />
-                <element signature="e#13781#13782#0" expanded="true" />
-                <element signature="e#13811#13812#0" expanded="true" />
-                <element signature="e#13849#13850#0" expanded="true" />
-                <element signature="e#13875#13876#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -185,10 +123,9 @@
       <file leaf-file-name="DP.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+            <state relative-caret-position="1886">
+              <caret line="86" column="55" selection-start-line="86" selection-start-column="55" selection-end-line="86" selection-end-column="55" />
               <folding>
-                <element signature="method#findRoutes#0;class#DP#0" />
                 <element signature="method#helper#0;class#DP#0" />
                 <element signature="method#test#0;class#DP#0" />
                 <element signature="method#getVechile#0;class#DP#0" />
@@ -201,36 +138,19 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="644">
+              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TabuSearch.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
+      <file leaf-file-name="Model.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shipyard2/Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+            <state relative-caret-position="2116">
+              <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
               <folding>
-                <element signature="e#997#1783#0" />
-                <element signature="e#1789#2636#0" />
-                <element signature="e#2642#3494#0" />
-                <element signature="e#3500#4371#0" />
-                <element signature="e#4377#5614#0" />
-                <element signature="e#5620#6115#0" />
-                <element signature="e#6121#9321#0" />
-                <element signature="e#9327#11708#0" />
-                <element signature="e#11714#12065#0" />
-                <element signature="e#12071#13022#0" />
-                <element signature="e#13028#13603#0" />
-                <element signature="e#13609#13984#0" />
-                <element signature="e#13990#14414#0" />
-                <element signature="e#14420#14844#0" />
-                <element signature="e#14850#17105#0" />
-                <element signature="e#17111#17830#0" />
-                <element signature="e#17836#18561#0" />
-                <element signature="e#18567#18849#0" />
+                <element signature="method#Solve#0;class#Model#0" />
               </folding>
             </state>
           </provider>
@@ -246,43 +166,43 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/shipyard/Data.java" />
         <option value="$PROJECT_DIR$/MP.lp" />
-        <option value="$PROJECT_DIR$/src/shipyard2/Model.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/Solution.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/TabuSearch.java" />
         <option value="$PROJECT_DIR$/src/shipyard/State.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Solution.java" />
         <option value="$PROJECT_DIR$/src/shipyard/TabuSearch.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/VRPTW.java" />
         <option value="$PROJECT_DIR$/src/JavaFX/Main.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Solution.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/VRPTW.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/Main.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Main.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/shipyard2/Model.java" />
         <option value="$PROJECT_DIR$/src/shipyard/DP.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Main.java" />
         <option value="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" />
         <option value="$PROJECT_DIR$/src/shipyard/CG.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Genetic.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1280" />
     <option name="height" value="725" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -306,13 +226,15 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -438,27 +360,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="22" width="1280" height="725" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32961783" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.02866242" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5024233" side_tool="true" weight="0.33917198" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5024233" side_tool="true" weight="0.3375796" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49757674" weight="0.42515925" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49757674" weight="0.544586" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32961783" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.24203822" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.2413793" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24313408" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28756058" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32961783" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.6096552" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.63535035" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -466,7 +389,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32961783" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.38853502" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -477,18 +400,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java</url>
-          <line>61</line>
+          <line>49</line>
           <properties />
-          <option name="timeStamp" value="291" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java</url>
-          <line>47</line>
-          <properties />
-          <option name="timeStamp" value="295" />
+          <option name="timeStamp" value="324" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="299" />
+      <option name="time" value="325" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -499,127 +416,53 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>cutSolver.getValue(Cut.getElement(11))</expression-string>
+        <expression-string>mp.getTrucks()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Cut.getElement(11)</expression-string>
+        <expression-string>mp.getPaths()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>Cut.getElement(12)</expression-string>
+        <expression-string>mp.getA()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>this.a</expression-string>
+        <expression-string>mp.getC()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>left</expression-string>
+        <expression-string>mp.getB()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>bestPaths</expression-string>
+        <expression-string>mp.getMP()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>left.paths</expression-string>
+        <expression-string>left.getA()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>top</expression-string>
+        <expression-string>left.getMP().exportModel(&quot;left.lp&quot;)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>top.solveMPModel()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>top.solveMPModel();</expression-string>
+        <expression-string>mp.getMP().exportModel(&quot;mp.lp&quot;)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="26" column="76" lean-forward="true" selection-start-line="26" selection-start-column="76" selection-end-line="26" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2565">
-          <caret line="189" column="16" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11064#11406#0" />
-            <element signature="e#11007#11367#0" />
-            <element signature="e#11373#11756#0" />
-            <element signature="e#12215#12216#0" expanded="true" />
-            <element signature="e#12243#12244#0" expanded="true" />
-            <element signature="e#12308#12309#0" expanded="true" />
-            <element signature="e#12340#12341#0" expanded="true" />
-            <element signature="e#12390#12391#0" expanded="true" />
-            <element signature="e#12419#12420#0" expanded="true" />
-            <element signature="e#12466#12467#0" expanded="true" />
-            <element signature="e#12493#12494#0" expanded="true" />
-            <element signature="e#12524#12525#0" expanded="true" />
-            <element signature="e#12551#12552#0" expanded="true" />
-            <element signature="e#12591#12592#0" expanded="true" />
-            <element signature="e#12622#12623#0" expanded="true" />
-            <element signature="e#12681#12682#0" expanded="true" />
-            <element signature="e#12718#12719#0" expanded="true" />
-            <element signature="e#12772#12773#0" expanded="true" />
-            <element signature="e#12810#12811#0" expanded="true" />
-            <element signature="e#12840#12841#0" expanded="true" />
-            <element signature="e#12884#12885#0" expanded="true" />
-            <element signature="e#12918#12919#0" expanded="true" />
-            <element signature="e#12955#12956#0" expanded="true" />
-            <element signature="e#12999#13000#0" expanded="true" />
-            <element signature="e#13035#13036#0" expanded="true" />
-            <element signature="e#13082#13083#0" expanded="true" />
-            <element signature="e#13117#13118#0" expanded="true" />
-            <element signature="e#13146#13147#0" expanded="true" />
-            <element signature="e#13175#13176#0" expanded="true" />
-            <element signature="e#13203#13204#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13258#13259#0" expanded="true" />
-            <element signature="e#13287#13288#0" expanded="true" />
-            <element signature="e#13349#13350#0" expanded="true" />
-            <element signature="e#13399#13400#0" expanded="true" />
-            <element signature="e#13586#13587#0" expanded="true" />
-            <element signature="e#13623#13624#0" expanded="true" />
-            <element signature="e#13653#13654#0" expanded="true" />
-            <element signature="e#13685#13686#0" expanded="true" />
-            <element signature="e#13722#13723#0" expanded="true" />
-            <element signature="e#13751#13752#0" expanded="true" />
-            <element signature="e#13781#13782#0" expanded="true" />
-            <element signature="e#13811#13812#0" expanded="true" />
-            <element signature="e#13849#13850#0" expanded="true" />
-            <element signature="e#13875#13876#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -717,51 +560,6 @@
           <caret line="189" column="16" selection-start-line="189" selection-start-column="16" selection-end-line="189" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11064#11406#0" />
-            <element signature="e#11007#11367#0" />
-            <element signature="e#11373#11756#0" />
-            <element signature="e#12215#12216#0" expanded="true" />
-            <element signature="e#12243#12244#0" expanded="true" />
-            <element signature="e#12308#12309#0" expanded="true" />
-            <element signature="e#12340#12341#0" expanded="true" />
-            <element signature="e#12390#12391#0" expanded="true" />
-            <element signature="e#12419#12420#0" expanded="true" />
-            <element signature="e#12466#12467#0" expanded="true" />
-            <element signature="e#12493#12494#0" expanded="true" />
-            <element signature="e#12524#12525#0" expanded="true" />
-            <element signature="e#12551#12552#0" expanded="true" />
-            <element signature="e#12591#12592#0" expanded="true" />
-            <element signature="e#12622#12623#0" expanded="true" />
-            <element signature="e#12681#12682#0" expanded="true" />
-            <element signature="e#12718#12719#0" expanded="true" />
-            <element signature="e#12772#12773#0" expanded="true" />
-            <element signature="e#12810#12811#0" expanded="true" />
-            <element signature="e#12840#12841#0" expanded="true" />
-            <element signature="e#12884#12885#0" expanded="true" />
-            <element signature="e#12918#12919#0" expanded="true" />
-            <element signature="e#12955#12956#0" expanded="true" />
-            <element signature="e#12999#13000#0" expanded="true" />
-            <element signature="e#13035#13036#0" expanded="true" />
-            <element signature="e#13082#13083#0" expanded="true" />
-            <element signature="e#13117#13118#0" expanded="true" />
-            <element signature="e#13146#13147#0" expanded="true" />
-            <element signature="e#13175#13176#0" expanded="true" />
-            <element signature="e#13203#13204#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13258#13259#0" expanded="true" />
-            <element signature="e#13287#13288#0" expanded="true" />
-            <element signature="e#13349#13350#0" expanded="true" />
-            <element signature="e#13399#13400#0" expanded="true" />
-            <element signature="e#13586#13587#0" expanded="true" />
-            <element signature="e#13623#13624#0" expanded="true" />
-            <element signature="e#13653#13654#0" expanded="true" />
-            <element signature="e#13685#13686#0" expanded="true" />
-            <element signature="e#13722#13723#0" expanded="true" />
-            <element signature="e#13751#13752#0" expanded="true" />
-            <element signature="e#13781#13782#0" expanded="true" />
-            <element signature="e#13811#13812#0" expanded="true" />
-            <element signature="e#13849#13850#0" expanded="true" />
-            <element signature="e#13875#13876#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -857,13 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard2/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5428">
-          <caret line="246" column="35" selection-start-line="246" selection-start-column="35" selection-end-line="246" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard2/Data.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3519">
@@ -892,20 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="81" column="42" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
-          <folding>
-            <element signature="method#Solution#0;class#Solution#0" />
-            <element signature="method#Solution#1;class#Solution#0" />
-            <element signature="method#feasion#0;class#Solution#0" />
-            <element signature="method#feasion#1;class#Solution#0" />
-            <element signature="method#showSolution#0;class#Solution#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/State.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -920,51 +697,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-          <folding>
-            <element signature="method#Solve#0;class#VRPTW#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MP1.lp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MP.lp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaFX/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard2/Parameter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/MP1.lp" />
     <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -992,13 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Applications/CPLEX_Studio128/cplex/lib/cplex.jar!/ilog/cplex/IloCplex.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1006,12 +732,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="43" column="14" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+          <folding>
+            <element signature="method#Solution#0;class#Solution#0" />
+            <element signature="method#Solution#1;class#Solution#0" />
+            <element signature="method#feasion#1;class#Solution#0" />
+            <element signature="method#showSolution#0;class#Solution#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/VRPTW.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2599">
+          <caret line="123" column="16" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+          <folding>
+            <element signature="method#Solve#0;class#VRPTW#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard2/Parameter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard2/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2116">
+          <caret line="102" column="48" selection-start-line="102" selection-start-column="48" selection-end-line="102" selection-end-column="48" />
+          <folding>
+            <element signature="method#Solve#0;class#Model#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/left.lp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="51" column="13" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MP.lp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="46" column="65" selection-start-line="46" selection-start-column="65" selection-end-line="46" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+        <state relative-caret-position="1886">
+          <caret line="86" column="55" selection-start-line="86" selection-start-column="55" selection-end-line="86" selection-end-column="55" />
           <folding>
-            <element signature="method#findRoutes#0;class#DP#0" />
             <element signature="method#helper#0;class#DP#0" />
             <element signature="method#test#0;class#DP#0" />
             <element signature="method#getVechile#0;class#DP#0" />
@@ -1020,81 +813,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/CG.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-953">
-          <caret line="310" column="33" selection-start-line="310" selection-start-column="33" selection-end-line="310" selection-end-column="33" />
+        <state relative-caret-position="6854">
+          <caret line="302" column="22" selection-start-line="302" selection-start-column="22" selection-end-line="302" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11064#11406#0" />
-            <element signature="e#11007#11367#0" />
-            <element signature="e#11373#11756#0" />
-            <element signature="e#12215#12216#0" expanded="true" />
-            <element signature="e#12243#12244#0" expanded="true" />
-            <element signature="e#12308#12309#0" expanded="true" />
-            <element signature="e#12340#12341#0" expanded="true" />
-            <element signature="e#12390#12391#0" expanded="true" />
-            <element signature="e#12419#12420#0" expanded="true" />
-            <element signature="e#12466#12467#0" expanded="true" />
-            <element signature="e#12493#12494#0" expanded="true" />
-            <element signature="e#12524#12525#0" expanded="true" />
-            <element signature="e#12551#12552#0" expanded="true" />
-            <element signature="e#12591#12592#0" expanded="true" />
-            <element signature="e#12622#12623#0" expanded="true" />
-            <element signature="e#12681#12682#0" expanded="true" />
-            <element signature="e#12718#12719#0" expanded="true" />
-            <element signature="e#12772#12773#0" expanded="true" />
-            <element signature="e#12810#12811#0" expanded="true" />
-            <element signature="e#12840#12841#0" expanded="true" />
-            <element signature="e#12884#12885#0" expanded="true" />
-            <element signature="e#12918#12919#0" expanded="true" />
-            <element signature="e#12955#12956#0" expanded="true" />
-            <element signature="e#12999#13000#0" expanded="true" />
-            <element signature="e#13035#13036#0" expanded="true" />
-            <element signature="e#13082#13083#0" expanded="true" />
-            <element signature="e#13117#13118#0" expanded="true" />
-            <element signature="e#13146#13147#0" expanded="true" />
-            <element signature="e#13175#13176#0" expanded="true" />
-            <element signature="e#13203#13204#0" expanded="true" />
-            <element signature="e#13232#13233#0" expanded="true" />
-            <element signature="e#13258#13259#0" expanded="true" />
-            <element signature="e#13287#13288#0" expanded="true" />
-            <element signature="e#13349#13350#0" expanded="true" />
-            <element signature="e#13399#13400#0" expanded="true" />
-            <element signature="e#13586#13587#0" expanded="true" />
-            <element signature="e#13623#13624#0" expanded="true" />
-            <element signature="e#13653#13654#0" expanded="true" />
-            <element signature="e#13685#13686#0" expanded="true" />
-            <element signature="e#13722#13723#0" expanded="true" />
-            <element signature="e#13751#13752#0" expanded="true" />
-            <element signature="e#13781#13782#0" expanded="true" />
-            <element signature="e#13811#13812#0" expanded="true" />
-            <element signature="e#13849#13850#0" expanded="true" />
-            <element signature="e#13875#13876#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/BranchAndBound.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="874">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#BranchAndBound#0;class#BranchAndBound#0" />
+            <element signature="method#test#0;class#BranchAndBound#0" />
+            <element signature="method#test1#0;class#BranchAndBound#0" />
             <element signature="method#updateLeftModel#0;class#BranchAndBound#0" />
             <element signature="method#updateRightModel#0;class#BranchAndBound#0" />
-            <element signature="method#Solve#0;class#BranchAndBound#0" />
             <element signature="method#branch#0;class#BranchAndBound#0" />
             <element signature="method#branch1#0;class#BranchAndBound#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/CG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="857">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/JavaFX/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Genetic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
         </state>
       </provider>
     </entry>

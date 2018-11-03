@@ -46,23 +46,86 @@ public class BranchAndBound {
          mp.setName("masterModel");
          mp.Solve1();
          mp.solveMPModel();
+         test1(mp);
          if(mp.getInteger()) {
              upperBound = mp.getBest();
          }
         //处理根结点，先建立根结点，然后判断是否是整数，分支，子树进队列
         if(mp.getInteger()) return;
         int[] edge=branch(mp);
-        //if(edge[0]==0 && edge[1]==0) return;
+        if(edge[0]==0 && edge[1]==0) return;
         System.out.println("branch edge is :"+edge[0]+"-"+edge[1]);
         //根据mp重新建立左右子树
         CG left=new CG(task,truck,mp.getPaths().keySet().size(),data);
         updateLeftModel(edge,left,mp);
-        left.buildMPModel();
-        left.solveMPModel();
         CG right=new CG(task,truck,mp.getPaths().keySet().size(),data);
         updateRightModel(edge,right,mp);
         searchTree.offer(left);
         searchTree.offer(right);
+     }
+
+     private void test(CG mp,CG left){
+         for(int i=1;i<mp.getC().length;i++){
+             if(mp.getC()[i]!=left.getC()[i]){
+                 System.out.println("c");
+                 System.exit(0);
+             }
+         }
+         for(int i=1;i<mp.getB().length;i++){
+             if(mp.getB()[i]!=left.getB()[i]){
+                 System.out.println("b");
+                 System.exit(0);
+             }
+         }
+         if(mp.getA()[1].length!=left.getA()[1].length){
+             System.out.println("length");
+             System.exit(0);
+         }
+         for(int i=1;i<mp.getA().length;i++){
+             for(int j=1;j<mp.getA()[1].length;j++){
+                 if(mp.getA()[i][j]!=left.getA()[i][j]){
+                     System.out.println("a");
+                     System.exit(0);
+                 }
+             }
+         }
+         HashMap<Integer,List<Integer>> map1=mp.getPaths();
+         HashMap<Integer,List<Integer>> map2=left.getPaths();
+         for(Integer key:map1.keySet()){
+             if(map1.get(key).size()!=map2.get(key).size()){
+                 System.out.println("size");
+                 System.exit(0);
+             }
+             if(!map1.get(key).containsAll(map2.get(key))){
+                 System.out.println(key);
+                 System.exit(0);
+             }
+         }
+     }
+
+     private void test1(CG model){
+        HashMap<Integer,List<Integer>> paths=model.getPaths();
+        HashMap<Integer,Integer> trucks=model.getTrucks();
+        for(Integer key:paths.keySet()){
+            if(trucks.get(key)==1){
+                if(paths.get(key).size()!=1) continue;
+                if(paths.get(key).contains(3)){
+                    System.out.println("第一个平板车上最优解存在");
+                }
+            }else if(trucks.get(key)==2){
+                if(paths.get(key).size()!=1) continue;
+                if(paths.get(key).contains(9)){
+                    System.out.println("第二个平板车上最优解存在");
+                }
+            }else if(trucks.get(key)==3){
+                if(paths.get(key).size()!=8) continue;
+                if(paths.get(key).get(0)==8 && paths.get(key).get(1)==12 && paths.get(key).get(3)==4
+                        && paths.get(key).get(4)==14 && paths.get(key).get(5)==13 && paths.get(key).get(6)==11
+                        && paths.get(key).get(7)==7 && paths.get(key).get(8)==10){
+                    System.out.println("第三个平板车上最优解存在");
+                }
+            }
+        }
      }
     /***
      * 更新左模型的信息，即将用于建模的所有信息都更新好，但不建模
@@ -79,8 +142,6 @@ public class BranchAndBound {
           }
           int[] b=mp.getB().clone();
           double[] c=mp.getC().clone();
-
-
           HashMap<Integer,List<Integer>> list=mp.getPaths();
           for(Integer key:list.keySet()){
               List<Integer> path=list.get(key);
@@ -123,7 +184,6 @@ public class BranchAndBound {
           left.setName(edge[0]+"-"+edge[1]+":leftModel");
           System.out.println("---------");
           System.out.println(left.getName());
-          left.test();
           System.out.println("-----------");
           //System.out.println(TAG);
      }
@@ -166,7 +226,6 @@ public class BranchAndBound {
          right.setName(edge[0]+"-"+edge[1]+":rightModel");
          System.out.println("----------");
          System.out.println(right.getName());
-         right.test();
          System.out.println("-----------");
          //System.out.println(TAG);
      }
@@ -202,8 +261,10 @@ public class BranchAndBound {
                  //根据top重新建立左右子树
                  CG left = new CG(task, truck, top.getPaths().keySet().size(), data);
                  updateLeftModel(edge, left,top);
+                 test1(left);
                  CG right = new CG(task, truck, top.getPaths().keySet().size(), data);
                  updateRightModel(edge, right,top);
+                 test1(right);
                  searchTree.offer(left);
                  searchTree.offer(right);
              }
@@ -267,7 +328,7 @@ public class BranchAndBound {
              }
          }
          //满足路径变量是整数，并且每个任务只出现一次，但是车的数量出现多次，也是需要分支的
-         //ans=branch1(paths,trucks);
+         ans=branch1(paths,trucks);
          return ans;
      }
 

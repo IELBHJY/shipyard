@@ -41,7 +41,7 @@ public class Solution {
         if(Math.abs(sum-objection)>1){
             System.out.println("解决方案计算得到的目标函数不等于模型目标函数值");
             System.out.println(sum+" "+objection);
-            System.exit(0);
+            //System.exit(0);
         }
         //车载荷判断
         for(Integer key:res.keySet()){

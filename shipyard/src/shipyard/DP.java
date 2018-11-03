@@ -84,7 +84,7 @@ public class DP {
                             queue.offer(tmp);
                             sum++;
                             sum1++;
-                            if(sum1>findRoute/2){
+                            if(sum1>findRoute/(data.t-1)){
                                 break;
                             }
                             if(sum>=findRoute){

@@ -13,8 +13,8 @@ public class Main {
         problem.Solve();
         long end=System.currentTimeMillis();
         System.out.println("求解耗时："+(end-start)/1000.0);
-        TabuSearch ts=new TabuSearch(data);
-        ts.update();
+        //TabuSearch ts=new TabuSearch(data);
+        //ts.update();
     }
 
     private static void getData(){

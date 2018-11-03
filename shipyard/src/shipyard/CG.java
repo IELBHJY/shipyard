@@ -39,7 +39,7 @@ public class CG {
     IloNumVar[] st;
     IloNumVar[][] y;
     int Q=10000;
-    int findRoute=50;
+    int findRoute=Parameter.findRoutes;
     int[][] tabuEdges;//由于分支造成的不能选，或者必须选的边，不能选的边用-1表示，必须选的边用1表示。
     boolean hasPaths=true;
     String name="name";
@@ -103,10 +103,15 @@ public class CG {
         for(int i=1;i<=z;i++){
             a[i][i]=1;
         }
+        boolean ishelper3=false;
         for(int i=1;i<=z;i++){
             int t=1;
             while(data.taskWeights[i]>data.truckCaptitys[t]){
                 t++;
+            }
+            if(t==2 && !ishelper3){
+                t=3;
+                ishelper3=true;
             }
             a[H+t][i]=1;
             trucks.put(i,t);
@@ -259,19 +264,19 @@ public class CG {
             IloColumn column = MP.column(MPCosts, cost[i+length]);
             for ( int p = 1; p <= H; p++ ){
                 if(newRoutes[i].contains(p)){
-                    A[p][H+i+1]=1;
+                    A[p][length+i]=1;
                     column = column.and(MP.column(Fill[p], 1));
                 }else{
-                    A[p][H+i+1]=0;
+                    A[p][length+i]=0;
                     column = column.and(MP.column(Fill[p], 0));
                 }
             }
             for(int p=H+1;p<=H+T;p++){
                 if(p-H==newVechiles[i]) {
-                    A[p][H+i+1]=1;
+                    A[p][length+i]=1;
                     column = column.and(MP.column(Fill[p], 1));
                 }else{
-                    A[p][H+i+1]=0;
+                    A[p][length+i]=0;
                     column = column.and(MP.column(Fill[p], 0));
                 }
             }
@@ -295,7 +300,7 @@ public class CG {
     //列生产部分的求解过程和终止条件
     public void Solve1() throws IloException{
         int count=0;
-        while (count<2) {
+        while (count<8) {
             solveMPModel();
             DPSolve1();
             if(!hasPaths){
