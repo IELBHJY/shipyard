@@ -14,6 +14,8 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
+        Genetic ga=new Genetic(task,truck,10000,data);
+        ga.Solve();
         /*System.out.println(data.w[0][5]+data.w[5][12]+data.w[12][4]+data.w[4][6]+data.w[6][10]+data.w[10][11]+data.w[11][0]);
         System.out.println(data.w[0][3]+data.w[3][12]+data.w[12][8]+data.w[8][7]+data.w[7][9]+data.w[9][0]);
         System.out.println(data.w[0][2]+data.w[2][1]+data.w[1][0]);
@@ -35,7 +37,7 @@ public class Main {
         }
         masterproblem.inital(TabuSearch.res,c,b);
         masterproblem.buildMPModel();*/
-        BranchAndBound b=new BranchAndBound(task,truck,data);
-        b.Solve();
+        //BranchAndBound b=new BranchAndBound(task,truck,data);
+        //b.Solve();
     }
 }

@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6718f1e-1904-42b0-9d9e-870a0ab3cf79" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/shipyard/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../JavaFX/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../JavaFX/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaFX/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../JavaFX/out/production/JavaFX/sample/Login.css" beforeDir="false" />
@@ -19,27 +18,12 @@
       <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/login.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../JavaFX/src/sample/main_stage.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../bug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../bug.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MP.lp" beforeDir="false" afterPath="$PROJECT_DIR$/MP.lp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MP1.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/shipyard_ovoc.xls" beforeDir="false" afterPath="$PROJECT_DIR$/data/shipyard_ovoc.xls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/BranchAndBound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/BranchAndBound.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/CG.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/CG.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/DP.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/DP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/shipyard/JavaFX/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Parameter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Parameter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard/Solution.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard/Solution.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/shipyard/shipyard2/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JavaFX/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/CG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/CG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/DP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/DP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shipyard/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shipyard/Parameter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Parameter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shipyard2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/shipyard2/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../列生成模型.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../考虑平板车承重能力的船舶分段运输调度方法10-08.docx" beforeDir="false" />
     </list>
@@ -56,8 +40,8 @@
       <file leaf-file-name="Parameter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+            <state relative-caret-position="253">
+              <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -65,8 +49,46 @@
       <file leaf-file-name="Genetic.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Genetic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            <state relative-caret-position="235">
+              <caret line="83" column="17" lean-forward="true" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#Genetic#0;class#Genetic#0" />
+                <element signature="method#creatInitialSolution#0;class#Genetic#0" />
+                <element signature="method#decoding#0;class#Genetic#0" />
+                <element signature="method#calPathCost#0;class#Genetic#0" />
+                <element signature="method#calTasksTime#0;class#Genetic#0" />
+                <element signature="method#creatSonSolution#0;class#Genetic#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TabuSearch.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+              <folding>
+                <element signature="e#997#1783#0" />
+                <element signature="e#1789#2636#0" />
+                <element signature="e#2642#3494#0" />
+                <element signature="e#3500#4371#0" />
+                <element signature="e#4377#5614#0" />
+                <element signature="e#5620#6115#0" />
+                <element signature="e#6121#9321#0" />
+                <element signature="e#9327#11708#0" />
+                <element signature="e#11714#12065#0" />
+                <element signature="e#12071#13022#0" />
+                <element signature="e#13028#13603#0" />
+                <element signature="e#13609#13984#0" />
+                <element signature="e#13990#14414#0" />
+                <element signature="e#14420#14844#0" />
+                <element signature="e#14850#17105#0" />
+                <element signature="e#17111#17830#0" />
+                <element signature="e#17836#18561#0" />
+                <element signature="e#18567#18849#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,24 +108,6 @@
                 <element signature="method#branch#0;class#BranchAndBound#0" />
                 <element signature="method#branch1#0;class#BranchAndBound#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard2/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Parameter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/shipyard2/Parameter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -138,8 +142,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+            <state relative-caret-position="-175">
+              <caret line="6" column="64" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -184,16 +188,17 @@
         <option value="$PROJECT_DIR$/src/shipyard2/Main.java" />
         <option value="$PROJECT_DIR$/src/shipyard2/Model.java" />
         <option value="$PROJECT_DIR$/src/shipyard/DP.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Main.java" />
         <option value="$PROJECT_DIR$/src/shipyard/BranchAndBound.java" />
         <option value="$PROJECT_DIR$/src/shipyard/CG.java" />
-        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Main.java" />
         <option value="$PROJECT_DIR$/src/shipyard/Genetic.java" />
+        <option value="$PROJECT_DIR$/src/shipyard/Parameter.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="x" value="16" />
+    <option name="y" value="26" />
     <option name="width" value="1280" />
     <option name="height" value="725" />
   </component>
@@ -203,6 +208,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,9 +233,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,28 +365,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="725" extended-state="0" />
+    <frame x="16" y="26" width="1280" height="725" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32961783" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.38853502" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5024233" side_tool="true" weight="0.3375796" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49757674" weight="0.544586" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49757674" weight="0.18949045" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32961783" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.2413793" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.39490446" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28756058" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32961783" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2924071" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.63535035" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39490446" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -389,7 +394,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.38853502" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32961783" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -405,7 +410,7 @@
           <option name="timeStamp" value="324" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="325" />
+      <option name="time" value="330" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -415,6 +420,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>this.isFeason</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>mp.getTrucks()</expression-string>
         <language-id>JAVA</language-id>
@@ -452,11 +462,6 @@
       </expression>
       <expression>
         <expression-string>left.getMP().exportModel(&quot;left.lp&quot;)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mp.getMP().exportModel(&quot;mp.lp&quot;)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -698,33 +703,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MP1.lp" />
-    <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-          <folding>
-            <element signature="e#997#1783#0" />
-            <element signature="e#1789#2636#0" />
-            <element signature="e#2642#3494#0" />
-            <element signature="e#3500#4371#0" />
-            <element signature="e#4377#5614#0" />
-            <element signature="e#5620#6115#0" />
-            <element signature="e#6121#9321#0" />
-            <element signature="e#9327#11708#0" />
-            <element signature="e#11714#12065#0" />
-            <element signature="e#12071#13022#0" />
-            <element signature="e#13028#13603#0" />
-            <element signature="e#13609#13984#0" />
-            <element signature="e#13990#14414#0" />
-            <element signature="e#14420#14844#0" />
-            <element signature="e#14850#17105#0" />
-            <element signature="e#17111#17830#0" />
-            <element signature="e#17836#18561#0" />
-            <element signature="e#18567#18849#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Applications/CPLEX_Studio128/cplex/lib/cplex.jar!/ilog/cplex/IloCplex.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -793,13 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/DP.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1886">
@@ -847,24 +818,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/JavaFX/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/JavaFX/Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/shipyard/TabuSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="217">
+          <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+          <folding>
+            <element signature="e#997#1783#0" />
+            <element signature="e#1789#2636#0" />
+            <element signature="e#2642#3494#0" />
+            <element signature="e#3500#4371#0" />
+            <element signature="e#4377#5614#0" />
+            <element signature="e#5620#6115#0" />
+            <element signature="e#6121#9321#0" />
+            <element signature="e#9327#11708#0" />
+            <element signature="e#11714#12065#0" />
+            <element signature="e#12071#13022#0" />
+            <element signature="e#13028#13603#0" />
+            <element signature="e#13609#13984#0" />
+            <element signature="e#13990#14414#0" />
+            <element signature="e#14420#14844#0" />
+            <element signature="e#14850#17105#0" />
+            <element signature="e#17111#17830#0" />
+            <element signature="e#17836#18561#0" />
+            <element signature="e#18567#18849#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shipyard/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175">
+          <caret line="6" column="64" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/Parameter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        <state relative-caret-position="253">
+          <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shipyard/Genetic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+        <state relative-caret-position="235">
+          <caret line="83" column="17" lean-forward="true" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Genetic#0;class#Genetic#0" />
+            <element signature="method#creatInitialSolution#0;class#Genetic#0" />
+            <element signature="method#decoding#0;class#Genetic#0" />
+            <element signature="method#calPathCost#0;class#Genetic#0" />
+            <element signature="method#calTasksTime#0;class#Genetic#0" />
+            <element signature="method#creatSonSolution#0;class#Genetic#0" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -9,4 +9,5 @@ public class Parameter {
     final static int tabuLength=10;
     final static int max_iteration=150;
     final static int findRoutes=10000;
+    final static int PENTY_VALUE=10000;
 }
