@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FXML.Storage">
+   <children>
+      <Label layoutX="20.0" layoutY="14.0" text="堆位信息" />
+      <TableView layoutX="33.0" layoutY="57.0" prefHeight="327.0" prefWidth="388.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="117.0" text="堆位号" />
+            <TableColumn prefWidth="88.0" text="堆位横坐标" />
+            <TableColumn prefWidth="107.0" text="堆位纵坐标" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

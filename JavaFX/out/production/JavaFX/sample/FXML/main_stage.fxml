@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Main_stage">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="用户管理">
+            <items>
+                  <MenuItem fx:id="userInformation" mnemonicParsing="false" onAction="#show_userTable_click" text="用户信息表" />
+              <MenuItem fx:id="user_close" mnemonicParsing="false" onAction="#user_close_click" text="关闭" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="船厂数据管理">
+            <items>
+                  <MenuItem fx:id="block_information" mnemonicParsing="false" onAction="#show_blocksTable" text="任务分段信息" />
+                  <MenuItem fx:id="shipyard_information" mnemonicParsing="false" onAction="#show_shipyardTable" text="堆场信息" />
+                  <RadioMenuItem fx:id="yard_information" mnemonicParsing="false" onAction="#show_yardTable" text="堆位信息" />
+                  <MenuItem fx:id="flatcar_information" mnemonicParsing="false" onAction="#show_flatcarTable" text="平板车信息" />
+                  <MenuItem fx:id="road_information" mnemonicParsing="false" onAction="#show_road" text="厂区道路信息" />
+              <MenuItem fx:id="ship_data_close" mnemonicParsing="false" onAction="#ship_data_close_click" text="关闭" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="调度模块">
+            <items>
+              <MenuItem mnemonicParsing="false" text="单车单分段调度" />
+                  <MenuItem mnemonicParsing="false" text="合作运输调度" />
+                  <MenuItem mnemonicParsing="false" text="平板车行驶路径" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

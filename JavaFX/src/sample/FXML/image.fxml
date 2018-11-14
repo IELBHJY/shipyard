@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.image">
+   <children>
+      <Button fx:id="button1" layoutX="476.0" layoutY="330.0" mnemonicParsing="false" onAction="#show_image" text="Load View" />
+      <ImageView fx:id="imageview" fitHeight="228.0" fitWidth="523.0" layoutX="33.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

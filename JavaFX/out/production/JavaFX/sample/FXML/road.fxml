@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.road">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="厂区道路信息" />
+      <TableView fx:id="road_table" layoutX="20.0" layoutY="46.0" prefHeight="331.0" prefWidth="240.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+          <TableColumn minWidth="9.0" prefWidth="68.0" text="横坐标" fx:id="xcood" />
+            <TableColumn fx:id="ycood" prefWidth="86.0" text="纵坐标" />
+        </columns>
+      </TableView>
+      <ImageView fx:id="road_image" fitHeight="298.0" fitWidth="321.0" layoutX="272.0" layoutY="75.0" nodeOrientation="INHERIT" pickOnBounds="true" smooth="false">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+      <Label layoutX="291.0" layoutY="14.0" text="厂区道路布局图" />
+   </children>
+</AnchorPane>

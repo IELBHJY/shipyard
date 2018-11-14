@@ -23,6 +23,7 @@ public class TabuSearch {
     static boolean[] isFeasion;
     static boolean[] isPrior;
     static double[][] taskTimes;
+    double[] teshe_time;
     double[][] AllperTruckcost;
     double[] bestPerTruckcost;
     static double weight1=1.0;
@@ -33,6 +34,7 @@ public class TabuSearch {
     static HashMap<String,Integer> tabuTable1;
     static HashMap<String,Integer> tabuTable2;
     static Data data;
+
     public TabuSearch(Data data,int size) {
         best=inf;
         this.data = data;
@@ -56,6 +58,26 @@ public class TabuSearch {
         AllperTruckcost=new double[size][truck];
         bestPerTruckcost=new double[truck];
         this.size=size;
+    }
+
+
+    public void setInitialSolution(int[] tasks,int[] trucks){
+        this.tasks[0]=tasks.clone();
+        this.trucks[0]=trucks.clone();
+        long start=System.currentTimeMillis();
+        int current_iteration=0;
+        while(current_iteration<Parameter.max_iteration) {
+            creatNeighbours();
+            evaluteSolution();
+            updateSolution();
+            specialAmnesty();
+            current_iteration++;
+        }
+        long end=System.currentTimeMillis();
+        showSolutions();
+        Solution solution=new Solution(data,best,res,bestTimes);
+        solution.feasion(true);
+        System.out.println("Solving Time:"+(end-start)/1000.0+" seconds");
     }
 
     public void creatFirstSolutions(){
@@ -114,7 +136,7 @@ public class TabuSearch {
         for(Integer key:solution.keySet()){
             List<Integer> list=solution.get(key);
             if(list.size()==0) {
-                res+=10000;
+                res+=Parameter.PENTY_VALUE;
                 continue;
             }
             int size=list.size();
@@ -128,7 +150,7 @@ public class TabuSearch {
             penty+=calTasksTime(m,list);
             AllperTruckcost[m][key-1]=res+10*penty;
         }
-        res+=50*penty;
+        res+=weight1*50*penty;
         if(penty<0.1) {
             isFeasion[m] = true;
         }else{
@@ -170,7 +192,8 @@ public class TabuSearch {
         for(int i=1;i<size;i++){
             int[] temp1=tasks[0].clone();
             int[] temp2=trucks[0].clone();
-            if(i<size/2) {
+            int num=(int) (Math.random()*10);
+            if(num<5) {
                 int[] a=crossover(temp1,temp2);
                 operations.put(i,a);
             }else {
@@ -342,6 +365,10 @@ public class TabuSearch {
     }
 
     public void evaluteSolution(){
+        /*
+        * objections[0]存储本次中最好的值
+        * */
+
         for(int i=1;i<size;i++){
             objections[i]=calObjection(i);
         }
@@ -361,13 +388,12 @@ public class TabuSearch {
             System.out.println("best solution is update:"+best);
             bestTasks = tasks[label].clone();
             bestTrucks = trucks[label].clone();
-            bestTimes=taskTimes[label].clone();
-            bestPerTruckcost=AllperTruckcost[label].clone();
+            bestTimes = taskTimes[label].clone();;
         }
         if(isFeasion[label]){
-            weight1*=0.95;
+            weight1*=0.98;
         }else{
-            weight1/=0.95;
+            weight1/=0.98;
         }
         for (int i = 1; i < data.n; i++) {
             tasks[0][i] = tasks[label][i];
@@ -377,10 +403,11 @@ public class TabuSearch {
         if(operations.keySet().contains(label)){
             action=operations.get(label);
             updateTabuTable();
-        }else{
+        }
+        /*else{
             System.out.println("!operations.keySet().contains(label)");
             //System.exit(0);
-        }
+        }*/
     }
 
     public void updateTabuTable(){
@@ -399,49 +426,12 @@ public class TabuSearch {
          tabuTable.put(key,Parameter.tabuLength);
     }
 
-    private void updateTable(){
-        if(operations.keySet().contains(label)){
-            action=operations.get(label);
-            if(label<size/2){
-                updateTabuTable1();
-            }else{
-                updateTabuTable2();
-            }
-        }else{
-            System.out.println("operations.keySet().contains(label)");
-            return;
-        }
-    }
-
-    public void updateTabuTable1(){
-        String key=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
-        tabuTable1.put(key,Parameter.tabuLength);
-        for(String keys:tabuTable1.keySet()){
-            if(tabuTable1.get(key)==0){
-                tabuTable1.remove(keys);
-            }else{
-                tabuTable1.put(keys,tabuTable1.get(keys)-1);
-            }
-        }
-    }
-
-    public void updateTabuTable2(){
-        String key=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
-        tabuTable2.put(key,Parameter.tabuLength);
-        for(String keys:tabuTable2.keySet()){
-            if(tabuTable2.get(key)==0){
-                tabuTable2.remove(keys);
-            }else{
-                tabuTable2.put(keys,tabuTable2.get(keys)-1);
-            }
-        }
-    }
-
     public boolean specialAmnesty(){
         if(tabuTable==null) return false;
         double min=inf;
         boolean isSA=false;
         for(String key:tabuTable.keySet()){
+            teshe_time=new double[task+1];
             int task1=Integer.parseInt(key.split("-")[0]);
             int task2=Integer.parseInt(key.split("-")[1]);
             int first=0,last=0;
@@ -484,23 +474,76 @@ public class TabuSearch {
                     map.get(temp2[i]).add(temp1[i]);
                 }
             }
-            double result=calObjection(0,map);
+            double result=calObjection(map);
             if(result<best && result<min){
-                System.out.println("特赦规则满足！");
+                System.out.println("特赦规则成立: "+result+" "+best);
                 min=result;
                 best=result;
                 objections[0]=result;
                 bestTasks=temp1.clone();
                 bestTrucks=temp2.clone();
+                bestTimes=teshe_time.clone();
                 tasks[0]=temp1.clone();
                 trucks[0]=temp2.clone();
+                taskTimes[0]=teshe_time.clone();
                 isSA=true;
             }
         }
         return isSA;
     }
 
-    public void update(){
+    public  double calObjection(HashMap<Integer,List<Integer>> solution){
+        double res=0;
+        double penty=0.0;
+        for(Integer key:solution.keySet()){
+            List<Integer> list=solution.get(key);
+            if(list.size()==0) {
+                res+=10000;
+                continue;
+            }
+            int size=list.size();
+            int first=list.get(0);
+            int last=list.get(size-1);
+            res+=data.w[0][first];
+            for(int i=0;i<size-1;i++){
+                res+=data.w[list.get(i)][list.get(i+1)];
+            }
+            res+=data.w[last][0];
+            penty+=calTasksTime(list);
+        }
+        res+=50*penty;
+        return res;
+    }
+
+    public  double calTasksTime(List<Integer> list){
+        double res=0;
+        if(list.size()==0){
+            return res;
+        }
+        int first=list.get(0);
+        if(data.w[0][first]>=data.earlyTime[first] && data.w[0][first]<=data.lateTime[first]){
+            teshe_time[first]=data.w[0][first];
+        }else if(data.w[0][first]<data.earlyTime[first]){
+            teshe_time[first]=data.earlyTime[first];
+        }else if(data.w[0][first]>data.lateTime[first]){
+            res+=data.w[0][first]-data.lateTime[first];
+            teshe_time[first]=data.w[0][first];
+        }
+        for(int i=1;i<list.size();i++){
+            double temp=teshe_time[list.get(i-1)]+data.carryTaskTime[list.get(i-1)]+data.w[list.get(i-1)][list.get(i)];
+            if(temp>=data.earlyTime[list.get(i)] && temp<=data.lateTime[list.get(i)]){
+                teshe_time[list.get(i)]=temp;
+            }else if(temp<data.earlyTime[list.get(i)]){
+                teshe_time[list.get(i)]=data.earlyTime[list.get(i)];
+            }else if(temp>data.lateTime[list.get(i)]){
+                res+=temp-data.lateTime[list.get(i)];
+                teshe_time[list.get(i)]=temp;
+            }
+        }
+        return res;
+    }
+
+    public void Solve(){
         long start=System.currentTimeMillis();
         creatFirstSolutions();
         evaluteSolution();
@@ -510,9 +553,8 @@ public class TabuSearch {
             creatNeighbours();
             evaluteSolution();
             updateSolution();
-            //updateTable();
+            specialAmnesty();
             current_iteration++;
-            //System.out.println(current_iteration+":"+label);
         }
         long end=System.currentTimeMillis();
         showSolutions();
@@ -543,6 +585,9 @@ public class TabuSearch {
         }*/
     }
 
+
+    //-----------------------分割线-----------------------//
+
     public double[] getBestPerTruckcost(){
         double[] ans=new double[bestPerTruckcost.length];
         ans[0]=bestPerTruckcost[0];
@@ -550,5 +595,43 @@ public class TabuSearch {
             ans[i]=bestPerTruckcost[i]-bestPerTruckcost[i-1];
         }
         return ans;
+    }
+
+    private void updateTable(){
+        if(operations.keySet().contains(label)){
+            action=operations.get(label);
+            if(label<size/2){
+                updateTabuTable1();
+            }else{
+                updateTabuTable2();
+            }
+        }else{
+            System.out.println("operations.keySet().contains(label)");
+            return;
+        }
+    }
+
+    public void updateTabuTable1(){
+        String key=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
+        tabuTable1.put(key,Parameter.tabuLength);
+        for(String keys:tabuTable1.keySet()){
+            if(tabuTable1.get(key)==0){
+                tabuTable1.remove(keys);
+            }else{
+                tabuTable1.put(keys,tabuTable1.get(keys)-1);
+            }
+        }
+    }
+
+    public void updateTabuTable2(){
+        String key=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
+        tabuTable2.put(key,Parameter.tabuLength);
+        for(String keys:tabuTable2.keySet()){
+            if(tabuTable2.get(key)==0){
+                tabuTable2.remove(keys);
+            }else{
+                tabuTable2.put(keys,tabuTable2.get(keys)-1);
+            }
+        }
     }
 }

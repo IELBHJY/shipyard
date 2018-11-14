@@ -80,7 +80,25 @@ public class Solution {
     }
 
     public void feasion(boolean noTWCheck){
-        //车载荷判断
+        //目标函数判断
+        double sum=0.0;
+        for(Integer key:res.keySet()){
+            List<Integer> list=res.get(key);
+            int size=list.size();
+            if(size==0) continue;
+            sum+=data.w[0][list.get(0)];
+            for(int i=0;i<size-1;i++){
+                sum+=data.w[list.get(i)][list.get(i+1)];
+            }
+            sum+=data.w[list.get(size-1)][0];
+        }
+        if(Math.abs(sum-objection)>1){
+            System.out.println("解决方案计算得到的目标函数不等于模型目标函数值");
+            System.out.println(sum+" "+objection);
+            System.exit(0);
+        }
+        System.out.println("目标函数检测通过");
+        //车载荷判断 && 平板车上时间连续性检验
         for(Integer key:res.keySet()){
             List<Integer> list=res.get(key);
             for(Integer i:list){
@@ -89,7 +107,20 @@ public class Solution {
                     System.exit(0);
                 }
             }
+            int size=list.size();
+            for(int i=0;i<size-1;i++){
+                if(times[list.get(i)]+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]
+                        >times[list.get(i+1)]+epsilon){
+                    System.out.println("同一个车上的任务不满足时间连贯性");
+                    System.out.println(times[list.get(i)]+data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]);
+                    System.out.println(times[list.get(i)]);
+                    System.out.println(data.carryTaskTime[list.get(i)]+data.w[list.get(i)][list.get(i+1)]);
+                    System.out.println(times[list.get(i+1)]);
+                    System.exit(0);
+                }
+            }
         }
+        System.out.println("车辆负载 && 平板车上时间连续性检测通过");
         //时间窗
         for(int i=1;i<data.n;i++){
             if(times[i]+epsilon<data.earlyTime[i] || times[i]-epsilon>data.lateTime[i]){
@@ -99,8 +130,13 @@ public class Solution {
                 System.exit(0);
             }
         }
+        System.out.println("任务时间窗检测通过");
+
+
+
+
         //优先级
-        for(int i=1;i<data.n;i++){
+        /*for(int i=1;i<data.n;i++){
             if(data.prior[i]>0){
                 int num=data.prior[i];
                 if(times[i]+data.carryTaskTime[i]+epsilon<times[num]){
@@ -109,7 +145,7 @@ public class Solution {
                     System.exit(0);
                 }
             }
-        }
+        }*/
         showSolution();
     }
 

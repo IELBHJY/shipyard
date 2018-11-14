@@ -31,7 +31,7 @@ public class Model {
     public void build_model() throws IloException {
         model=new IloCplex();
         model.setOut(null);
-        model.setParam(IloCplex.DoubleParam.TimeLimit,3600);
+        model.setParam(IloCplex.DoubleParam.TimeLimit,60*60*4);
         y=new IloNumVar[data.n][data.t]; //y[i][l]
         z=new IloNumVar[data.n][data.n][data.t];//z[i][j][k]
         z_o=new IloNumVar[data.n][data.t];

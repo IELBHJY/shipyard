@@ -3,18 +3,12 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.sql.ResultSet;
 
 public class Login {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Label password;
@@ -23,27 +17,35 @@ public class Login {
     private Label user_id;
 
     @FXML
-    private TextField password_text;
+    private TextField nameText;
+
+    @FXML
+    private PasswordField passField;
 
     @FXML
     private Button OK;
 
-    @FXML
-    private TextField user_id_text;
-
     Main main;
+
+    ConnectDatabase db;
 
     @FXML
     void initialize() {
-        assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'login.fxml'.";
-        assert user_id != null : "fx:id=\"user_id\" was not injected: check your FXML file 'login.fxml'.";
-        assert password_text != null : "fx:id=\"password_text\" was not injected: check your FXML file 'login.fxml'.";
-        assert OK != null : "fx:id=\"OK\" was not injected: check your FXML file 'login.fxml'.";
-        assert user_id_text != null : "fx:id=\"user_id_text\" was not injected: check your FXML file 'login.fxml'.";
         main=new Main();
     }
+
     @FXML
     private void button_ok_click() throws Exception {
-        main.showMainStage();
+        db=new ConnectDatabase();
+        db.connection();
+        ResultSet rs=db.query("user");
+        while (rs.next()){
+            if(rs.getString("user_name").equals(nameText.getText())
+                && rs.getString("password").equals(passField.getText())){
+                main.showMainStage();
+                break;
+            }
+        }
+        db.close();
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FXML.Block">
+   <children>
+      <Label layoutX="23.0" layoutY="14.0" text="任务分段信息" />
+      <TableView layoutX="14.0" layoutY="38.0" prefHeight="301.0" prefWidth="525.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="146.0" text="分段号" />
+            <TableColumn minWidth="0.0" prefWidth="138.0" text="分段重量" />
+            <TableColumn minWidth="0.0" prefWidth="165.0" text="分段名称" />
+        </columns>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TableView>
+   </children>
+</AnchorPane>
