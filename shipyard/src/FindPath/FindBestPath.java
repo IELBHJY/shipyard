@@ -26,7 +26,7 @@ public class FindBestPath {
     public FindBestPath(int n,int[][] adj) throws Exception{
         this.n=n;
         this.adj=new List[n+1];
-        penty_turn=10;
+        penty_turn=3;
         for(int i=1;i<=n;i++){
             this.adj[i]=new ArrayList<>();
         }
@@ -90,7 +90,12 @@ public class FindBestPath {
        }
     }
 
-    public List<Integer> findShortPath(int source,int target){
+    public List<Integer> findShortPath(String start,String end,double[] cost) throws Exception{
+        double[] cost1={0.0,0.0};
+        int[] points=findPoints(start,end,cost1);
+        int source=points[0];
+        int target=points[1];
+        if(source==target) return new ArrayList<>();
         HashMap<Integer,List<Integer>> res=findAllPaths(source,target);
         List<Integer> ans=new ArrayList<>();
         double sum=Double.MAX_VALUE;
@@ -107,6 +112,8 @@ public class FindBestPath {
                 ans=res.get(key);
             }
         }
+        sum+=cost1[0]+cost1[1];
+        cost[0]=sum;
         return ans;
     }
     
@@ -124,6 +131,56 @@ public class FindBestPath {
         return ans;
     }
 
+    public int[] findPoints(String start,String end,double[] cost) throws Exception{
+        int[] ans=new int[2];
+        db.connection();
+        ResultSet rs=db.search("SELECT * FROM shipyard.storage where storage_name='"+start+"'");
+        rs.last();
+        int size=rs.getRow();
+        if(size==0){
+            System.out.println("start:"+start);
+            //System.exit(0);
+        }
+        rs.beforeFirst();
+        double x_start=0;
+        double y_start=0;
+        while (rs.next()) {
+            x_start = Double.parseDouble(rs.getString("xcoordinate"));
+            y_start = Double.parseDouble(rs.getString("ycoordinate"));
+        }
+        rs=db.search("SELECT * FROM storage where storage_name='"+end+"'");
+        rs.last();
+        size=rs.getRow();
+        if(size==0){
+            System.out.println("end:"+end);
+            //System.exit(0);
+        }
+        rs.beforeFirst();
+        double x_end=0;
+        double y_end=0;
+        while (rs.next()) {
+            x_end = Double.parseDouble(rs.getString("xcoordinate"));
+            y_end = Double.parseDouble(rs.getString("ycoordinate"));
+        }
+        db.close();
+        double min=Double.MAX_VALUE;
+        double min1=Double.MAX_VALUE;
+        for(int i=1;i<=n;i++){
+            double temp=Math.sqrt(Math.pow(x_start-xcoordinate[i],2)+Math.pow(y_start-ycoordinate[i],2));
+            if(temp<min){
+                min=temp;
+                ans[0]=i;
+            }
+            double temp1=Math.sqrt(Math.pow(x_end-xcoordinate[i],2)+Math.pow(y_end-ycoordinate[i],2));
+            if(temp1<min1){
+                min1=temp1;
+                ans[1]=i;
+            }
+        }
+        cost[0]=min;
+        cost[1]=min1;
+        return ans;
+    }
 
 
 }

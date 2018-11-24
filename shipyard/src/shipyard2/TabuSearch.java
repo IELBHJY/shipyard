@@ -33,10 +33,12 @@ public class TabuSearch {
     ArrayList<Integer> tabuLength1;//禁忌表的步长
     ArrayList<String> tabuTable2;//任务号-车号的禁忌表
     ArrayList<Integer> tabuLength2;//禁忌表的步长
-    ArrayList<String> tabuTable3;//任务号-车号的禁忌表
-    ArrayList<Integer> tabuLength3;//禁忌表的步长
+    ArrayList<String> tabuTable3;
+    ArrayList<Integer> tabuLength3;
     ArrayList<String> tabuTable4;//任务号-车号的禁忌表
     ArrayList<Integer> tabuLength4;//禁忌表的步长
+    ArrayList<String> tabuTable5;//任务号-车号的禁忌表
+    ArrayList<Integer> tabuLength5;//禁忌表的步长
     Data data;
     List<Integer> superTaskList;
     public TabuSearch(Data data) {
@@ -46,7 +48,7 @@ public class TabuSearch {
         this.data = data;
         task=data.n-1;
         truck=data.t-1;
-        action=new int[2];
+        action=new int[3];
         this.size=Parameter.size;
         tasks=new int[size][data.n];
         trucks=new int[size][data.n];
@@ -59,10 +61,12 @@ public class TabuSearch {
         tabuLength1=new ArrayList<>();
         tabuTable2=new ArrayList<>();
         tabuLength2=new ArrayList<>();
-        tabuTable3=new ArrayList<>();
-        tabuLength3=new ArrayList<>();
+        tabuTable5=new ArrayList<>();
+        tabuLength5=new ArrayList<>();
         tabuTable4=new ArrayList<>();
         tabuLength4=new ArrayList<>();
+        tabuTable3=new ArrayList<>();
+        tabuLength3=new ArrayList<>();
         operations=new HashMap<>();
         isFeasion=new boolean[size];
         times=new LinkedHashMap[size][data.t];
@@ -437,7 +441,9 @@ public class TabuSearch {
                     }else if(temp<data.earlyTime[list.get(i-1)]){
 
                     }else if(temp>data.lateTime[list.get(i-1)]){
-
+                        if(times[m][truck].get(list.get(i-1))<data.lateTime[list.get(i-1)]) {
+                            times[m][truck].put(list.get(i - 1), (double) data.lateTime[list.get(i - 1)]);
+                        }
                     }
                 }
             }else{
@@ -450,7 +456,9 @@ public class TabuSearch {
                     }else if(temp<data.earlyTime[list.get(i-1)]){
 
                     }else if(temp>data.lateTime[list.get(i-1)]){
-
+                        if(times[m][truck].get(list.get(i-1))<data.lateTime[list.get(i-1)]) {
+                            times[m][truck].put(list.get(i - 1), (double) data.lateTime[list.get(i - 1)]);
+                        }
                     }
                 }
             }
@@ -785,9 +793,14 @@ public class TabuSearch {
         }
         return res;
     }
-    /**
-     * first insert before last in truck t
-     * **/
+
+    /***
+     * 在一个平板车t上，将一个任务插入到另一个任务前面
+     * @param a
+     * @param b
+     * @param c
+     * @return 任务号-任务号-车号
+     */
     private int[] change(int[] a,int[] b,int[] c){
         int[] ans=new int[3];
         HashMap<Integer,int[]> map=new HashMap<>();
@@ -845,6 +858,13 @@ public class TabuSearch {
         return ans;
     }
 
+    /***
+     * 在一个平板车t上，将一个任务插入到另一个任务后面
+     * @param a
+     * @param b
+     * @param c
+     * @return 任务号-任务号-车号
+     */
     private int[] change1(int[] a,int[] b,int[] c){
         int[] ans=new int[3];
         HashMap<Integer,int[]> map=new HashMap<>();
@@ -913,6 +933,10 @@ public class TabuSearch {
                 updateTable1();
             }else if(label<2*size/4){
                 updateTable2();
+            }else if(label<3*size/4){
+                //updateTable4();
+            }else{
+                //updateTable5();
             }
         }else{
             System.out.println("!operations.keySet().contains(label)");
@@ -986,6 +1010,42 @@ public class TabuSearch {
     private void updateTable4(){
 
     }
+    private void updateTable5(){
+
+    }
+
+    private void specialAmnesty(){
+        special1();
+        special2();
+    }
+    private void special1(){
+        if(tabuTable1==null)  return;
+        for(String action:tabuTable1){
+            String[] actions=action.split("-");
+            int first=Integer.parseInt(actions[0]);
+            int last=Integer.parseInt(actions[1]);
+            int t=Integer.parseInt(actions[2]);
+            //在t车上交换任务first和last
+            // 如果得到的解好于当前最优解，则更新当代解
+            // 如果该解好于历史最优解，并且是可行解，则更新最优解
+
+
+        }
+    }
+    private void special2(){
+        if(tabuTable2==null)  return;
+        for(String action:tabuTable2){
+            String[] actions=action.split("-");
+            int first=Integer.parseInt(actions[0]);
+            int t1=Integer.parseInt(actions[1]);
+            int t2=Integer.parseInt(actions[2]);
+            //将任务first从t1 迁移到t2，如果任务first不在t1上，则不执行/
+            // 如果得到的解好于当前最优解，则更新当代解
+            // 如果该解好于历史最优解，并且是可行解，则更新最优解
+
+
+        }
+    }
 
     public void update(){
         long start=System.currentTimeMillis();
@@ -999,7 +1059,7 @@ public class TabuSearch {
             evaluteSolution();
             //updateWeights();
             //特赦规则是否满足
-
+            specialAmnesty();
             //更新禁忌表
             updateTable();
             current_iteration++;
@@ -1045,6 +1105,10 @@ public class TabuSearch {
             }
         }
     }
+
+
+
+    //-------------------------------分割线----------------------------------//
 
     public double startTS(){
         int current_iteration=0;

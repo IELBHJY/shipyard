@@ -20,6 +20,7 @@ public class TabuSearch {
     int[] bestTrucks;
     double[] bestTimes;
     int[] action;//每次迭代中的最优个体的操作。
+    int[] labels;
     static boolean[] isFeasion;
     static boolean[] isPrior;
     static double[][] taskTimes;
@@ -58,26 +59,36 @@ public class TabuSearch {
         AllperTruckcost=new double[size][truck];
         bestPerTruckcost=new double[truck];
         this.size=size;
+        labels=new int[size];
     }
-
 
     public void setInitialSolution(int[] tasks,int[] trucks){
         this.tasks[0]=tasks.clone();
         this.trucks[0]=trucks.clone();
         long start=System.currentTimeMillis();
         int current_iteration=0;
-        while(current_iteration<Parameter.max_iteration) {
-            creatNeighbours();
+        int improve_count=0;
+        while(current_iteration<Parameter.tsga_iteration && improve_count<Parameter.improve_iteration) {
+            double before=best;
+            creatNeighbours1();
             evaluteSolution();
-            updateSolution();
+            updateSolution(current_iteration);
             specialAmnesty();
+            specialAmnesty1();
+            specialAmnesty2();
             current_iteration++;
+            double after=best;
+            if(before-after<=Parameter.epsilon){
+                improve_count++;
+            }else{
+                improve_count=0;
+            }
         }
         long end=System.currentTimeMillis();
         showSolutions();
         Solution solution=new Solution(data,best,res,bestTimes);
         solution.feasion(true);
-        System.out.println("Solving Time:"+(end-start)/1000.0+" seconds");
+        System.out.println("共迭代了:"+current_iteration+"次,Solving Time:"+(end-start)/1000.0+" seconds");
     }
 
     public void creatFirstSolutions(){
@@ -205,8 +216,80 @@ public class TabuSearch {
         }
     }
 
+    public void creatNeighbours1(){
+        operations.clear();
+        for(int i=1;i<size;i++){
+            int[] temp1=tasks[0].clone();
+            int[] temp2=trucks[0].clone();
+            int num=(int) (Math.random()*5);
+            if(i<size/4) {
+                int[] a=crossover1(temp1,temp2);
+                operations.put(i,a);
+                labels[i]=1;
+            } else if(i<size/2){
+                int[] a=mutation1(temp1,temp2);
+                operations.put(i,a);
+                labels[i]=2;
+            } else if(i<3*size/4){
+                int[] a=crossover(temp1,temp2);
+                operations.put(i,a);
+                labels[i]=3;
+            }else{
+                int[] a=mutation(temp1,temp2);
+                operations.put(i,a);
+                labels[i]=4;
+            }
+            tasks[i]=temp1.clone();
+            trucks[i]=temp2.clone();
+        }
+    }
+
     private int[] crossover(int[] a,int[] b){
-        /*int[] res=new int[3];
+        int first=1+(int)(Math.random()*task);
+        int last=1+(int)(Math.random()*task);
+        int task1=a[first];
+        int task2=a[last];
+        String temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
+        if(task1>task2) {
+            temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+        }
+        while(last==first || tabuTable.keySet().contains(temp1)){
+            last=1+(int)(Math.random()*task);
+            task2=a[last];
+            temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
+            if(task1>task2) {
+                temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
+            }
+        }
+        task1=a[first];
+        task2=a[last];
+        int temp=a[first];
+        a[first]=a[last];
+        a[last]=temp;
+        if(data.truckCaptitys[b[first]]<data.taskWeights[a[first]]){
+            int weight = data.taskWeights[a[first]];
+            int k = 1;
+            while (data.truckCaptitys[k] < weight) {
+                k++;
+            }
+            b[first] = k + (int) (Math.random() * (truck + 1 - k));
+        }
+        if(data.truckCaptitys[b[last]]<data.taskWeights[a[last]]){
+            int weight = data.taskWeights[a[last]];
+            int k = 1;
+            while (data.truckCaptitys[k] < weight) {
+                k++;
+            }
+            b[last] = k + (int) (Math.random() * (truck + 1 - k));
+        }
+        /*temp=b[first];
+        b[first]=b[last];
+        b[last]=temp;*/
+        return new int[]{task1,task2};
+    }
+
+    private int[] crossover1(int[] a,int[] b){
+        int[] res=new int[3];
         HashMap<Integer,List<Integer>> solution=new HashMap<>();
         for(int i=1;i<data.t;i++){
             solution.put(i,new ArrayList<>());
@@ -264,73 +347,10 @@ public class TabuSearch {
         res[0]=a[first];
         res[1]=a[second];
         res[2]=k;
-        return res;*/
-        int first=1+(int)(Math.random()*task);
-        int last=1+(int)(Math.random()*task);
-        int task1=a[first];
-        int task2=a[last];
-        String temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-        if(task1>task2) {
-            temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
-        }
-        while(last==first || tabuTable.keySet().contains(temp1)){
-            last=1+(int)(Math.random()*task);
-            task2=a[last];
-            temp1=String.valueOf(task1)+"-"+String.valueOf(task2);
-            if(task1>task2) {
-                temp1 = String.valueOf(task2) + "-" + String.valueOf(task1);
-            }
-        }
-        task1=a[first];
-        task2=a[last];
-        int temp=a[first];
-        a[first]=a[last];
-        a[last]=temp;
-        temp=b[first];
-        b[first]=b[last];
-        b[last]=temp;
-        return new int[]{task1,task2};
+        return res;
     }
 
     private int[] mutation(int[] a,int[] b){
-        /*int[] res=new int[3];
-        int first=1+(int)(Math.random()*task);
-        int p=0;
-        for(int i=1;i<data.n;i++){
-            if(a[i]==first){
-                p=i;
-            }
-        }
-        int weight = data.taskWeights[first];
-        int k = 1;
-        while (data.truckCaptitys[k] < weight) {
-            k++;
-        }
-        k = k + (int) (Math.random() * (truck + 1 - k));
-        String actions=String.valueOf(first)+"-"+String.valueOf(b[p])+"-"+String.valueOf(k);
-        while(tabuTable2.keySet().contains(actions)) {
-            first = 1 + (int) (Math.random() * task);
-            p = 0;
-            for (int i = 1; i < data.n; i++) {
-                if (a[i] == first) {
-                    p = i;
-                }
-            }
-            weight = data.taskWeights[first];
-            k = 1;
-            while (data.truckCaptitys[k] < weight) {
-                k++;
-            }
-            k = k + (int) (Math.random() * (truck + 1 - k));
-            actions = String.valueOf(first) + "-" + String.valueOf(b[p]) + "-" + String.valueOf(k);
-        }
-        //remove task first from b[p] to k
-        res[0]=first;
-        res[1]=k;
-        res[2]=b[p];
-        b[p]=k;
-        return res;*/
-
         int first=1+(int)(Math.random()*task);
         int last=1+(int)(Math.random()*task);
         int task1=a[first];
@@ -364,6 +384,48 @@ public class TabuSearch {
         return new int[]{task1,task2};
     }
 
+    private int[] mutation1(int[] a,int[] b){
+        int[] res=new int[3];
+        int first=1+(int)(Math.random()*task);
+        int p=0;
+        for(int i=1;i<data.n;i++){
+            if(a[i]==first){
+                p=i;
+                break;
+            }
+        }
+        int weight = data.taskWeights[first];
+        int k = 1;
+        while (data.truckCaptitys[k] < weight) {
+            k++;
+        }
+        k = k + (int) (Math.random() * (truck + 1 - k));
+        String actions=String.valueOf(first)+"-"+String.valueOf(b[p])+"-"+String.valueOf(k);
+        while(tabuTable2.keySet().contains(actions)) {
+            first = 1 + (int) (Math.random() * task);
+            p = 0;
+            for (int i = 1; i < data.n; i++) {
+                if (a[i] == first) {
+                    p = i;
+                    break;
+                }
+            }
+            weight = data.taskWeights[first];
+            k = 1;
+            while (data.truckCaptitys[k] < weight) {
+                k++;
+            }
+            k = k + (int) (Math.random() * (truck + 1 - k));
+            actions = String.valueOf(first) + "-" + String.valueOf(b[p]) + "-" + String.valueOf(k);
+        }
+        //remove task first from b[p] to k
+        res[0]=first;
+        res[1]=k;
+        res[2]=b[p];
+        b[p]=k;
+        return res;
+    }
+
     public void evaluteSolution(){
         /*
         * objections[0]存储本次中最好的值
@@ -382,18 +444,18 @@ public class TabuSearch {
         }
     }
 
-    public void updateSolution(){
+    public void updateSolution(int current_iteration){
         if (best > objections[0] && isFeasion[label]) {
             best = objections[0];
-            System.out.println("best solution is update:"+best);
+            System.out.println("第"+current_iteration+"代，目标函数："+best);
             bestTasks = tasks[label].clone();
             bestTrucks = trucks[label].clone();
             bestTimes = taskTimes[label].clone();;
         }
         if(isFeasion[label]){
-            weight1*=0.98;
+            weight1*=0.99;
         }else{
-            weight1/=0.98;
+            weight1/=0.99;
         }
         for (int i = 1; i < data.n; i++) {
             tasks[0][i] = tasks[label][i];
@@ -402,12 +464,15 @@ public class TabuSearch {
         }
         if(operations.keySet().contains(label)){
             action=operations.get(label);
-            updateTabuTable();
+            //updateTabuTable();
+            if(labels[label]==1){
+                updateTabuTable11();
+            }else if(labels[label]==2){
+                updateTabuTable12();
+            }else{
+                updateTabuTable();
+            }
         }
-        /*else{
-            System.out.println("!operations.keySet().contains(label)");
-            //System.exit(0);
-        }*/
     }
 
     public void updateTabuTable(){
@@ -424,6 +489,32 @@ public class TabuSearch {
              }
          }
          tabuTable.put(key,Parameter.tabuLength);
+    }
+
+    public void updateTabuTable11(){
+        String key1=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
+        List<String> list=new ArrayList<>(tabuTable1.keySet());
+        for(String keys:list){
+            if(tabuTable1.get(keys)==0){
+                tabuTable1.remove(keys);
+            } else {
+                tabuTable1.put(keys,tabuTable1.get(keys)-1);
+            }
+        }
+        tabuTable1.put(key1,Parameter.tabuLength);
+    }
+
+    public void updateTabuTable12(){
+        String key1=String.valueOf(action[0])+"-"+String.valueOf(action[1])+"-"+String.valueOf(action[2]);
+        List<String> list=new ArrayList<>(tabuTable2.keySet());
+        for(String keys:list){
+            if(tabuTable2.get(keys)==0){
+                tabuTable2.remove(keys);
+            } else {
+                tabuTable2.put(keys,tabuTable2.get(keys)-1);
+            }
+        }
+        tabuTable2.put(key1,Parameter.tabuLength);
     }
 
     public boolean specialAmnesty(){
@@ -465,27 +556,128 @@ public class TabuSearch {
                 temp2[first]=num;
             }
             HashMap<Integer,List<Integer>> map=new HashMap<>();
+            for(int i=1;i<data.t;i++){
+                List<Integer> list=new ArrayList<>();
+                map.put(i,list);
+            }
             for(int i=1;i<data.n;i++){
-                if(!map.keySet().contains(temp2[i])){
-                    List<Integer> list=new ArrayList<>();
-                    list.add(temp1[i]);
-                    map.put(temp2[i],list);
-                }else{
-                    map.get(temp2[i]).add(temp1[i]);
-                }
+                map.get(temp2[i]).add(temp1[i]);
             }
             double result=calObjection(map);
             if(result<best && result<min){
                 System.out.println("特赦规则成立: "+result+" "+best);
                 min=result;
                 best=result;
-                objections[0]=result;
+                //objections[0]=result;
                 bestTasks=temp1.clone();
                 bestTrucks=temp2.clone();
                 bestTimes=teshe_time.clone();
-                tasks[0]=temp1.clone();
-                trucks[0]=temp2.clone();
-                taskTimes[0]=teshe_time.clone();
+                //tasks[0]=temp1.clone();
+                //trucks[0]=temp2.clone();
+                //taskTimes[0]=teshe_time.clone();
+                isSA=true;
+            }
+        }
+        return isSA;
+    }
+
+    public boolean specialAmnesty1(){
+        if(tabuTable1==null) return false;
+        double min=inf;
+        boolean isSA=false;
+        for(String key:tabuTable1.keySet()){
+            teshe_time=new double[task+1];
+            int task1=Integer.parseInt(key.split("-")[0]);
+            int task2=Integer.parseInt(key.split("-")[1]);
+            int truck=Integer.parseInt(key.split("-")[2]);
+            int first=0,last=0;
+            int[] temp1=tasks[0].clone();
+            int[] temp2=trucks[0].clone();
+            for(int i=1;i<data.n;i++){
+                if(temp1[i]==task1)
+                    first=i;
+                if(temp1[i]==task2)
+                    last=i;
+            }
+            if(temp2[first]!=truck || temp2[last]!=truck){
+                continue;
+            }
+            int temp=temp1[first];
+            temp1[first]=temp1[last];
+            temp1[last]=temp;
+            HashMap<Integer,List<Integer>> map=new HashMap<>();
+            for(int i=1;i<data.t;i++){
+                List<Integer> list=new ArrayList<>();
+                map.put(i,list);
+            }
+            for(int i=1;i<data.n;i++){
+                map.get(temp2[i]).add(temp1[i]);
+            }
+            double result=calObjection(map);
+            if(result<best && result<min){
+                System.out.println("特赦规则成立: "+result+" "+best);
+                min=result;
+                best=result;
+                //objections[0]=result;
+                bestTasks=temp1.clone();
+                bestTrucks=temp2.clone();
+                bestTimes=teshe_time.clone();
+                //tasks[0]=temp1.clone();
+                //trucks[0]=temp2.clone();
+                //taskTimes[0]=teshe_time.clone();
+                isSA=true;
+            }
+        }
+        return isSA;
+    }
+
+    public boolean specialAmnesty2(){
+        if(tabuTable2==null) return false;
+        double min=inf;
+        boolean isSA=false;
+        for(String key:tabuTable2.keySet()){
+            teshe_time=new double[task+1];
+            int task1=Integer.parseInt(key.split("-")[0]);
+            int truck1=Integer.parseInt(key.split("-")[1]);
+            int truck2=Integer.parseInt(key.split("-")[2]);
+            int[] temp1=tasks[0].clone();
+            int[] temp2=trucks[0].clone();
+            int p=0;
+            for(int i=1;i<data.n;i++){
+                if(temp1[i]==task1){
+                    p=i;
+                    break;
+                }
+            }
+            if(temp2[p]!=truck1){
+                continue;
+            }
+            if(data.taskWeights[task1]<=data.truckCaptitys[truck2]) {
+                temp2[p] = truck2;
+            }else{
+                System.out.println("tabuTable2 has error");
+                System.exit(0);
+            }
+            HashMap<Integer,List<Integer>> map=new HashMap<>();
+            for(int i=1;i<data.t;i++){
+                List<Integer> list=new ArrayList<>();
+                map.put(i,list);
+            }
+            for(int i=1;i<data.n;i++){
+                map.get(temp2[i]).add(temp1[i]);
+            }
+            double result=calObjection(map);
+            if(result<best && result<min){
+                System.out.println("特赦规则成立: "+result+" "+best);
+                min=result;
+                best=result;
+                //objections[0]=result;
+                bestTasks=temp1.clone();
+                bestTrucks=temp2.clone();
+                bestTimes=teshe_time.clone();
+                //tasks[0]=temp1.clone();
+                //trucks[0]=temp2.clone();
+                //taskTimes[0]=teshe_time.clone();
                 isSA=true;
             }
         }
@@ -511,7 +703,7 @@ public class TabuSearch {
             res+=data.w[last][0];
             penty+=calTasksTime(list);
         }
-        res+=50*penty;
+        res+=100*penty;
         return res;
     }
 
@@ -544,23 +736,33 @@ public class TabuSearch {
     }
 
     public void Solve(){
+        int current_iteration=0;
+        int improve_count=0;
         long start=System.currentTimeMillis();
         creatFirstSolutions();
         evaluteSolution();
-        updateSolution();
-        int current_iteration=0;
-        while(current_iteration<Parameter.max_iteration) {
-            creatNeighbours();
+        updateSolution(current_iteration);
+        while(current_iteration<Parameter.max_iteration && improve_count<Parameter.improve_iteration) {
+            double before=best;
+            creatNeighbours1();
             evaluteSolution();
-            updateSolution();
+            updateSolution(current_iteration);
             specialAmnesty();
+            specialAmnesty1();
+            specialAmnesty2();
             current_iteration++;
+            double after=best;
+            if(before-after<=Parameter.epsilon){
+                improve_count++;
+            }else{
+                improve_count=0;
+            }
         }
         long end=System.currentTimeMillis();
         showSolutions();
         Solution solution=new Solution(data,best,res,bestTimes);
         solution.feasion(true);
-        System.out.println("Solving Time:"+(end-start)/1000.0+" seconds");
+        System.out.println("共迭代了:"+current_iteration+"次,Solving Time:"+(end-start)/1000.0+" seconds");
     }
 
     public void showSolutions(){
@@ -634,4 +836,5 @@ public class TabuSearch {
             }
         }
     }
+
 }

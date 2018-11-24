@@ -1,6 +1,7 @@
 package shipyard;
 
 
+import FindPath.FindBestPath;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -44,6 +45,25 @@ public class Data {
     public double[] placeY;
     public String[] placeNames;
     public static DecimalFormat df=new DecimalFormat("#.0000");
+
+    int[][] adj={{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0},
+            {0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0},
+            {0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0},
+            {0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0},
+            {0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1},
+            {0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0},
+            {0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0},
+            {0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1},
+            {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0},
+    };
 
     public Data(int n,int t,int r,int p) {
         this.n=n+1;
@@ -145,19 +165,33 @@ public class Data {
 
     private void calTaskTime(){
         for(int i=1;i<n;i++){
-            carryTaskTime[i]=double_truncate(calPathTime(taskStartPlace[i],taskEndPlace[i])/2);
+            carryTaskTime[i]=calPathTime(taskStartPlace[i],taskEndPlace[i])/2;
+            //carryTaskTime[i]=cal(taskStartPlace[i],taskEndPlace[i])/6;
         }
+    }
+
+    private double cal(String p1,String p2){
+        double[] cost={0.0};
+        try {
+            FindBestPath findBestPath = new FindBestPath(16, adj);
+            findBestPath.findShortPath(p1,p2,cost);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return cost[0];
     }
 
     private void calTwoTasksTime(){
         for(int i=1;i<n;i++){
             for(int j=i+1;j<n;j++){
-                 w[i][j]=double_truncate(calPathTime(taskEndPlace[i],taskStartPlace[j])/2);
+                 w[i][j]=calPathTime(taskEndPlace[i],taskStartPlace[j])/2;
+                 //w[i][j]=cal(taskEndPlace[i],taskStartPlace[j])/10;
                  w[j][i]=w[i][j];
             }
         }
         for(int i=1;i<n;i++){
             w[0][i]=calPathTime("车场",taskStartPlace[i])/2;
+            //w[0][i]=cal("车场",taskStartPlace[i]);
             w[i][0]=w[0][i];
         }
     }

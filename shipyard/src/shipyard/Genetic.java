@@ -283,7 +283,7 @@ public class Genetic {
         }
     }
 
-    private void copyBestSolution(){
+    private void copyBestSolution(int current_iteration){
         double best=Double.MAX_VALUE;
         for(int i=1;i<=popsize;i++){
             if(fitness[i]<best){
@@ -293,7 +293,7 @@ public class Genetic {
         }
         if(isFeason[label]==1 && best<best_value){
             best_value=best;
-            System.out.println(best_value);
+            System.out.println("第"+current_iteration+"代，目标函数："+best_value);
             parent_tasks[0]=parent_tasks[label].clone();
             parent_trucks[0]=parent_trucks[label].clone();
             taskTimes[0]=taskTimes[label].clone();
@@ -322,18 +322,48 @@ public class Genetic {
 
     public void Solve(){
        int current_count=0;
+       int improve_count=0;
        creatInitialSolution();
-       while(current_count<Parameter.ga_iteration) {
+       long start=System.currentTimeMillis();
+       while(current_count<Parameter.ga_iteration && improve_count<Parameter.improve_iteration) {
+           double before=best_value;
            calFitness();
-           copyBestSolution();
+           copyBestSolution(current_count);
            selected();
            creatSonSolution();
            copySon2Parent();
            current_count++;
+           double after=best_value;
+           if(before-after<Parameter.epsilon){
+               improve_count++;
+           }else{
+               improve_count=0;
+           }
        }
+       long end=System.currentTimeMillis();
        showSolution();
        Solution solution=new Solution(data,best_value,result,taskTimes[0]);
        solution.feasion(true);
+       System.out.println("共迭代了:"+current_count+"次,solving time:"+(end-start)/1000.0);
+    }
+
+    public void Solve1(){
+        int current_count=0;
+        creatInitialSolution();
+        long start=System.currentTimeMillis();
+        while(current_count<Parameter.gats_iteration) {
+            calFitness();
+            copyBestSolution(current_count);
+            selected();
+            creatSonSolution();
+            copySon2Parent();
+            current_count++;
+        }
+        long end=System.currentTimeMillis();
+        showSolution();
+        Solution solution=new Solution(data,best_value,result,taskTimes[0]);
+        solution.feasion(true);
+        System.out.println("共迭代了:"+current_count+"次,solving time:"+(end-start)/1000.0);
     }
 
     public int[] getTasks(){

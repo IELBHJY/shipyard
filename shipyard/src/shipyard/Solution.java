@@ -92,7 +92,7 @@ public class Solution {
             }
             sum+=data.w[list.get(size-1)][0];
         }
-        if(Math.abs(sum-objection)>1){
+        if(Math.abs(sum-objection)>2){
             System.out.println("解决方案计算得到的目标函数不等于模型目标函数值");
             System.out.println(sum+" "+objection);
             System.exit(0);

@@ -7,14 +7,14 @@ public class Main {
     private static Data data;
     public static void main(String[] args) throws IloException {
         getData();
-        long start=System.currentTimeMillis();
+        /*long start=System.currentTimeMillis();
         Model problem=new Model(data);
         problem.build_model();
         problem.Solve();
         long end=System.currentTimeMillis();
-        System.out.println("求解耗时："+(end-start)/1000.0);
-        //TabuSearch ts=new TabuSearch(data);
-        //ts.update();
+        System.out.println("求解耗时："+(end-start)/1000.0);*/
+        TabuSearch ts=new TabuSearch(data);
+        ts.update();
     }
 
     private static void getData(){

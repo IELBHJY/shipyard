@@ -23,8 +23,6 @@ public class ConnectDB {
         String password = "12345678";
         Class.forName(driver);
         con = DriverManager.getConnection(url,user,password);
-        if(!con.isClosed())
-            System.out.println("Succeeded connecting to the Database!");
     }
 
     public void close() throws Exception{

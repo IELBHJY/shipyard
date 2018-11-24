@@ -14,21 +14,30 @@ public class Main {
         }catch (Exception e){
             e.printStackTrace();
         }
-        Genetic ga=new Genetic(task,truck,Parameter.ga_size,data);
-        ga.Solve();
-        int[] tasks=ga.getTasks();
-        int[] trucks=ga.getTrucks();
-        TabuSearch ts=new TabuSearch(data,Parameter.size);
-        ts.setInitialSolution(tasks,trucks);
-        //ts.Solve();
-/*
-        long start=System.currentTimeMillis();
-        VRPTW problem=new VRPTW(data);
-        problem.build_model();
-        problem.Solve();
-        long end=System.currentTimeMillis();
-        System.out.println("Solving Time:"+ (end-start)/1000.0 +" seconds");
-*/
+        String temp="4";
+        if(temp.equals("1")) {
+            Genetic ga = new Genetic(task, truck, Parameter.ga_size, data);
+            ga.Solve();
+        }else if(temp.equals("2")) {
+            TabuSearch ts = new TabuSearch(data, Parameter.size);
+            ts.Solve();
+        }else if(temp.equals("3")) {
+            Genetic ga = new Genetic(task, truck, Parameter.ga_size, data);
+            ga.Solve1();
+            int[] tasks = ga.getTasks();
+            int[] trucks = ga.getTrucks();
+            TabuSearch ts = new TabuSearch(data, Parameter.size);
+            ts.setInitialSolution(tasks, trucks);
+        }else if(temp.equals("4")) {
+            System.out.println("cplex");
+            long start = System.currentTimeMillis();
+            VRPTW problem = new VRPTW(data);
+            problem.build_model();
+            problem.Solve();
+            long end = System.currentTimeMillis();
+            System.out.println("Solving Time:" + (end - start) / 1000.0 + " seconds");
+        }
+
         //BranchAndBound b=new BranchAndBound(task,truck,data);
         //b.Solve();
     }
