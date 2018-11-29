@@ -1,12 +1,11 @@
-package sample;
+package sample.Algorithm;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class ConnectDatabase {
-
+public class ConnectDB {
     Connection con;
     Statement statement;
     /***
@@ -24,8 +23,6 @@ public class ConnectDatabase {
         String password = "12345678";
         Class.forName(driver);
         con = DriverManager.getConnection(url,user,password);
-        if(!con.isClosed())
-            System.out.println("Succeeded connecting to the Database!");
     }
 
     public void close() throws Exception{

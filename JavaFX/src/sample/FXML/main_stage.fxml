@@ -31,9 +31,9 @@
           </Menu>
           <Menu mnemonicParsing="false" text="调度模块">
             <items>
-              <MenuItem mnemonicParsing="false" text="单车单分段调度" />
-                  <MenuItem mnemonicParsing="false" text="合作运输调度" />
-                  <MenuItem mnemonicParsing="false" text="平板车行驶路径" />
+              <MenuItem fx:id="ovoc_table" mnemonicParsing="false" onAction="#show_ovoc" text="单车单分段调度" />
+                  <MenuItem fx:id="mvoc_table" mnemonicParsing="false" onAction="#show_mvoc" text="合作运输调度" />
+                  <MenuItem fx:id="path_table" mnemonicParsing="false" onAction="#show_path" text="平板车行驶路径" />
             </items>
           </Menu>
         </menus>

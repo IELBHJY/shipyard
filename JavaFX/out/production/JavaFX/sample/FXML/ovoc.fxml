@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="select_truck" prefHeight="443.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ovoc">
+   <children>
+      <Label layoutX="8.0" layoutY="14.0" text="OVOC堆场间调度模块" />
+      <TextField fx:id="file_path" layoutX="14.0" layoutY="44.0" />
+      <Button fx:id="select_task_file" layoutX="188.0" layoutY="47.0" mnemonicParsing="false" onAction="#select_file" text="选择调度任务">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="truck_list" layoutX="275.0" layoutY="44.0" prefHeight="27.0" prefWidth="112.0" />
+      <Button fx:id="select_truck_button" layoutX="397.0" layoutY="47.0" mnemonicParsing="false" onAction="#select_truck" text="添加平板车">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <ListView fx:id="truck_listview" layoutX="483.0" layoutY="35.0" prefHeight="122.0" prefWidth="112.0" />
+      <TableView fx:id="result_table" layoutX="1.0" layoutY="167.0" prefHeight="265.0" prefWidth="619.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="task_id" prefWidth="50.0" text="任务ID" />
+          <TableColumn fx:id="task_weight" prefWidth="67.0" text="分段重量" />
+            <TableColumn fx:id="truck_id" prefWidth="63.0" text="平板车ID" />
+            <TableColumn fx:id="truck_capacity" prefWidth="71.0" text="平板车承重" />
+            <TableColumn fx:id="early_time" prefWidth="77.0" text="时间窗起点" />
+            <TableColumn fx:id="late_time" prefWidth="70.0" text="时间窗终点" />
+            <TableColumn fx:id="task_time" minWidth="0.0" prefWidth="96.5" text="任务实际执行时间" />
+            <TableColumn fx:id="task_path" prefWidth="142.0" text="任务行驶路线" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="solve_button" layoutX="389.0" layoutY="99.0" mnemonicParsing="false" onAction="#solve" text="求解调度方案">
+         <font>
+            <Font size="11.0" />
+         </font></Button>
+      <ProgressBar fx:id="solve_process" layoutX="224.0" layoutY="101.0" prefHeight="20.0" prefWidth="157.0" progress="0.0" />
+      <Label layoutX="170.0" layoutY="103.0" text="求解进程" />
+   </children>
+</AnchorPane>

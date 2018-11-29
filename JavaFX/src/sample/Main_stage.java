@@ -35,6 +35,8 @@ public class Main_stage {
     Stage user_stage;
     Stage flatcar_stage;
     Stage road_stage;
+    Stage yard_stage;
+    Stage path_stage;
 
     @FXML
     void show_userTable_click(ActionEvent event) throws Exception{
@@ -46,7 +48,6 @@ public class Main_stage {
 
     @FXML
     void user_close_click(ActionEvent event) {
-
 
     }
 
@@ -61,8 +62,11 @@ public class Main_stage {
     }
 
     @FXML
-    void show_yardTable(ActionEvent event) {
-
+    void show_yardTable(ActionEvent event) throws Exception {
+        yard_stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/storage.fxml"));
+        yard_stage.setScene(new Scene(root, 600, 500));
+        yard_stage.show();
     }
 
     @FXML
@@ -79,6 +83,29 @@ public class Main_stage {
         Parent root = FXMLLoader.load(getClass().getResource("FXML/road.fxml"));
         road_stage.setScene(new Scene(root, 600, 500));
         road_stage.show();
+    }
+
+    @FXML
+    void show_path(ActionEvent event) throws Exception{
+        path_stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/findPath.fxml"));
+        path_stage.setScene(new Scene(root, 620, 470));
+        path_stage.show();
+    }
+    @FXML
+    void show_ovoc(ActionEvent event) throws Exception{
+        path_stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/ovoc.fxml"));
+        path_stage.setScene(new Scene(root, 620, 470));
+        path_stage.show();
+    }
+
+    @FXML
+    void show_mvoc(ActionEvent event) throws Exception{
+        path_stage=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/mvoc.fxml"));
+        path_stage.setScene(new Scene(root, 620, 470));
+        path_stage.show();
     }
 
 
